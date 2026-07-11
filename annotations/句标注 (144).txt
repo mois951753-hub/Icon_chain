@@ -1,0 +1,2939 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "3_R",
+    "pageEndKey": "6_L"
+  },
+  "groups": [
+    {
+      "id": "grp_148401_8",
+      "level": 1,
+      "children": [
+        "seg_000926",
+        "seg_000927",
+        "seg_000928",
+        "seg_000929"
+      ],
+      "leaf_start": 926,
+      "leaf_end": 929
+    },
+    {
+      "id": "grp_154892_24",
+      "level": 1,
+      "children": [
+        "seg_000933",
+        "seg_000934",
+        "seg_000935",
+        "seg_000936",
+        "seg_000937"
+      ],
+      "leaf_start": 933,
+      "leaf_end": 937
+    },
+    {
+      "id": "grp_159162_24",
+      "level": 1,
+      "children": [
+        "seg_000940",
+        "seg_000941",
+        "seg_000942"
+      ],
+      "leaf_start": 940,
+      "leaf_end": 942
+    },
+    {
+      "id": "grp_171188_89",
+      "level": 1,
+      "children": [
+        "seg_000948",
+        "seg_000949",
+        "seg_000950",
+        "seg_000951",
+        "seg_000952",
+        "seg_000953",
+        "seg_000954",
+        "seg_000955",
+        "seg_000956",
+        "seg_000957",
+        "seg_000958",
+        "seg_000959",
+        "seg_000960"
+      ],
+      "leaf_start": 948,
+      "leaf_end": 960
+    },
+    {
+      "id": "grp_180056_21",
+      "level": 1,
+      "children": [
+        "seg_000961",
+        "seg_000962",
+        "seg_000963",
+        "seg_000964",
+        "seg_000965",
+        "seg_000966",
+        "seg_000967"
+      ],
+      "leaf_start": 961,
+      "leaf_end": 967
+    },
+    {
+      "id": "grp_200141_2",
+      "level": 1,
+      "children": [
+        "seg_000971",
+        "seg_000972",
+        "seg_000973",
+        "seg_000974",
+        "seg_000975",
+        "seg_000976",
+        "seg_000977",
+        "seg_000978",
+        "seg_000979",
+        "seg_000980",
+        "seg_000981",
+        "seg_000982",
+        "seg_000983"
+      ],
+      "leaf_start": 971,
+      "leaf_end": 983
+    },
+    {
+      "id": "grp_213123_28",
+      "level": 1,
+      "children": [
+        "seg_000984",
+        "seg_000985",
+        "seg_000986",
+        "seg_000987",
+        "seg_000988",
+        "seg_000989",
+        "seg_000990"
+      ],
+      "leaf_start": 984,
+      "leaf_end": 990
+    },
+    {
+      "id": "grp_224328_67",
+      "level": 1,
+      "children": [
+        "seg_000994",
+        "seg_000995",
+        "seg_000996",
+        "seg_000997",
+        "seg_000998",
+        "seg_000999",
+        "seg_001000",
+        "seg_001001",
+        "seg_001002",
+        "seg_001003",
+        "seg_001004",
+        "seg_001005",
+        "seg_001006",
+        "seg_001007",
+        "seg_001008",
+        "seg_001009",
+        "seg_001010",
+        "seg_001011",
+        "seg_001012",
+        "seg_001013"
+      ],
+      "leaf_start": 994,
+      "leaf_end": 1013
+    },
+    {
+      "id": "grp_238736_14",
+      "level": 1,
+      "children": [
+        "seg_001016",
+        "seg_001017",
+        "seg_001018",
+        "seg_001019",
+        "seg_001020",
+        "seg_001021",
+        "seg_001022",
+        "seg_001023",
+        "seg_001024",
+        "seg_001025",
+        "seg_001026",
+        "seg_001027",
+        "seg_001028",
+        "seg_001029",
+        "seg_001030"
+      ],
+      "leaf_start": 1016,
+      "leaf_end": 1030
+    },
+    {
+      "id": "grp_255251_85",
+      "level": 1,
+      "children": [
+        "seg_001033",
+        "seg_001034",
+        "seg_001035",
+        "seg_001036",
+        "seg_001037",
+        "seg_001038",
+        "seg_001039",
+        "seg_001040",
+        "seg_001041"
+      ],
+      "leaf_start": 1033,
+      "leaf_end": 1041
+    },
+    {
+      "id": "grp_260018_87",
+      "level": 1,
+      "children": [
+        "seg_001046",
+        "seg_001047",
+        "seg_001048",
+        "seg_001049",
+        "seg_001050"
+      ],
+      "leaf_start": 1046,
+      "leaf_end": 1050
+    },
+    {
+      "id": "grp_282443_46",
+      "level": 1,
+      "children": [
+        "seg_001053",
+        "seg_001054",
+        "seg_001055",
+        "seg_001056",
+        "seg_001057",
+        "seg_001058",
+        "seg_001059",
+        "seg_001060",
+        "seg_001061",
+        "seg_001062",
+        "seg_001063",
+        "seg_001064",
+        "seg_001065",
+        "seg_001066",
+        "seg_001067"
+      ],
+      "leaf_start": 1053,
+      "leaf_end": 1067
+    },
+    {
+      "id": "grp_301970_84",
+      "level": 1,
+      "children": [
+        "seg_001070",
+        "seg_001071",
+        "seg_001072",
+        "seg_001073",
+        "seg_001074",
+        "seg_001075",
+        "seg_001076",
+        "seg_001077",
+        "seg_001078",
+        "seg_001079",
+        "seg_001080",
+        "seg_001081",
+        "seg_001082"
+      ],
+      "leaf_start": 1070,
+      "leaf_end": 1082
+    },
+    {
+      "id": "grp_313619_16",
+      "level": 1,
+      "children": [
+        "seg_001085",
+        "seg_001086",
+        "seg_001087",
+        "seg_001088",
+        "seg_001089",
+        "seg_001090",
+        "seg_001091",
+        "seg_001092",
+        "seg_001093",
+        "seg_001094",
+        "seg_001095",
+        "seg_001096",
+        "seg_001097",
+        "seg_001098",
+        "seg_001099",
+        "seg_001100",
+        "seg_001101",
+        "seg_001102"
+      ],
+      "leaf_start": 1085,
+      "leaf_end": 1102
+    },
+    {
+      "id": "grp_330691_48",
+      "level": 1,
+      "children": [
+        "seg_001105",
+        "seg_001106",
+        "seg_001107",
+        "seg_001108",
+        "seg_001109",
+        "seg_001110",
+        "seg_001111"
+      ],
+      "leaf_start": 1105,
+      "leaf_end": 1111
+    },
+    {
+      "id": "grp_373213_55",
+      "level": 1,
+      "children": [
+        "seg_001123",
+        "seg_001124",
+        "seg_001125"
+      ],
+      "leaf_start": 1123,
+      "leaf_end": 1125
+    },
+    {
+      "id": "grp_375396_15",
+      "level": 1,
+      "children": [
+        "seg_001127",
+        "seg_001128",
+        "seg_001129"
+      ],
+      "leaf_start": 1127,
+      "leaf_end": 1129
+    },
+    {
+      "id": "grp_385021_56",
+      "level": 1,
+      "children": [
+        "seg_001131",
+        "seg_001132",
+        "seg_001133"
+      ],
+      "leaf_start": 1131,
+      "leaf_end": 1133
+    },
+    {
+      "id": "grp_389437_50",
+      "level": 1,
+      "children": [
+        "seg_001135",
+        "seg_001136",
+        "seg_001137",
+        "seg_001138"
+      ],
+      "leaf_start": 1135,
+      "leaf_end": 1138
+    },
+    {
+      "id": "grp_398741_9",
+      "level": 1,
+      "children": [
+        "seg_001142",
+        "seg_001143",
+        "seg_001144",
+        "seg_001145",
+        "seg_001146",
+        "seg_001147",
+        "seg_001148",
+        "seg_001149",
+        "seg_001150",
+        "seg_001151",
+        "seg_001152"
+      ],
+      "leaf_start": 1142,
+      "leaf_end": 1152
+    },
+    {
+      "id": "grp_407874_4",
+      "level": 1,
+      "children": [
+        "seg_001156",
+        "seg_001157",
+        "seg_001158",
+        "seg_001159",
+        "seg_001160"
+      ],
+      "leaf_start": 1156,
+      "leaf_end": 1160
+    },
+    {
+      "id": "grp_494515_71",
+      "level": 1,
+      "children": [
+        "seg_001163",
+        "seg_001164",
+        "seg_001165",
+        "seg_001166",
+        "seg_001167",
+        "seg_001168",
+        "seg_001169",
+        "seg_001170",
+        "seg_001171",
+        "seg_001172",
+        "seg_001173",
+        "seg_001174"
+      ],
+      "leaf_start": 1163,
+      "leaf_end": 1174
+    },
+    {
+      "id": "grp_533016_16",
+      "level": 1,
+      "children": [
+        "seg_001175",
+        "seg_001176",
+        "seg_001177",
+        "seg_001178"
+      ],
+      "leaf_start": 1175,
+      "leaf_end": 1178
+    },
+    {
+      "id": "grp_544714_20",
+      "level": 1,
+      "children": [
+        "seg_001181",
+        "seg_001182",
+        "seg_001183",
+        "seg_001184",
+        "seg_001185",
+        "seg_001186",
+        "seg_001187",
+        "seg_001188",
+        "seg_001189",
+        "seg_001190",
+        "seg_001191",
+        "seg_001192",
+        "seg_001193",
+        "seg_001194",
+        "seg_001195",
+        "seg_001196",
+        "seg_001197"
+      ],
+      "leaf_start": 1181,
+      "leaf_end": 1197
+    },
+    {
+      "id": "grp_554086_12",
+      "level": 1,
+      "children": [
+        "seg_001200",
+        "seg_001201",
+        "seg_001202"
+      ],
+      "leaf_start": 1200,
+      "leaf_end": 1202
+    },
+    {
+      "id": "grp_561066_29",
+      "level": 1,
+      "children": [
+        "seg_001203",
+        "seg_001204",
+        "seg_001205",
+        "seg_001206",
+        "seg_001207"
+      ],
+      "leaf_start": 1203,
+      "leaf_end": 1207
+    },
+    {
+      "id": "grp_564424_62",
+      "level": 1,
+      "children": [
+        "seg_001208",
+        "seg_001209",
+        "seg_001210",
+        "seg_001211",
+        "seg_001212"
+      ],
+      "leaf_start": 1208,
+      "leaf_end": 1212
+    },
+    {
+      "id": "grp_569889_18",
+      "level": 1,
+      "children": [
+        "seg_001216",
+        "seg_001217",
+        "seg_001218",
+        "seg_001219"
+      ],
+      "leaf_start": 1216,
+      "leaf_end": 1219
+    },
+    {
+      "id": "grp_589670_58",
+      "level": 1,
+      "children": [
+        "seg_001223",
+        "seg_001224",
+        "seg_001225",
+        "seg_001226",
+        "seg_001227"
+      ],
+      "leaf_start": 1223,
+      "leaf_end": 1227
+    },
+    {
+      "id": "grp_596646_78",
+      "level": 1,
+      "children": [
+        "seg_001228",
+        "seg_001229",
+        "seg_001230",
+        "seg_001231",
+        "seg_001232",
+        "seg_001233",
+        "seg_001234"
+      ],
+      "leaf_start": 1228,
+      "leaf_end": 1234
+    },
+    {
+      "id": "grp_605281_86",
+      "level": 1,
+      "children": [
+        "seg_001237",
+        "seg_001238",
+        "seg_001239",
+        "seg_001240",
+        "seg_001241",
+        "seg_001242",
+        "seg_001243",
+        "seg_001244",
+        "seg_001245",
+        "seg_001246"
+      ],
+      "leaf_start": 1237,
+      "leaf_end": 1246
+    },
+    {
+      "id": "grp_618260_12",
+      "level": 1,
+      "children": [
+        "seg_001247",
+        "seg_001248",
+        "seg_001249",
+        "seg_001250",
+        "seg_001251",
+        "seg_001252",
+        "seg_001253",
+        "seg_001254"
+      ],
+      "leaf_start": 1247,
+      "leaf_end": 1254
+    },
+    {
+      "id": "grp_627472_17",
+      "level": 1,
+      "children": [
+        "seg_001255",
+        "seg_001256",
+        "seg_001257",
+        "seg_001258",
+        "seg_001259",
+        "seg_001260",
+        "seg_001261",
+        "seg_001262",
+        "seg_001263",
+        "seg_001264"
+      ],
+      "leaf_start": 1255,
+      "leaf_end": 1264
+    },
+    {
+      "id": "grp_653313_7",
+      "level": 1,
+      "children": [
+        "seg_001267",
+        "seg_001268",
+        "seg_001269",
+        "seg_001270",
+        "seg_001271",
+        "seg_001272",
+        "seg_001273",
+        "seg_001274",
+        "seg_001275",
+        "seg_001276",
+        "seg_001277",
+        "seg_001278",
+        "seg_001279",
+        "seg_001280",
+        "seg_001281",
+        "seg_001282",
+        "seg_001283"
+      ],
+      "leaf_start": 1267,
+      "leaf_end": 1283
+    },
+    {
+      "id": "grp_658360_10",
+      "level": 1,
+      "children": [
+        "seg_001284",
+        "seg_001285",
+        "seg_001286",
+        "seg_001287",
+        "seg_001288",
+        "seg_001289",
+        "seg_001290"
+      ],
+      "leaf_start": 1284,
+      "leaf_end": 1290
+    },
+    {
+      "id": "grp_662414_28",
+      "level": 1,
+      "children": [
+        "seg_001291",
+        "seg_001292",
+        "seg_001293",
+        "seg_001294"
+      ],
+      "leaf_start": 1291,
+      "leaf_end": 1294
+    },
+    {
+      "id": "grp_665873_95",
+      "level": 1,
+      "children": [
+        "seg_001297",
+        "seg_001298"
+      ],
+      "leaf_start": 1297,
+      "leaf_end": 1298
+    },
+    {
+      "id": "grp_669902_12",
+      "level": 1,
+      "children": [
+        "seg_001299",
+        "seg_001300",
+        "seg_001301",
+        "seg_001302"
+      ],
+      "leaf_start": 1299,
+      "leaf_end": 1302
+    },
+    {
+      "id": "grp_674022_20",
+      "level": 1,
+      "children": [
+        "seg_001303",
+        "seg_001304",
+        "seg_001305",
+        "seg_001306"
+      ],
+      "leaf_start": 1303,
+      "leaf_end": 1306
+    },
+    {
+      "id": "grp_684202_15",
+      "level": 1,
+      "children": [
+        "seg_001307",
+        "seg_001308",
+        "seg_001309",
+        "seg_001310",
+        "seg_001311",
+        "seg_001312",
+        "seg_001313",
+        "seg_001314"
+      ],
+      "leaf_start": 1307,
+      "leaf_end": 1314
+    },
+    {
+      "id": "grp_695274_56",
+      "level": 1,
+      "children": [
+        "seg_001315",
+        "seg_001316",
+        "seg_001317",
+        "seg_001318",
+        "seg_001319",
+        "seg_001320",
+        "seg_001321",
+        "seg_001322",
+        "seg_001323",
+        "seg_001324"
+      ],
+      "leaf_start": 1315,
+      "leaf_end": 1324
+    },
+    {
+      "id": "grp_703080_63",
+      "level": 1,
+      "children": [
+        "seg_001325",
+        "seg_001326",
+        "seg_001327",
+        "seg_001328",
+        "seg_001329",
+        "seg_001330",
+        "seg_001331",
+        "seg_001332"
+      ],
+      "leaf_start": 1325,
+      "leaf_end": 1332
+    },
+    {
+      "id": "grp_721110_47",
+      "level": 1,
+      "children": [
+        "seg_001333",
+        "seg_001334",
+        "seg_001335",
+        "seg_001336",
+        "seg_001337"
+      ],
+      "leaf_start": 1333,
+      "leaf_end": 1337
+    },
+    {
+      "id": "grp_783288_89",
+      "level": 1,
+      "children": [
+        "seg_001338",
+        "seg_001339",
+        "seg_001340",
+        "seg_001341",
+        "seg_001342",
+        "seg_001343",
+        "seg_001344",
+        "seg_001345",
+        "seg_001346",
+        "seg_001347",
+        "seg_001348",
+        "seg_001349",
+        "seg_001350",
+        "seg_001351",
+        "seg_001352",
+        "seg_001353",
+        "seg_001354",
+        "seg_001355",
+        "seg_001356",
+        "seg_001357",
+        "seg_001358",
+        "seg_001359",
+        "seg_001360",
+        "seg_001361",
+        "seg_001362",
+        "seg_001363",
+        "seg_001364",
+        "seg_001365",
+        "seg_001366",
+        "seg_001367",
+        "seg_001368",
+        "seg_001369",
+        "seg_001370",
+        "seg_001371",
+        "seg_001372",
+        "seg_001373",
+        "seg_001374"
+      ],
+      "leaf_start": 1338,
+      "leaf_end": 1374
+    },
+    {
+      "id": "grp_791426_20",
+      "level": 1,
+      "children": [
+        "seg_001377",
+        "seg_001378"
+      ],
+      "leaf_start": 1377,
+      "leaf_end": 1378
+    },
+    {
+      "id": "grp_794856_97",
+      "level": 1,
+      "children": [
+        "seg_001379",
+        "seg_001380",
+        "seg_001381"
+      ],
+      "leaf_start": 1379,
+      "leaf_end": 1381
+    },
+    {
+      "id": "grp_797126_23",
+      "level": 1,
+      "children": [
+        "seg_001383",
+        "seg_001384"
+      ],
+      "leaf_start": 1383,
+      "leaf_end": 1384
+    },
+    {
+      "id": "grp_802930_46",
+      "level": 1,
+      "children": [
+        "seg_001385",
+        "seg_001386"
+      ],
+      "leaf_start": 1385,
+      "leaf_end": 1386
+    },
+    {
+      "id": "grp_809490_96",
+      "level": 1,
+      "children": [
+        "seg_001388",
+        "seg_001389",
+        "seg_001390",
+        "seg_001391",
+        "seg_001392",
+        "seg_001393"
+      ],
+      "leaf_start": 1388,
+      "leaf_end": 1393
+    },
+    {
+      "id": "grp_816199_12",
+      "level": 1,
+      "children": [
+        "seg_001394",
+        "seg_001395",
+        "seg_001396",
+        "seg_001397",
+        "seg_001398",
+        "seg_001399",
+        "seg_001400"
+      ],
+      "leaf_start": 1394,
+      "leaf_end": 1400
+    },
+    {
+      "id": "grp_826456_82",
+      "level": 1,
+      "children": [
+        "seg_001401",
+        "seg_001402",
+        "seg_001403"
+      ],
+      "leaf_start": 1401,
+      "leaf_end": 1403
+    },
+    {
+      "id": "grp_833054_61",
+      "level": 1,
+      "children": [
+        "seg_001405",
+        "seg_001406",
+        "seg_001407",
+        "seg_001408",
+        "seg_001409",
+        "seg_001410",
+        "seg_001411",
+        "seg_001412"
+      ],
+      "leaf_start": 1405,
+      "leaf_end": 1412
+    },
+    {
+      "id": "grp_840536_43",
+      "level": 1,
+      "children": [
+        "seg_001413",
+        "seg_001414",
+        "seg_001415",
+        "seg_001416",
+        "seg_001417",
+        "seg_001418",
+        "seg_001419",
+        "seg_001420",
+        "seg_001421",
+        "seg_001422",
+        "seg_001423"
+      ],
+      "leaf_start": 1413,
+      "leaf_end": 1423
+    },
+    {
+      "id": "grp_857768_21",
+      "level": 1,
+      "children": [
+        "seg_001426",
+        "seg_001427",
+        "seg_001428",
+        "seg_001429",
+        "seg_001430",
+        "seg_001431"
+      ],
+      "leaf_start": 1426,
+      "leaf_end": 1431
+    },
+    {
+      "id": "grp_863514_31",
+      "level": 1,
+      "children": [
+        "seg_001432",
+        "seg_001433",
+        "seg_001434",
+        "seg_001435",
+        "seg_001436",
+        "seg_001437"
+      ],
+      "leaf_start": 1432,
+      "leaf_end": 1437
+    },
+    {
+      "id": "grp_866379_56",
+      "level": 1,
+      "children": [
+        "seg_001438",
+        "seg_001439",
+        "seg_001440"
+      ],
+      "leaf_start": 1438,
+      "leaf_end": 1440
+    },
+    {
+      "id": "grp_876484_45",
+      "level": 1,
+      "children": [
+        "seg_001443",
+        "seg_001444",
+        "seg_001445",
+        "seg_001446",
+        "seg_001447",
+        "seg_001448",
+        "seg_001449",
+        "seg_001450",
+        "seg_001451",
+        "seg_001452",
+        "seg_001453",
+        "seg_001454",
+        "seg_001455"
+      ],
+      "leaf_start": 1443,
+      "leaf_end": 1455
+    },
+    {
+      "id": "grp_896058_77",
+      "level": 1,
+      "children": [
+        "seg_001456",
+        "seg_001457",
+        "seg_001458",
+        "seg_001459",
+        "seg_001460",
+        "seg_001461",
+        "seg_001462",
+        "seg_001463",
+        "seg_001464"
+      ],
+      "leaf_start": 1456,
+      "leaf_end": 1464
+    },
+    {
+      "id": "grp_960345_97",
+      "level": 1,
+      "children": [
+        "seg_001465",
+        "seg_001466",
+        "seg_001467",
+        "seg_001468",
+        "seg_001469",
+        "seg_001470",
+        "seg_001471",
+        "seg_001472",
+        "seg_001473",
+        "seg_001474",
+        "seg_001475",
+        "seg_001476",
+        "seg_001477",
+        "seg_001478",
+        "seg_001479",
+        "seg_001480",
+        "seg_001481",
+        "seg_001482",
+        "seg_001483",
+        "seg_001484"
+      ],
+      "leaf_start": 1465,
+      "leaf_end": 1484
+    },
+    {
+      "id": "grp_967279_65",
+      "level": 1,
+      "children": [
+        "seg_001485",
+        "seg_001486",
+        "seg_001487",
+        "seg_001488",
+        "seg_001489",
+        "seg_001490",
+        "seg_001491",
+        "seg_001492",
+        "seg_001493",
+        "seg_001494",
+        "seg_001495"
+      ],
+      "leaf_start": 1485,
+      "leaf_end": 1495
+    },
+    {
+      "id": "grp_993248_23",
+      "level": 1,
+      "children": [
+        "seg_001496",
+        "seg_001497",
+        "seg_001498",
+        "seg_001499",
+        "seg_001500",
+        "seg_001501",
+        "seg_001502",
+        "seg_001503",
+        "seg_001504",
+        "seg_001505",
+        "seg_001506",
+        "seg_001507",
+        "seg_001508"
+      ],
+      "leaf_start": 1496,
+      "leaf_end": 1508
+    },
+    {
+      "id": "grp_000266_46",
+      "level": 1,
+      "children": [
+        "seg_001509",
+        "seg_001510",
+        "seg_001511"
+      ],
+      "leaf_start": 1509,
+      "leaf_end": 1511
+    },
+    {
+      "id": "grp_007012_71",
+      "level": 1,
+      "children": [
+        "seg_001512",
+        "seg_001513",
+        "seg_001514",
+        "seg_001515",
+        "seg_001516",
+        "seg_001517"
+      ],
+      "leaf_start": 1512,
+      "leaf_end": 1517
+    },
+    {
+      "id": "grp_016317_87",
+      "level": 1,
+      "children": [
+        "seg_001520",
+        "seg_001521",
+        "seg_001522",
+        "seg_001523",
+        "seg_001524",
+        "seg_001525",
+        "seg_001526"
+      ],
+      "leaf_start": 1520,
+      "leaf_end": 1526
+    },
+    {
+      "id": "grp_020507_57",
+      "level": 1,
+      "children": [
+        "seg_001527",
+        "seg_001528",
+        "seg_001529",
+        "seg_001530"
+      ],
+      "leaf_start": 1527,
+      "leaf_end": 1530
+    },
+    {
+      "id": "grp_025452_58",
+      "level": 1,
+      "children": [
+        "seg_001531",
+        "seg_001532",
+        "seg_001533",
+        "seg_001534"
+      ],
+      "leaf_start": 1531,
+      "leaf_end": 1534
+    },
+    {
+      "id": "grp_032473_17",
+      "level": 1,
+      "children": [
+        "seg_001536",
+        "seg_001537",
+        "seg_001538",
+        "seg_001539",
+        "seg_001540",
+        "seg_001541",
+        "seg_001542"
+      ],
+      "leaf_start": 1536,
+      "leaf_end": 1542
+    },
+    {
+      "id": "grp_037870_74",
+      "level": 1,
+      "children": [
+        "seg_001543",
+        "seg_001544",
+        "seg_001545",
+        "seg_001546",
+        "seg_001547",
+        "seg_001548",
+        "seg_001549"
+      ],
+      "leaf_start": 1543,
+      "leaf_end": 1549
+    },
+    {
+      "id": "grp_041611_21",
+      "level": 1,
+      "children": [
+        "seg_001552",
+        "seg_001553",
+        "seg_001554",
+        "seg_001555"
+      ],
+      "leaf_start": 1552,
+      "leaf_end": 1555
+    },
+    {
+      "id": "grp_051776_12",
+      "level": 1,
+      "children": [
+        "seg_001558",
+        "seg_001559",
+        "seg_001560",
+        "seg_001561",
+        "seg_001562",
+        "seg_001563"
+      ],
+      "leaf_start": 1558,
+      "leaf_end": 1563
+    },
+    {
+      "id": "grp_056679_11",
+      "level": 1,
+      "children": [
+        "seg_001564",
+        "seg_001565",
+        "seg_001566",
+        "seg_001567",
+        "seg_001568",
+        "seg_001569",
+        "seg_001570"
+      ],
+      "leaf_start": 1564,
+      "leaf_end": 1570
+    },
+    {
+      "id": "grp_061223_7",
+      "level": 1,
+      "children": [
+        "seg_001573",
+        "seg_001574",
+        "seg_001575",
+        "seg_001576",
+        "seg_001577"
+      ],
+      "leaf_start": 1573,
+      "leaf_end": 1577
+    },
+    {
+      "id": "grp_064798_6",
+      "level": 1,
+      "children": [
+        "seg_001578",
+        "seg_001579",
+        "seg_001580"
+      ],
+      "leaf_start": 1578,
+      "leaf_end": 1580
+    },
+    {
+      "id": "grp_075967_34",
+      "level": 1,
+      "children": [
+        "seg_001581",
+        "seg_001582",
+        "seg_001583",
+        "seg_001584",
+        "seg_001585",
+        "seg_001586",
+        "seg_001587",
+        "seg_001588",
+        "seg_001589",
+        "seg_001590",
+        "seg_001591",
+        "seg_001592",
+        "seg_001593",
+        "seg_001594",
+        "seg_001595"
+      ],
+      "leaf_start": 1581,
+      "leaf_end": 1595
+    },
+    {
+      "id": "grp_080880_97",
+      "level": 1,
+      "children": [
+        "seg_001598",
+        "seg_001599",
+        "seg_001600",
+        "seg_001601",
+        "seg_001602",
+        "seg_001603"
+      ],
+      "leaf_start": 1598,
+      "leaf_end": 1603
+    },
+    {
+      "id": "grp_088338_26",
+      "level": 1,
+      "children": [
+        "seg_001606",
+        "seg_001607",
+        "seg_001608",
+        "seg_001609",
+        "seg_001610",
+        "seg_001611",
+        "seg_001612",
+        "seg_001613",
+        "seg_001614",
+        "seg_001615"
+      ],
+      "leaf_start": 1606,
+      "leaf_end": 1615
+    },
+    {
+      "id": "grp_093693_72",
+      "level": 1,
+      "children": [
+        "seg_001618",
+        "seg_001619",
+        "seg_001620"
+      ],
+      "leaf_start": 1618,
+      "leaf_end": 1620
+    },
+    {
+      "id": "grp_097873_52",
+      "level": 1,
+      "children": [
+        "seg_001621",
+        "seg_001622",
+        "seg_001623",
+        "seg_001624",
+        "seg_001625",
+        "seg_001626"
+      ],
+      "leaf_start": 1621,
+      "leaf_end": 1626
+    },
+    {
+      "id": "grp_104031_83",
+      "level": 1,
+      "children": [
+        "seg_001627",
+        "seg_001628",
+        "seg_001629",
+        "seg_001630"
+      ],
+      "leaf_start": 1627,
+      "leaf_end": 1630
+    },
+    {
+      "id": "grp_114639_76",
+      "level": 1,
+      "children": [
+        "seg_001633",
+        "seg_001634",
+        "seg_001635",
+        "seg_001636",
+        "seg_001637",
+        "seg_001638",
+        "seg_001639",
+        "seg_001640"
+      ],
+      "leaf_start": 1633,
+      "leaf_end": 1640
+    },
+    {
+      "id": "grp_128575_94",
+      "level": 1,
+      "children": [
+        "seg_001641",
+        "seg_001642",
+        "seg_001643",
+        "seg_001644",
+        "seg_001645",
+        "seg_001646",
+        "seg_001647"
+      ],
+      "leaf_start": 1641,
+      "leaf_end": 1647
+    },
+    {
+      "id": "grp_133611_83",
+      "level": 1,
+      "children": [
+        "seg_001648",
+        "seg_001649",
+        "seg_001650"
+      ],
+      "leaf_start": 1648,
+      "leaf_end": 1650
+    },
+    {
+      "id": "grp_136920_23",
+      "level": 1,
+      "children": [
+        "seg_001653",
+        "seg_001654",
+        "seg_001655",
+        "seg_001656"
+      ],
+      "leaf_start": 1653,
+      "leaf_end": 1656
+    },
+    {
+      "id": "grp_139176_59",
+      "level": 1,
+      "children": [
+        "seg_001657",
+        "seg_001658",
+        "seg_001659",
+        "seg_001660"
+      ],
+      "leaf_start": 1657,
+      "leaf_end": 1660
+    },
+    {
+      "id": "grp_988113_62",
+      "level": 1,
+      "children": [
+        "seg_001112",
+        "seg_001113",
+        "seg_001114"
+      ],
+      "leaf_start": 1112,
+      "leaf_end": 1114
+    },
+    {
+      "id": "grp_991800_41",
+      "level": 1,
+      "children": [
+        "seg_001115",
+        "seg_001116",
+        "seg_001117",
+        "seg_001118",
+        "seg_001119",
+        "seg_001120"
+      ],
+      "leaf_start": 1115,
+      "leaf_end": 1120
+    },
+    {
+      "id": "grp_028537_49",
+      "level": 1,
+      "children": [
+        "seg_000902",
+        "seg_000903",
+        "seg_000904",
+        "seg_000905",
+        "seg_000906",
+        "seg_000907",
+        "seg_000908",
+        "seg_000909",
+        "seg_000910",
+        "seg_000911",
+        "seg_000912",
+        "seg_000913",
+        "seg_000914",
+        "seg_000915",
+        "seg_000916",
+        "seg_000917",
+        "seg_000918",
+        "seg_000919",
+        "seg_000920",
+        "seg_000921",
+        "seg_000922",
+        "seg_000923",
+        "seg_000924",
+        "seg_000925"
+      ],
+      "leaf_start": 902,
+      "leaf_end": 925
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "grp_045436_97",
+      "task_id": "literal_gloss",
+      "value": "放大地球",
+      "updated_at": "2026-05-06T07:39:52.776Z"
+    },
+    {
+      "target_id": "grp_139896_46",
+      "task_id": "literal_gloss",
+      "value": "找到一个房子",
+      "updated_at": "2026-05-06T07:40:01.484Z"
+    },
+    {
+      "target_id": "grp_148401_8",
+      "task_id": "literal_gloss",
+      "value": "鸟在唱歌",
+      "updated_at": "2026-05-06T07:40:10.815Z"
+    },
+    {
+      "target_id": "grp_154892_24",
+      "task_id": "literal_gloss",
+      "value": "唱歌",
+      "updated_at": "2026-05-06T07:40:15.668Z"
+    },
+    {
+      "target_id": "grp_159162_24",
+      "task_id": "literal_gloss",
+      "value": "唱歌",
+      "updated_at": "2026-05-06T07:40:19.019Z"
+    },
+    {
+      "target_id": "grp_171188_89",
+      "task_id": "literal_gloss",
+      "value": "闹钟响了",
+      "updated_at": "2026-05-06T07:40:24.207Z"
+    },
+    {
+      "target_id": "grp_180056_21",
+      "task_id": "literal_gloss",
+      "value": "唱歌",
+      "updated_at": "2026-05-06T07:40:27.764Z"
+    },
+    {
+      "target_id": "grp_200141_2",
+      "task_id": "literal_gloss",
+      "value": "闹钟响了",
+      "updated_at": "2026-05-06T07:40:36.217Z"
+    },
+    {
+      "target_id": "grp_213123_28",
+      "task_id": "literal_gloss",
+      "value": "鸟飞走",
+      "updated_at": "2026-05-06T07:40:41.722Z"
+    },
+    {
+      "target_id": "grp_224328_67",
+      "task_id": "literal_gloss",
+      "value": "听到闹钟",
+      "updated_at": "2026-05-06T07:40:47.809Z"
+    },
+    {
+      "target_id": "grp_238736_14",
+      "task_id": "literal_gloss",
+      "value": "关闭闹钟，很困，又睡了",
+      "updated_at": "2026-05-06T07:41:00.248Z"
+    },
+    {
+      "target_id": "grp_255251_85",
+      "task_id": "literal_gloss",
+      "value": "宠物叫醒",
+      "updated_at": "2026-05-06T07:41:08.557Z"
+    },
+    {
+      "target_id": "grp_260018_87",
+      "task_id": "literal_gloss",
+      "value": "醒了，宠物走了",
+      "updated_at": "2026-05-06T07:41:18.143Z"
+    },
+    {
+      "target_id": "grp_282443_46",
+      "task_id": "literal_gloss",
+      "value": "起床上厕所",
+      "updated_at": "2026-05-06T07:41:24.559Z"
+    },
+    {
+      "target_id": "grp_301970_84",
+      "task_id": "literal_gloss",
+      "value": "拉不出来，怀疑没有",
+      "updated_at": "2026-05-06T07:41:41.944Z"
+    },
+    {
+      "target_id": "grp_313619_16",
+      "task_id": "literal_gloss",
+      "value": "看手机",
+      "updated_at": "2026-05-06T07:42:02.898Z"
+    },
+    {
+      "target_id": "grp_330691_48",
+      "task_id": "literal_gloss",
+      "value": "上厕所",
+      "updated_at": "2026-05-06T07:42:07.344Z"
+    },
+    {
+      "target_id": "grp_344270_23",
+      "task_id": "literal_gloss",
+      "value": "冲厕所",
+      "updated_at": "2026-05-06T07:42:13.794Z"
+    },
+    {
+      "target_id": "grp_373213_55",
+      "task_id": "literal_gloss",
+      "value": "洗漱",
+      "updated_at": "2026-05-06T07:42:19.321Z"
+    },
+    {
+      "target_id": "grp_375396_15",
+      "task_id": "literal_gloss",
+      "value": "剃胡子",
+      "updated_at": "2026-05-06T07:42:24.706Z"
+    },
+    {
+      "target_id": "grp_385021_56",
+      "task_id": "literal_gloss",
+      "value": "刷牙",
+      "updated_at": "2026-05-06T07:42:27.936Z"
+    },
+    {
+      "target_id": "grp_389437_50",
+      "task_id": "literal_gloss",
+      "value": "离开厕所",
+      "updated_at": "2026-05-06T07:42:31.619Z"
+    },
+    {
+      "target_id": "grp_398741_9",
+      "task_id": "literal_gloss",
+      "value": "拿衣服",
+      "updated_at": "2026-05-06T07:42:37.382Z"
+    },
+    {
+      "target_id": "grp_407874_4",
+      "task_id": "literal_gloss",
+      "value": "穿鞋",
+      "updated_at": "2026-05-06T07:42:43.757Z"
+    },
+    {
+      "target_id": "grp_494515_71",
+      "task_id": "literal_gloss",
+      "value": "照镜子",
+      "updated_at": "2026-05-06T07:42:47.266Z"
+    },
+    {
+      "target_id": "grp_533016_16",
+      "task_id": "literal_gloss",
+      "value": "衣服不好看",
+      "updated_at": "2026-05-06T07:42:51.316Z"
+    },
+    {
+      "target_id": "grp_544714_20",
+      "task_id": "literal_gloss",
+      "value": "换衣服",
+      "updated_at": "2026-05-06T07:42:58.817Z"
+    },
+    {
+      "target_id": "grp_554086_12",
+      "task_id": "literal_gloss",
+      "value": "想到某人",
+      "updated_at": "2026-05-06T07:43:04.765Z"
+    },
+    {
+      "target_id": "grp_561066_29",
+      "task_id": "literal_gloss",
+      "value": "有灵感",
+      "updated_at": "2026-05-06T07:43:10.535Z"
+    },
+    {
+      "target_id": "grp_564424_62",
+      "task_id": "literal_gloss",
+      "value": "换好衣服",
+      "updated_at": "2026-05-06T07:43:15.468Z"
+    },
+    {
+      "target_id": "grp_569889_18",
+      "task_id": "literal_gloss",
+      "value": "离开换衣服的地方",
+      "updated_at": "2026-05-06T07:43:20.964Z"
+    },
+    {
+      "target_id": "grp_589670_58",
+      "task_id": "literal_gloss",
+      "value": "做饭去",
+      "updated_at": "2026-05-06T07:43:26.985Z"
+    },
+    {
+      "target_id": "grp_596646_78",
+      "task_id": "literal_gloss",
+      "value": "煮咖啡",
+      "updated_at": "2026-05-06T07:43:33.094Z"
+    },
+    {
+      "target_id": "grp_605281_86",
+      "task_id": "literal_gloss",
+      "value": "煎蛋",
+      "updated_at": "2026-05-06T07:43:38.737Z"
+    },
+    {
+      "target_id": "grp_618260_12",
+      "task_id": "literal_gloss",
+      "value": "煎面包",
+      "updated_at": "2026-05-06T07:43:53.169Z"
+    },
+    {
+      "target_id": "grp_627472_17",
+      "task_id": "literal_gloss",
+      "value": "喝咖啡",
+      "updated_at": "2026-05-06T07:44:22.433Z"
+    },
+    {
+      "target_id": "grp_653313_7",
+      "task_id": "literal_gloss",
+      "value": "听天气预报",
+      "updated_at": "2026-05-06T07:44:27.820Z"
+    },
+    {
+      "target_id": "grp_658360_10",
+      "task_id": "literal_gloss",
+      "value": "降温",
+      "updated_at": "2026-05-06T07:44:31.973Z"
+    },
+    {
+      "target_id": "grp_662414_28",
+      "task_id": "literal_gloss",
+      "value": "记得带伞",
+      "updated_at": "2026-05-06T07:44:37.135Z"
+    },
+    {
+      "target_id": "grp_665873_95",
+      "task_id": "literal_gloss",
+      "value": "喝",
+      "updated_at": "2026-05-06T07:44:43.561Z"
+    },
+    {
+      "target_id": "grp_669902_12",
+      "task_id": "literal_gloss",
+      "value": "门响了",
+      "updated_at": "2026-05-06T07:44:48.000Z"
+    },
+    {
+      "target_id": "grp_674022_20",
+      "task_id": "literal_gloss",
+      "value": "好奇",
+      "updated_at": "2026-05-06T07:44:51.023Z"
+    },
+    {
+      "target_id": "grp_684202_15",
+      "task_id": "literal_gloss",
+      "value": "去开门",
+      "updated_at": "2026-05-06T07:44:54.376Z"
+    },
+    {
+      "target_id": "grp_695274_56",
+      "task_id": "literal_gloss",
+      "value": "快递",
+      "updated_at": "2026-05-06T07:45:03.452Z"
+    },
+    {
+      "target_id": "grp_703080_63",
+      "task_id": "literal_gloss",
+      "value": "拿快递",
+      "updated_at": "2026-05-06T07:45:07.897Z"
+    },
+    {
+      "target_id": "grp_721110_47",
+      "task_id": "literal_gloss",
+      "value": "书",
+      "updated_at": "2026-05-06T07:45:11.022Z"
+    },
+    {
+      "target_id": "grp_783288_89",
+      "task_id": "literal_gloss",
+      "value": "开始看书，喝咖啡",
+      "updated_at": "2026-05-06T07:45:18.397Z"
+    },
+    {
+      "target_id": "grp_791426_20",
+      "task_id": "literal_gloss",
+      "value": "闻到异味",
+      "updated_at": "2026-05-06T07:45:26.629Z"
+    },
+    {
+      "target_id": "grp_794856_97",
+      "task_id": "literal_gloss",
+      "value": "发现煎蛋糊了",
+      "updated_at": "2026-05-06T07:45:32.980Z"
+    },
+    {
+      "target_id": "grp_797126_23",
+      "task_id": "literal_gloss",
+      "value": "紧张",
+      "updated_at": "2026-05-06T07:45:38.352Z"
+    },
+    {
+      "target_id": "grp_802930_46",
+      "task_id": "literal_gloss",
+      "value": "把咖啡倒锅里",
+      "updated_at": "2026-05-06T07:45:46.161Z"
+    },
+    {
+      "target_id": "grp_809490_96",
+      "task_id": "literal_gloss",
+      "value": "没吃成面包",
+      "updated_at": "2026-05-06T07:45:54.577Z"
+    },
+    {
+      "target_id": "grp_816199_12",
+      "task_id": "literal_gloss",
+      "value": "倒垃圾",
+      "updated_at": "2026-05-06T07:45:59.496Z"
+    },
+    {
+      "target_id": "grp_826456_82",
+      "task_id": "literal_gloss",
+      "value": "饿了",
+      "updated_at": "2026-05-06T07:46:02.033Z"
+    },
+    {
+      "target_id": "grp_833054_61",
+      "task_id": "literal_gloss",
+      "value": "开冰箱",
+      "updated_at": "2026-05-06T07:46:06.916Z"
+    },
+    {
+      "target_id": "grp_840536_43",
+      "task_id": "literal_gloss",
+      "value": "看",
+      "updated_at": "2026-05-06T07:46:09.347Z"
+    },
+    {
+      "target_id": "grp_857768_21",
+      "task_id": "literal_gloss",
+      "value": "发现牛奶",
+      "updated_at": "2026-05-06T07:46:14.015Z"
+    },
+    {
+      "target_id": "grp_863514_31",
+      "task_id": "literal_gloss",
+      "value": "喝牛奶",
+      "updated_at": "2026-05-06T07:46:18.051Z"
+    },
+    {
+      "target_id": "grp_866379_56",
+      "task_id": "literal_gloss",
+      "value": "还是饿",
+      "updated_at": "2026-05-06T07:46:21.622Z"
+    },
+    {
+      "target_id": "grp_876484_45",
+      "task_id": "literal_gloss",
+      "value": "发现玉米",
+      "updated_at": "2026-05-06T07:46:28.914Z"
+    },
+    {
+      "target_id": "grp_896058_77",
+      "task_id": "literal_gloss",
+      "value": "把玉米粒放微波炉",
+      "updated_at": "2026-05-06T07:46:38.738Z"
+    },
+    {
+      "target_id": "grp_960345_97",
+      "task_id": "literal_gloss",
+      "value": "煮玉米",
+      "updated_at": "2026-05-06T07:46:44.172Z"
+    },
+    {
+      "target_id": "grp_967279_65",
+      "task_id": "literal_gloss",
+      "value": "煮玉米",
+      "updated_at": "2026-05-06T07:46:48.299Z"
+    },
+    {
+      "target_id": "grp_993248_23",
+      "task_id": "literal_gloss",
+      "value": "煮玉米",
+      "updated_at": "2026-05-06T07:46:51.542Z"
+    },
+    {
+      "target_id": "grp_000266_46",
+      "task_id": "literal_gloss",
+      "value": "煮好了",
+      "updated_at": "2026-05-06T07:46:55.599Z"
+    },
+    {
+      "target_id": "grp_007012_71",
+      "task_id": "literal_gloss",
+      "value": "很香",
+      "updated_at": "2026-05-06T07:47:02.365Z"
+    },
+    {
+      "target_id": "grp_016317_87",
+      "task_id": "literal_gloss",
+      "value": "很好吃，牙齿有残留",
+      "updated_at": "2026-05-06T07:47:13.022Z"
+    },
+    {
+      "target_id": "grp_020507_57",
+      "task_id": "literal_gloss",
+      "value": "去厕所",
+      "updated_at": "2026-05-06T07:47:16.310Z"
+    },
+    {
+      "target_id": "grp_025452_58",
+      "task_id": "literal_gloss",
+      "value": "取牙线",
+      "updated_at": "2026-05-06T07:47:25.532Z"
+    },
+    {
+      "target_id": "grp_032473_17",
+      "task_id": "literal_gloss",
+      "value": "开始清洁牙齿",
+      "updated_at": "2026-05-06T07:47:36.640Z"
+    },
+    {
+      "target_id": "grp_037870_74",
+      "task_id": "literal_gloss",
+      "value": "吃药",
+      "updated_at": "2026-05-06T07:47:40.685Z"
+    },
+    {
+      "target_id": "grp_041611_21",
+      "task_id": "literal_gloss",
+      "value": "喝水",
+      "updated_at": "2026-05-06T07:47:43.870Z"
+    },
+    {
+      "target_id": "grp_051776_12",
+      "task_id": "literal_gloss",
+      "value": "宠物看着我",
+      "updated_at": "2026-05-06T07:47:48.965Z"
+    },
+    {
+      "target_id": "grp_056679_11",
+      "task_id": "literal_gloss",
+      "value": "发现没给宠物喂食",
+      "updated_at": "2026-05-06T07:47:55.056Z"
+    },
+    {
+      "target_id": "grp_061223_7",
+      "task_id": "literal_gloss",
+      "value": "去拿猫粮",
+      "updated_at": "2026-05-06T07:48:04.324Z"
+    },
+    {
+      "target_id": "grp_064798_6",
+      "task_id": "literal_gloss",
+      "value": "到猫粮",
+      "updated_at": "2026-05-06T07:48:09.093Z"
+    },
+    {
+      "target_id": "grp_075967_34",
+      "task_id": "literal_gloss",
+      "value": "猫吃饭",
+      "updated_at": "2026-05-06T07:48:14.608Z"
+    },
+    {
+      "target_id": "grp_080880_97",
+      "task_id": "literal_gloss",
+      "value": "猫吃饭",
+      "updated_at": "2026-05-06T07:48:23.226Z"
+    },
+    {
+      "target_id": "grp_088338_26",
+      "task_id": "literal_gloss",
+      "value": "带卡",
+      "updated_at": "2026-05-06T07:48:28.239Z"
+    },
+    {
+      "target_id": "grp_093693_72",
+      "task_id": "literal_gloss",
+      "value": "想起下雨",
+      "updated_at": "2026-05-06T07:48:35.598Z"
+    },
+    {
+      "target_id": "grp_097873_52",
+      "task_id": "literal_gloss",
+      "value": "带伞和帽子",
+      "updated_at": "2026-05-06T07:48:43.535Z"
+    },
+    {
+      "target_id": "grp_104031_83",
+      "task_id": "literal_gloss",
+      "value": "出发",
+      "updated_at": "2026-05-06T07:48:46.429Z"
+    },
+    {
+      "target_id": "grp_114639_76",
+      "task_id": "literal_gloss",
+      "value": "关不上门",
+      "updated_at": "2026-05-06T07:48:52.371Z"
+    },
+    {
+      "target_id": "grp_128575_94",
+      "task_id": "literal_gloss",
+      "value": "钥匙没拿",
+      "updated_at": "2026-05-06T07:49:00.016Z"
+    },
+    {
+      "target_id": "grp_133611_83",
+      "task_id": "literal_gloss",
+      "value": "回屋",
+      "updated_at": "2026-05-06T07:49:04.471Z"
+    },
+    {
+      "target_id": "grp_136920_23",
+      "task_id": "literal_gloss",
+      "value": "插钥匙",
+      "updated_at": "2026-05-06T07:49:14.811Z"
+    },
+    {
+      "target_id": "grp_139176_59",
+      "task_id": "literal_gloss",
+      "value": "锁门",
+      "updated_at": "2026-05-06T07:49:19.337Z"
+    },
+    {
+      "target_id": "grp_045436_97",
+      "task_id": "discourse_relation",
+      "value": "无明显关系 / None",
+      "updated_at": "2026-05-06T08:10:05.355Z"
+    },
+    {
+      "target_id": "grp_028537_49",
+      "task_id": "discourse_relation",
+      "value": "无明显关系 / None",
+      "updated_at": "2026-05-06T08:10:35.064Z"
+    },
+    {
+      "target_id": "grp_148401_8",
+      "task_id": "discourse_relation",
+      "value": "条件 / Conditional",
+      "updated_at": "2026-05-06T08:10:47.938Z"
+    },
+    {
+      "target_id": "grp_154892_24",
+      "task_id": "discourse_relation",
+      "value": "无明显关系 / None",
+      "updated_at": "2026-05-06T08:10:52.939Z"
+    },
+    {
+      "target_id": "grp_159162_24",
+      "task_id": "discourse_relation",
+      "value": "无明显关系 / None",
+      "updated_at": "2026-05-06T08:10:55.018Z"
+    },
+    {
+      "target_id": "grp_171188_89",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:11:00.675Z"
+    },
+    {
+      "target_id": "grp_180056_21",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:11:03.007Z"
+    },
+    {
+      "target_id": "grp_200141_2",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:11:06.269Z"
+    },
+    {
+      "target_id": "grp_213123_28",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:09.124Z"
+    },
+    {
+      "target_id": "grp_224328_67",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:13.863Z"
+    },
+    {
+      "target_id": "grp_238736_14",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:17.452Z"
+    },
+    {
+      "target_id": "grp_255251_85",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:21.016Z"
+    },
+    {
+      "target_id": "grp_260018_87",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:25.197Z"
+    },
+    {
+      "target_id": "grp_282443_46",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:29.673Z"
+    },
+    {
+      "target_id": "grp_301970_84",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:33.625Z"
+    },
+    {
+      "target_id": "grp_313619_16",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:36.532Z"
+    },
+    {
+      "target_id": "grp_330691_48",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:39.080Z"
+    },
+    {
+      "target_id": "grp_988113_62",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:41.450Z"
+    },
+    {
+      "target_id": "grp_991800_41",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:11:44.171Z"
+    },
+    {
+      "target_id": "grp_373213_55",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:46.969Z"
+    },
+    {
+      "target_id": "grp_375396_15",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:49.215Z"
+    },
+    {
+      "target_id": "grp_385021_56",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:51.475Z"
+    },
+    {
+      "target_id": "grp_389437_50",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:53.491Z"
+    },
+    {
+      "target_id": "grp_398741_9",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:56.161Z"
+    },
+    {
+      "target_id": "grp_407874_4",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:11:59.001Z"
+    },
+    {
+      "target_id": "grp_494515_71",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:01.034Z"
+    },
+    {
+      "target_id": "grp_533016_16",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:03.229Z"
+    },
+    {
+      "target_id": "grp_544714_20",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:05.351Z"
+    },
+    {
+      "target_id": "grp_554086_12",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:07.682Z"
+    },
+    {
+      "target_id": "grp_561066_29",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:09.569Z"
+    },
+    {
+      "target_id": "grp_564424_62",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:11.333Z"
+    },
+    {
+      "target_id": "grp_569889_18",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:13.681Z"
+    },
+    {
+      "target_id": "grp_589670_58",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:15.834Z"
+    },
+    {
+      "target_id": "grp_596646_78",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:18.107Z"
+    },
+    {
+      "target_id": "grp_605281_86",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:21.859Z"
+    },
+    {
+      "target_id": "grp_618260_12",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:24.123Z"
+    },
+    {
+      "target_id": "grp_627472_17",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:27.062Z"
+    },
+    {
+      "target_id": "grp_653313_7",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:29.581Z"
+    },
+    {
+      "target_id": "grp_658360_10",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:12:33.745Z"
+    },
+    {
+      "target_id": "grp_662414_28",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:12:36.598Z"
+    },
+    {
+      "target_id": "grp_665873_95",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:39.372Z"
+    },
+    {
+      "target_id": "grp_669902_12",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:42.155Z"
+    },
+    {
+      "target_id": "grp_674022_20",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:12:45.519Z"
+    },
+    {
+      "target_id": "grp_684202_15",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:12:50.159Z"
+    },
+    {
+      "target_id": "grp_695274_56",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:52.863Z"
+    },
+    {
+      "target_id": "grp_703080_63",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:55.242Z"
+    },
+    {
+      "target_id": "grp_721110_47",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:58.112Z"
+    },
+    {
+      "target_id": "grp_783288_89",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:12:59.982Z"
+    },
+    {
+      "target_id": "grp_791426_20",
+      "task_id": "discourse_relation",
+      "value": "转折对比 / Contrast",
+      "updated_at": "2026-05-06T08:13:09.501Z"
+    },
+    {
+      "target_id": "grp_794856_97",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:13:06.540Z"
+    },
+    {
+      "target_id": "grp_797126_23",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:13:12.990Z"
+    },
+    {
+      "target_id": "grp_802930_46",
+      "task_id": "discourse_relation",
+      "value": "条件 / Conditional",
+      "updated_at": "2026-05-06T08:13:16.183Z"
+    },
+    {
+      "target_id": "grp_809490_96",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:13:19.413Z"
+    },
+    {
+      "target_id": "grp_816199_12",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:13:25.914Z"
+    },
+    {
+      "target_id": "grp_826456_82",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:27.632Z"
+    },
+    {
+      "target_id": "grp_833054_61",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:30.166Z"
+    },
+    {
+      "target_id": "grp_840536_43",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:31.859Z"
+    },
+    {
+      "target_id": "grp_857768_21",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:33.965Z"
+    },
+    {
+      "target_id": "grp_863514_31",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:36.311Z"
+    },
+    {
+      "target_id": "grp_866379_56",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:38.721Z"
+    },
+    {
+      "target_id": "grp_876484_45",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:40.757Z"
+    },
+    {
+      "target_id": "grp_896058_77",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:42.817Z"
+    },
+    {
+      "target_id": "grp_960345_97",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:45.696Z"
+    },
+    {
+      "target_id": "grp_967279_65",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:48.281Z"
+    },
+    {
+      "target_id": "grp_993248_23",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:13:49.812Z"
+    },
+    {
+      "target_id": "grp_000266_46",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:05.690Z"
+    },
+    {
+      "target_id": "grp_007012_71",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:08.585Z"
+    },
+    {
+      "target_id": "grp_016317_87",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:11.209Z"
+    },
+    {
+      "target_id": "grp_020507_57",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:14:13.289Z"
+    },
+    {
+      "target_id": "grp_025452_58",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:15.535Z"
+    },
+    {
+      "target_id": "grp_032473_17",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:18.069Z"
+    },
+    {
+      "target_id": "grp_037870_74",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:19.659Z"
+    },
+    {
+      "target_id": "grp_041611_21",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:21.804Z"
+    },
+    {
+      "target_id": "grp_051776_12",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:24.688Z"
+    },
+    {
+      "target_id": "grp_056679_11",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:14:26.330Z"
+    },
+    {
+      "target_id": "grp_061223_7",
+      "task_id": "discourse_relation",
+      "value": "条件 / Conditional",
+      "updated_at": "2026-05-06T08:14:29.268Z"
+    },
+    {
+      "target_id": "grp_064798_6",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:32.473Z"
+    },
+    {
+      "target_id": "grp_075967_34",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:14:36.377Z"
+    },
+    {
+      "target_id": "grp_080880_97",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:40.155Z"
+    },
+    {
+      "target_id": "grp_088338_26",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:43.149Z"
+    },
+    {
+      "target_id": "grp_093693_72",
+      "task_id": "discourse_relation",
+      "value": "并列递进 / Expansion",
+      "updated_at": "2026-05-06T08:14:48.006Z"
+    },
+    {
+      "target_id": "grp_097873_52",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:14:50.220Z"
+    },
+    {
+      "target_id": "grp_104031_83",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:52.936Z"
+    },
+    {
+      "target_id": "grp_114639_76",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:14:56.256Z"
+    },
+    {
+      "target_id": "grp_128575_94",
+      "task_id": "discourse_relation",
+      "value": "解释说明 / Elaboration",
+      "updated_at": "2026-05-06T08:15:01.681Z"
+    },
+    {
+      "target_id": "grp_133611_83",
+      "task_id": "discourse_relation",
+      "value": "因果 / Causal",
+      "updated_at": "2026-05-06T08:15:03.773Z"
+    },
+    {
+      "target_id": "grp_136920_23",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:15:05.743Z"
+    },
+    {
+      "target_id": "grp_139176_59",
+      "task_id": "discourse_relation",
+      "value": "时间先后 / Temporal",
+      "updated_at": "2026-05-06T08:15:07.125Z"
+    }
+  ]
+}

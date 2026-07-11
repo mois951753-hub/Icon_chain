@@ -1,0 +1,2189 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "55_R",
+    "pageEndKey": "56_R"
+  },
+  "groups": [
+    {
+      "id": "grp_470406_59",
+      "level": 1,
+      "children": [
+        "seg_011397",
+        "seg_011398",
+        "seg_011399",
+        "seg_011400",
+        "seg_011401",
+        "seg_011402",
+        "seg_011403",
+        "seg_011404",
+        "seg_011405",
+        "seg_011406",
+        "seg_011407",
+        "seg_011408",
+        "seg_011409",
+        "seg_011410",
+        "seg_011411",
+        "seg_011412",
+        "seg_011413",
+        "seg_011414",
+        "seg_011415"
+      ],
+      "leaf_start": 11397,
+      "leaf_end": 11415
+    },
+    {
+      "id": "grp_472918_16",
+      "level": 1,
+      "children": [
+        "seg_011416",
+        "seg_011417"
+      ],
+      "leaf_start": 11416,
+      "leaf_end": 11417
+    },
+    {
+      "id": "grp_606192_97",
+      "level": 1,
+      "children": [
+        "seg_011436",
+        "seg_011437",
+        "seg_011438"
+      ],
+      "leaf_start": 11436,
+      "leaf_end": 11438
+    },
+    {
+      "id": "grp_608404_82",
+      "level": 1,
+      "children": [
+        "seg_011439",
+        "seg_011440",
+        "seg_011441",
+        "seg_011442",
+        "seg_011443",
+        "seg_011444"
+      ],
+      "leaf_start": 11439,
+      "leaf_end": 11444
+    },
+    {
+      "id": "grp_617299_9",
+      "level": 1,
+      "children": [
+        "seg_011419",
+        "seg_011420"
+      ],
+      "leaf_start": 11419,
+      "leaf_end": 11420
+    },
+    {
+      "id": "grp_642726_90",
+      "level": 1,
+      "children": [
+        "seg_011449",
+        "seg_011450",
+        "seg_011451",
+        "seg_011452",
+        "seg_011453"
+      ],
+      "leaf_start": 11449,
+      "leaf_end": 11453
+    },
+    {
+      "id": "grp_690254_49",
+      "level": 1,
+      "children": [
+        "seg_011454",
+        "seg_011455",
+        "seg_011456",
+        "seg_011457",
+        "seg_011458"
+      ],
+      "leaf_start": 11454,
+      "leaf_end": 11458
+    },
+    {
+      "id": "grp_698578_28",
+      "level": 1,
+      "children": [
+        "seg_011468",
+        "seg_011469"
+      ],
+      "leaf_start": 11468,
+      "leaf_end": 11469
+    },
+    {
+      "id": "grp_703124_82",
+      "level": 1,
+      "children": [
+        "seg_011466",
+        "seg_011467"
+      ],
+      "leaf_start": 11466,
+      "leaf_end": 11467
+    },
+    {
+      "id": "grp_708390_5",
+      "level": 1,
+      "children": [
+        "seg_011480",
+        "seg_011481",
+        "seg_011482",
+        "seg_011483"
+      ],
+      "leaf_start": 11480,
+      "leaf_end": 11483
+    },
+    {
+      "id": "grp_710639_38",
+      "level": 1,
+      "children": [
+        "seg_011484",
+        "seg_011485"
+      ],
+      "leaf_start": 11484,
+      "leaf_end": 11485
+    },
+    {
+      "id": "grp_719062_91",
+      "level": 1,
+      "children": [
+        "seg_011488",
+        "seg_011489",
+        "seg_011490",
+        "seg_011491",
+        "seg_011492",
+        "seg_011493"
+      ],
+      "leaf_start": 11488,
+      "leaf_end": 11493
+    },
+    {
+      "id": "grp_721326_50",
+      "level": 1,
+      "children": [
+        "seg_011495",
+        "seg_011496",
+        "seg_011497"
+      ],
+      "leaf_start": 11495,
+      "leaf_end": 11497
+    },
+    {
+      "id": "grp_738338_69",
+      "level": 1,
+      "children": [
+        "seg_011501",
+        "seg_011502",
+        "seg_011503",
+        "seg_011504"
+      ],
+      "leaf_start": 11501,
+      "leaf_end": 11504
+    },
+    {
+      "id": "grp_740354_18",
+      "level": 1,
+      "children": [
+        "seg_011505",
+        "seg_011506",
+        "seg_011507"
+      ],
+      "leaf_start": 11505,
+      "leaf_end": 11507
+    },
+    {
+      "id": "grp_744443_43",
+      "level": 1,
+      "children": [
+        "seg_011508",
+        "seg_011509"
+      ],
+      "leaf_start": 11508,
+      "leaf_end": 11509
+    },
+    {
+      "id": "grp_759780_12",
+      "level": 1,
+      "children": [
+        "seg_011519",
+        "seg_011520"
+      ],
+      "leaf_start": 11519,
+      "leaf_end": 11520
+    },
+    {
+      "id": "grp_767725_51",
+      "level": 1,
+      "children": [
+        "seg_011512",
+        "seg_011513",
+        "seg_011514",
+        "seg_011515"
+      ],
+      "leaf_start": 11512,
+      "leaf_end": 11515
+    },
+    {
+      "id": "grp_772765_43",
+      "level": 1,
+      "children": [
+        "seg_011524",
+        "seg_011525",
+        "seg_011526"
+      ],
+      "leaf_start": 11524,
+      "leaf_end": 11526
+    },
+    {
+      "id": "grp_781276_96",
+      "level": 1,
+      "children": [
+        "seg_011530",
+        "seg_011531",
+        "seg_011532"
+      ],
+      "leaf_start": 11530,
+      "leaf_end": 11532
+    },
+    {
+      "id": "grp_786473_47",
+      "level": 1,
+      "children": [
+        "seg_011536",
+        "seg_011537",
+        "seg_011538",
+        "seg_011539"
+      ],
+      "leaf_start": 11536,
+      "leaf_end": 11539
+    },
+    {
+      "id": "grp_788536_39",
+      "level": 1,
+      "children": [
+        "seg_011533",
+        "seg_011534",
+        "seg_011535"
+      ],
+      "leaf_start": 11533,
+      "leaf_end": 11535
+    },
+    {
+      "id": "grp_797251_78",
+      "level": 1,
+      "children": [
+        "seg_011542",
+        "seg_011543"
+      ],
+      "leaf_start": 11542,
+      "leaf_end": 11543
+    },
+    {
+      "id": "grp_814720_22",
+      "level": 1,
+      "children": [
+        "seg_011545",
+        "seg_011546",
+        "seg_011547"
+      ],
+      "leaf_start": 11545,
+      "leaf_end": 11547
+    },
+    {
+      "id": "grp_816197_44",
+      "level": 1,
+      "children": [
+        "seg_011549",
+        "seg_011550",
+        "seg_011551"
+      ],
+      "leaf_start": 11549,
+      "leaf_end": 11551
+    },
+    {
+      "id": "grp_818064_66",
+      "level": 1,
+      "children": [
+        "seg_011553",
+        "seg_011554",
+        "seg_011555"
+      ],
+      "leaf_start": 11553,
+      "leaf_end": 11555
+    },
+    {
+      "id": "grp_823480_27",
+      "level": 1,
+      "children": [
+        "seg_011558",
+        "seg_011559",
+        "seg_011560"
+      ],
+      "leaf_start": 11558,
+      "leaf_end": 11560
+    },
+    {
+      "id": "grp_825294_12",
+      "level": 1,
+      "children": [
+        "seg_011562",
+        "seg_011563",
+        "seg_011564"
+      ],
+      "leaf_start": 11562,
+      "leaf_end": 11564
+    },
+    {
+      "id": "grp_826809_14",
+      "level": 1,
+      "children": [
+        "seg_011566",
+        "seg_011567",
+        "seg_011568"
+      ],
+      "leaf_start": 11566,
+      "leaf_end": 11568
+    },
+    {
+      "id": "grp_884600_78",
+      "level": 1,
+      "children": [
+        "seg_011569",
+        "seg_011570",
+        "seg_011571"
+      ],
+      "leaf_start": 11569,
+      "leaf_end": 11571
+    },
+    {
+      "id": "grp_924246_25",
+      "level": 1,
+      "children": [
+        "seg_011578",
+        "seg_011579",
+        "seg_011580"
+      ],
+      "leaf_start": 11578,
+      "leaf_end": 11580
+    },
+    {
+      "id": "grp_930802_35",
+      "level": 1,
+      "children": [
+        "seg_011582",
+        "seg_011583"
+      ],
+      "leaf_start": 11582,
+      "leaf_end": 11583
+    },
+    {
+      "id": "grp_943994_85",
+      "level": 1,
+      "children": [
+        "seg_011588",
+        "seg_011589",
+        "seg_011590",
+        "seg_011591"
+      ],
+      "leaf_start": 11588,
+      "leaf_end": 11591
+    },
+    {
+      "id": "grp_945458_69",
+      "level": 1,
+      "children": [
+        "seg_011592",
+        "seg_011593"
+      ],
+      "leaf_start": 11592,
+      "leaf_end": 11593
+    },
+    {
+      "id": "grp_957712_65",
+      "level": 1,
+      "children": [
+        "seg_011597",
+        "seg_011598",
+        "seg_011599"
+      ],
+      "leaf_start": 11597,
+      "leaf_end": 11599
+    },
+    {
+      "id": "grp_965954_61",
+      "level": 1,
+      "children": [
+        "seg_011601",
+        "seg_011602",
+        "seg_011603",
+        "seg_011604"
+      ],
+      "leaf_start": 11601,
+      "leaf_end": 11604
+    },
+    {
+      "id": "grp_986829_85",
+      "level": 1,
+      "children": [
+        "seg_011610",
+        "seg_011611",
+        "seg_011612"
+      ],
+      "leaf_start": 11610,
+      "leaf_end": 11612
+    },
+    {
+      "id": "grp_988913_66",
+      "level": 1,
+      "children": [
+        "seg_011614",
+        "seg_011615",
+        "seg_011616"
+      ],
+      "leaf_start": 11614,
+      "leaf_end": 11616
+    },
+    {
+      "id": "grp_991455_48",
+      "level": 1,
+      "children": [
+        "seg_011617",
+        "seg_011618",
+        "seg_011619",
+        "seg_011620",
+        "seg_011621",
+        "seg_011622",
+        "seg_011623",
+        "seg_011624",
+        "seg_011625",
+        "seg_011626",
+        "seg_011627"
+      ],
+      "leaf_start": 11617,
+      "leaf_end": 11627
+    },
+    {
+      "id": "grp_996377_23",
+      "level": 1,
+      "children": [
+        "seg_011605",
+        "seg_011606"
+      ],
+      "leaf_start": 11605,
+      "leaf_end": 11606
+    },
+    {
+      "id": "grp_013371_76",
+      "level": 1,
+      "children": [
+        "seg_011632",
+        "seg_011633"
+      ],
+      "leaf_start": 11632,
+      "leaf_end": 11633
+    },
+    {
+      "id": "grp_016228_34",
+      "level": 1,
+      "children": [
+        "seg_011634",
+        "seg_011635"
+      ],
+      "leaf_start": 11634,
+      "leaf_end": 11635
+    },
+    {
+      "id": "grp_021223_56",
+      "level": 1,
+      "children": [
+        "seg_011636",
+        "seg_011637",
+        "seg_011638",
+        "seg_011639",
+        "seg_011640"
+      ],
+      "leaf_start": 11636,
+      "leaf_end": 11640
+    },
+    {
+      "id": "grp_029369_17",
+      "level": 1,
+      "children": [
+        "seg_011646",
+        "seg_011647",
+        "seg_011648"
+      ],
+      "leaf_start": 11646,
+      "leaf_end": 11648
+    },
+    {
+      "id": "grp_031019_72",
+      "level": 1,
+      "children": [
+        "seg_011649",
+        "seg_011650",
+        "seg_011651"
+      ],
+      "leaf_start": 11649,
+      "leaf_end": 11651
+    },
+    {
+      "id": "grp_033750_92",
+      "level": 1,
+      "children": [
+        "seg_011654",
+        "seg_011655"
+      ],
+      "leaf_start": 11654,
+      "leaf_end": 11655
+    },
+    {
+      "id": "grp_036434_85",
+      "level": 1,
+      "children": [
+        "seg_011656",
+        "seg_011657",
+        "seg_011658"
+      ],
+      "leaf_start": 11656,
+      "leaf_end": 11658
+    },
+    {
+      "id": "grp_047189_39",
+      "level": 1,
+      "children": [
+        "seg_011660",
+        "seg_011661",
+        "seg_011662"
+      ],
+      "leaf_start": 11660,
+      "leaf_end": 11662
+    },
+    {
+      "id": "grp_053377_1",
+      "level": 1,
+      "children": [
+        "seg_011664",
+        "seg_011665",
+        "seg_011666"
+      ],
+      "leaf_start": 11664,
+      "leaf_end": 11666
+    },
+    {
+      "id": "grp_063870_89",
+      "level": 1,
+      "children": [
+        "seg_011669",
+        "seg_011670",
+        "seg_011671"
+      ],
+      "leaf_start": 11669,
+      "leaf_end": 11671
+    },
+    {
+      "id": "grp_068835_90",
+      "level": 1,
+      "children": [
+        "seg_011672",
+        "seg_011673"
+      ],
+      "leaf_start": 11672,
+      "leaf_end": 11673
+    },
+    {
+      "id": "grp_070665_93",
+      "level": 1,
+      "children": [
+        "seg_011675",
+        "seg_011676",
+        "seg_011677"
+      ],
+      "leaf_start": 11675,
+      "leaf_end": 11677
+    },
+    {
+      "id": "grp_072788_81",
+      "level": 1,
+      "children": [
+        "seg_011679",
+        "seg_011680",
+        "seg_011681"
+      ],
+      "leaf_start": 11679,
+      "leaf_end": 11681
+    },
+    {
+      "id": "grp_087007_94",
+      "level": 1,
+      "children": [
+        "seg_011683",
+        "seg_011684",
+        "seg_011685",
+        "seg_011686",
+        "seg_011687"
+      ],
+      "leaf_start": 11683,
+      "leaf_end": 11687
+    },
+    {
+      "id": "grp_089648_39",
+      "level": 1,
+      "children": [
+        "seg_011689",
+        "seg_011690",
+        "seg_011691"
+      ],
+      "leaf_start": 11689,
+      "leaf_end": 11691
+    },
+    {
+      "id": "grp_091155_1",
+      "level": 1,
+      "children": [
+        "seg_011693",
+        "seg_011694",
+        "seg_011695"
+      ],
+      "leaf_start": 11693,
+      "leaf_end": 11695
+    },
+    {
+      "id": "grp_092640_27",
+      "level": 1,
+      "children": [
+        "seg_011697",
+        "seg_011698",
+        "seg_011699"
+      ],
+      "leaf_start": 11697,
+      "leaf_end": 11699
+    },
+    {
+      "id": "grp_094876_45",
+      "level": 1,
+      "children": [
+        "seg_011701",
+        "seg_011702",
+        "seg_011703"
+      ],
+      "leaf_start": 11701,
+      "leaf_end": 11703
+    },
+    {
+      "id": "grp_097246_61",
+      "level": 1,
+      "children": [
+        "seg_011706",
+        "seg_011707",
+        "seg_011708"
+      ],
+      "leaf_start": 11706,
+      "leaf_end": 11708
+    },
+    {
+      "id": "grp_098836_65",
+      "level": 1,
+      "children": [
+        "seg_011710",
+        "seg_011711",
+        "seg_011712",
+        "seg_011713"
+      ],
+      "leaf_start": 11710,
+      "leaf_end": 11713
+    },
+    {
+      "id": "grp_141579_65",
+      "level": 1,
+      "children": [
+        "seg_011385",
+        "seg_011386",
+        "seg_011387",
+        "seg_011388",
+        "seg_011389",
+        "seg_011390",
+        "seg_011391",
+        "seg_011392",
+        "seg_011393",
+        "seg_011394",
+        "seg_011395"
+      ],
+      "leaf_start": 11385,
+      "leaf_end": 11395
+    },
+    {
+      "id": "grp_228566_19",
+      "level": 1,
+      "children": [
+        "seg_011423",
+        "seg_011424",
+        "seg_011425",
+        "seg_011426",
+        "seg_011427",
+        "seg_011428",
+        "seg_011429"
+      ],
+      "leaf_start": 11423,
+      "leaf_end": 11429
+    },
+    {
+      "id": "grp_233410_35",
+      "level": 1,
+      "children": [
+        "seg_011430",
+        "seg_011431",
+        "seg_011432",
+        "seg_011433",
+        "seg_011434",
+        "seg_011435"
+      ],
+      "leaf_start": 11430,
+      "leaf_end": 11435
+    },
+    {
+      "id": "grp_239891_77",
+      "level": 1,
+      "children": [
+        "seg_011445",
+        "seg_011446",
+        "seg_011447",
+        "seg_011448"
+      ],
+      "leaf_start": 11445,
+      "leaf_end": 11448
+    },
+    {
+      "id": "grp_261746_61",
+      "level": 1,
+      "children": [
+        "seg_011462",
+        "seg_011463",
+        "seg_011464",
+        "seg_011465"
+      ],
+      "leaf_start": 11462,
+      "leaf_end": 11465
+    },
+    {
+      "id": "grp_277707_87",
+      "level": 1,
+      "children": [
+        "seg_011470",
+        "seg_011471"
+      ],
+      "leaf_start": 11470,
+      "leaf_end": 11471
+    },
+    {
+      "id": "grp_293427_24",
+      "level": 1,
+      "children": [
+        "seg_011472",
+        "seg_011473",
+        "seg_011474",
+        "seg_011475",
+        "seg_011476",
+        "seg_011477",
+        "seg_011478",
+        "seg_011479"
+      ],
+      "leaf_start": 11472,
+      "leaf_end": 11479
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_011380",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:18:33.394Z"
+    },
+    {
+      "target_id": "seg_011383",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:18:38.037Z"
+    },
+    {
+      "target_id": "seg_011384",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:18:43.893Z"
+    },
+    {
+      "target_id": "grp_460798_38",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:18:50.958Z"
+    },
+    {
+      "target_id": "grp_141579_65",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:19:13.541Z"
+    },
+    {
+      "target_id": "grp_470406_59",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-02T15:19:46.625Z"
+    },
+    {
+      "target_id": "grp_472918_16",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:19:52.648Z"
+    },
+    {
+      "target_id": "seg_011396",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:19:59.518Z"
+    },
+    {
+      "target_id": "seg_011418",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:20:04.431Z"
+    },
+    {
+      "target_id": "grp_617299_9",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:20:10.258Z"
+    },
+    {
+      "target_id": "grp_490041_61",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:20:18.622Z"
+    },
+    {
+      "target_id": "grp_228566_19",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:22:34.531Z"
+    },
+    {
+      "target_id": "grp_233410_35",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:22:39.317Z"
+    },
+    {
+      "target_id": "grp_606192_97",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:23:32.517Z"
+    },
+    {
+      "target_id": "grp_608404_82",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "强调 / Emphasis",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:23:43.048Z"
+    },
+    {
+      "target_id": "grp_239891_77",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:25:42.758Z"
+    },
+    {
+      "target_id": "grp_642726_90",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:26:34.586Z"
+    },
+    {
+      "target_id": "grp_690254_49",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:26:38.659Z"
+    },
+    {
+      "target_id": "seg_011459",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:27:00.274Z"
+    },
+    {
+      "target_id": "grp_261746_61",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:27:07.827Z"
+    },
+    {
+      "target_id": "grp_703124_82",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:27:13.924Z"
+    },
+    {
+      "target_id": "grp_698578_28",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:27:18.304Z"
+    },
+    {
+      "target_id": "grp_277707_87",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:27:21.463Z"
+    },
+    {
+      "target_id": "grp_293427_24",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:27:27.807Z"
+    },
+    {
+      "target_id": "grp_708390_5",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:28:56.287Z"
+    },
+    {
+      "target_id": "grp_710639_38",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:28:59.759Z"
+    },
+    {
+      "target_id": "grp_719062_91",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-02T15:29:06.921Z"
+    },
+    {
+      "target_id": "seg_011494",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:29:51.766Z"
+    },
+    {
+      "target_id": "grp_721326_50",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:30:55.578Z"
+    },
+    {
+      "target_id": "seg_011500",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:31:40.084Z"
+    },
+    {
+      "target_id": "grp_738338_69",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:32:04.888Z"
+    },
+    {
+      "target_id": "grp_740354_18",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:32:36.185Z"
+    },
+    {
+      "target_id": "grp_744443_43",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:34:03.360Z"
+    },
+    {
+      "target_id": "grp_767725_51",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:34:12.744Z"
+    },
+    {
+      "target_id": "seg_011517",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:35:03.273Z"
+    },
+    {
+      "target_id": "grp_759780_12",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:35:07.172Z"
+    },
+    {
+      "target_id": "seg_011523",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:35:48.837Z"
+    },
+    {
+      "target_id": "grp_772765_43",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:35:53.539Z"
+    },
+    {
+      "target_id": "seg_011529",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:36:03.125Z"
+    },
+    {
+      "target_id": "grp_781276_96",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:37:39.646Z"
+    },
+    {
+      "target_id": "grp_788536_39",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:37:43.973Z"
+    },
+    {
+      "target_id": "grp_786473_47",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:37:48.932Z"
+    },
+    {
+      "target_id": "grp_797251_78",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:37:55.290Z"
+    },
+    {
+      "target_id": "seg_011544",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:38:00.180Z"
+    },
+    {
+      "target_id": "grp_814720_22",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:04.690Z"
+    },
+    {
+      "target_id": "grp_816197_44",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:15.729Z"
+    },
+    {
+      "target_id": "grp_818064_66",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:20.491Z"
+    },
+    {
+      "target_id": "grp_823480_27",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:25.111Z"
+    },
+    {
+      "target_id": "grp_825294_12",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:28.157Z"
+    },
+    {
+      "target_id": "grp_826809_14",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:38:31.952Z"
+    },
+    {
+      "target_id": "grp_884600_78",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-02T15:38:37.419Z"
+    },
+    {
+      "target_id": "seg_011572",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-02T15:38:41.290Z"
+    },
+    {
+      "target_id": "seg_011576",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:41:57.186Z"
+    },
+    {
+      "target_id": "grp_924246_25",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:42:02.241Z"
+    },
+    {
+      "target_id": "seg_011581",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:42:15.495Z"
+    },
+    {
+      "target_id": "grp_930802_35",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:42:18.839Z"
+    },
+    {
+      "target_id": "seg_011584",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:42:24.591Z"
+    },
+    {
+      "target_id": "seg_011587",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:42:28.530Z"
+    },
+    {
+      "target_id": "grp_943994_85",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:42:34.417Z"
+    },
+    {
+      "target_id": "grp_945458_69",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:42:45.960Z"
+    },
+    {
+      "target_id": "seg_011596",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:42:49.755Z"
+    },
+    {
+      "target_id": "grp_957712_65",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:42:53.925Z"
+    },
+    {
+      "target_id": "seg_011600",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:42:56.445Z"
+    },
+    {
+      "target_id": "grp_965954_61",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive",
+        "现在 / Present",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:43:01.688Z"
+    },
+    {
+      "target_id": "grp_996377_23",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:05.745Z"
+    },
+    {
+      "target_id": "seg_011609",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:43:08.514Z"
+    },
+    {
+      "target_id": "grp_986829_85",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:11.303Z"
+    },
+    {
+      "target_id": "seg_011613",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:43:13.351Z"
+    },
+    {
+      "target_id": "grp_988913_66",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:16.472Z"
+    },
+    {
+      "target_id": "grp_991455_48",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:43:20.010Z"
+    },
+    {
+      "target_id": "seg_011628",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:43:23.896Z"
+    },
+    {
+      "target_id": "seg_011631",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:43:28.704Z"
+    },
+    {
+      "target_id": "grp_013371_76",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:33.316Z"
+    },
+    {
+      "target_id": "grp_016228_34",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:36.571Z"
+    },
+    {
+      "target_id": "grp_021223_56",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:43:39.841Z"
+    },
+    {
+      "target_id": "seg_011642",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-02T15:43:44.470Z"
+    },
+    {
+      "target_id": "seg_011643",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-02T15:43:46.951Z"
+    },
+    {
+      "target_id": "grp_029369_17",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:43:52.195Z"
+    },
+    {
+      "target_id": "grp_031019_72",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-02T15:44:01.291Z"
+    },
+    {
+      "target_id": "grp_033750_92",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-02T15:44:09.564Z"
+    },
+    {
+      "target_id": "grp_036434_85",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:44:15.933Z"
+    },
+    {
+      "target_id": "seg_011659",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-02T15:44:18.452Z"
+    },
+    {
+      "target_id": "grp_047189_39",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-02T15:44:21.069Z"
+    },
+    {
+      "target_id": "grp_053377_1",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "强调 / Emphasis",
+        "程度增强 / Intensified",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:44:28.007Z"
+    },
+    {
+      "target_id": "grp_063870_89",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:44:36.437Z"
+    },
+    {
+      "target_id": "grp_068835_90",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-02T15:44:38.155Z"
+    },
+    {
+      "target_id": "grp_070665_93",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:44:47.177Z"
+    },
+    {
+      "target_id": "grp_072788_81",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:44:51.206Z"
+    },
+    {
+      "target_id": "grp_087007_94",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:44:58.975Z"
+    },
+    {
+      "target_id": "grp_089648_39",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-02T15:45:07.586Z"
+    },
+    {
+      "target_id": "grp_091155_1",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:45:20.629Z"
+    },
+    {
+      "target_id": "grp_092640_27",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:45:24.139Z"
+    },
+    {
+      "target_id": "grp_094876_45",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-02T15:45:27.760Z"
+    },
+    {
+      "target_id": "grp_097246_61",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:45:33.154Z"
+    },
+    {
+      "target_id": "grp_098836_65",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-02T15:45:36.799Z"
+    }
+  ]
+}

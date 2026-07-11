@@ -1,0 +1,1063 @@
+{% extends "base.html" %}
+
+{% block title %}图标故事接龙 - 游戏中{% endblock %}
+
+{% block content %}
+<div class="game-container-modern">
+    <!-- 顶部进度区 -->
+    <div class="game-header">
+        <div class="game-title">
+            <span class="game-icon">🎭</span>
+            <h1>图标故事接龙</h1>
+        </div>
+        <div class="progress-section">
+            <div class="round-info">
+                <span class="round-badge">第 {{ game_state.round }} / {{ game_state.total_rounds }} 回合</span>
+                <span class="chain-length">📖 故事长度: {{ game_state.chain|length }}</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" style="width: {{ (game_state.round / game_state.total_rounds * 100) }}%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 故事链展示区 -->
+    <div class="story-chain-modern">
+        <div class="story-header">
+            <h3>✨ 你的故事序列</h3>
+            <button class="btn-replay-story" type="button" onclick="showReplayModal()">📽️ 观看故事回放</button>
+        </div>
+        <div class="chain-scroll">
+            <div class="chain-modern" id="chainDisplay">
+                {% for icon in game_state.chain %}
+                <div class="chain-icon-modern" data-icon-id="{{ icon.id }}" data-icon-name="{{ icon.name }}" data-icon-meaning="{{ icon.common_meaning }}">
+                    <div class="chain-icon-wrapper">
+                        <img src="{{ icon.icon_url }}" alt="{{ icon.name }}" class="chain-icon-img" 
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.chain-icon-fallback').style.display='flex'">
+                        <div class="chain-icon-fallback" style="display: none;">
+                            <span class="chain-icon-emoji">🖼️</span>
+                        </div>
+                    </div>
+                    <span class="chain-icon-name">{{ icon.name[:12] }}{% if icon.name|length > 12 %}...{% endif %}</span>
+                    <div class="chain-icon-meaning-tooltip" style="display: none;">{{ icon.common_meaning }}</div>
+                </div>
+                {% if not loop.last %}
+                <span class="chain-arrow-modern">→</span>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- 当前图标区 -->
+    <div class="current-icon-modern">
+        <div class="current-icon-card">
+            <div class="current-icon-glow"></div>
+            <div class="current-icon-wrapper">
+                <img src="{{ game_state.current_icon.icon_url }}" alt="{{ game_state.current_icon.name }}" class="current-icon-img" 
+                     onerror="this.style.display='none'; this.parentElement.querySelector('.current-icon-fallback').style.display='flex'">
+                <div class="current-icon-fallback" style="display: none;">
+                    <div class="current-icon-emoji">🖼️</div>
+                </div>
+            </div>
+            <div class="current-icon-name">{{ game_state.current_icon.name }}</div>
+            <div class="current-icon-meaning" id="currentMeaning" style="display: none;">
+                📝 {{ game_state.current_icon.common_meaning }}
+            </div>
+        </div>
+    </div>
+
+    <!-- 候选项区 -->
+    <div class="options-modern">
+        <h3>🎯 选择下一个图标</h3>
+        <div class="options-grid-modern" id="optionsGrid">
+            {% for option in game_state.options %}
+            <div class="option-card-modern" data-icon-id="{{ option.id }}" data-icon-name="{{ option.name }}" data-icon-meaning="{{ option.common_meaning }}">
+                <div class="option-icon-wrapper">
+                    <img src="{{ option.icon_url }}" alt="{{ option.name }}" class="option-icon-img" loading="lazy" 
+                         onerror="this.style.display='none'; this.parentElement.querySelector('.option-icon-fallback').style.display='flex'">
+                    <div class="option-icon-fallback" style="display: none;">
+                        <div class="option-icon-modern">🖼️</div>
+                    </div>
+                </div>
+                <div class="option-name-modern">{{ option.name[:15] }}{% if option.name|length > 15 %}...{% endif %}</div>
+                <div class="option-meaning-modern" style="display: none;">{{ option.common_meaning }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 控制栏 -->
+    <div class="game-controls-modern">
+        <button class="ctrl-btn translation-btn" type="button" id="translationBtn" onclick="toggleTranslationMode()">
+            <span class="btn-icon">🔍</span> 翻译模式
+        </button>
+        <button class="ctrl-btn replay-btn" type="button" onclick="showReplayFromChain()">
+            <span class="btn-icon">📽️</span> 故事回放
+        </button>
+        <button class="ctrl-btn quit-btn" type="button" onclick="quitGame()">
+            <span class="btn-icon">🚪</span> 退出游戏
+        </button>
+    </div>
+</div>
+
+<!-- 故事回放模态框 -->
+<div id="replayModal" class="replay-modal" style="display: none;">
+    <div class="replay-modal-content">
+        <div class="replay-modal-header">
+            <h2>📽️ 故事回放</h2>
+            <span class="replay-modal-close" onclick="closeReplayModal()">&times;</span>
+        </div>
+        <div class="replay-stage" id="replayStage">
+            <div class="replay-chain-container" id="replayChainContainer"></div>
+            <div class="replay-message" id="replayMessage"></div>
+        </div>
+        <div class="replay-controls">
+            <button class="replay-btn-control" type="button" onclick="playReplay()">▶ 播放动画</button>
+            <button class="replay-btn-control" type="button" onclick="pauseReplay()">⏸ 暂停</button>
+            <button class="replay-btn-control" type="button" onclick="resetReplay()">🔄 重置</button>
+            <button class="replay-btn-control" type="button" onclick="stepReplay()">⏩ 单步</button>
+        </div>
+        <div class="replay-speed">
+            <span>播放速度：</span>
+            <button class="speed-btn" type="button" onclick="setSpeed(0.5)">0.5x</button>
+            <button class="speed-btn active" type="button" onclick="setSpeed(1)">1x</button>
+            <button class="speed-btn" type="button" onclick="setSpeed(1.5)">1.5x</button>
+            <button class="speed-btn" type="button" onclick="setSpeed(2)">2x</button>
+        </div>
+    </div>
+</div>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.game-container-modern {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 30px;
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-header {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.game-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.game-title .game-icon {
+    font-size: 32px;
+}
+
+.game-title h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.round-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.round-badge {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.chain-length {
+    color: #666;
+}
+
+.progress-bar-container {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.story-chain-modern {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.story-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.story-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-replay-story {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.btn-replay-story:hover {
+    transform: scale(1.05);
+}
+
+.chain-scroll {
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.chain-modern {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chain-icon-modern {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
+    padding: 10px;
+    border-radius: 15px;
+    min-width: 70px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chain-icon-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.chain-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chain-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chain-icon-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    border-radius: 10px;
+}
+
+.chain-icon-emoji {
+    font-size: 28px;
+}
+
+.chain-icon-name {
+    font-size: 10px;
+    color: #666;
+    margin-top: 5px;
+    text-align: center;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chain-arrow-modern {
+    font-size: 20px;
+    color: #999;
+    font-weight: bold;
+}
+
+.current-icon-modern {
+    margin-bottom: 25px;
+}
+
+.current-icon-card {
+    position: relative;
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.current-icon-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(102,126,234,0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.current-icon-wrapper {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.current-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.current-icon-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    border-radius: 20px;
+}
+
+.current-icon-emoji {
+    font-size: 80px;
+}
+
+.current-icon-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.current-icon-meaning {
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.options-modern h3 {
+    color: white;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.options-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.option-card-modern {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 15px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.3s ease;
+}
+
+.option-card-modern:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    background: white;
+}
+
+.option-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.option-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.option-icon-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    border-radius: 15px;
+}
+
+.option-icon-modern {
+    font-size: 40px;
+}
+
+.option-name-modern {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.option-meaning-modern {
+    font-size: 10px;
+    color: #999;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-controls-modern {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.ctrl-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.95);
+}
+
+.ctrl-btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-icon {
+    font-size: 14px;
+}
+
+.translation-btn:hover {
+    background: #4caf50;
+    color: white;
+}
+
+.replay-btn:hover {
+    background: #ff9800;
+    color: white;
+}
+
+.quit-btn:hover {
+    background: #f44336;
+    color: white;
+}
+
+.replay-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.replay-modal-content {
+    background: white;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: auto;
+    animation: slideUp 0.3s ease;
+}
+
+.replay-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.replay-modal-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.replay-modal-close {
+    font-size: 32px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.replay-modal-close:hover {
+    color: #667eea;
+}
+
+.replay-stage {
+    min-height: 300px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea10, #764ba210);
+    margin: 15px;
+    border-radius: 20px;
+}
+
+.replay-chain-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 120px;
+}
+
+.replay-icon-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    opacity: 0.4;
+    min-width: 80px;
+}
+
+.replay-icon-item.active {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(102,126,234,0.3);
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border: 2px solid #667eea;
+}
+
+.replay-icon-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.replay-icon-emoji {
+    font-size: 40px;
+}
+
+.replay-icon-name {
+    font-size: 10px;
+    color: #666;
+    margin-top: 5px;
+    text-align: center;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.replay-arrow {
+    font-size: 18px;
+    color: #999;
+}
+
+.replay-message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 8px;
+    background: #e3f2fd;
+    border-radius: 10px;
+    color: #1976d2;
+    font-size: 12px;
+}
+
+.replay-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px;
+    flex-wrap: wrap;
+}
+
+.replay-btn-control {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-size: 12px;
+}
+
+.replay-btn-control:hover {
+    transform: scale(1.05);
+}
+
+.replay-speed {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.speed-btn {
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 12px;
+}
+
+.speed-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .options-grid-modern {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .game-container-modern {
+        padding: 15px;
+    }
+    .current-icon-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    .current-icon-emoji {
+        font-size: 50px;
+    }
+    .current-icon-name {
+        font-size: 18px;
+    }
+    .option-icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+    .option-icon-modern {
+        font-size: 30px;
+    }
+    .option-name-modern {
+        font-size: 10px;
+    }
+    .chain-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    .chain-icon-emoji {
+        font-size: 22px;
+    }
+    .chain-icon-name {
+        font-size: 8px;
+        max-width: 55px;
+    }
+    .chain-arrow-modern {
+        font-size: 16px;
+    }
+    .replay-icon-item {
+        min-width: 65px;
+        padding: 8px;
+    }
+    .replay-icon-img {
+        width: 40px;
+        height: 40px;
+    }
+    .replay-icon-emoji {
+        font-size: 32px;
+    }
+}
+</style>
+
+<script>
+var gameSessionId = "{{ game_session_id }}";
+var translationMode = false;
+var replayInterval = null;
+var replayCurrentIndex = 0;
+var replaySpeed = 1;
+var replayChainData = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    bindOptionEvents();
+    bindChainIconEvents();
+    
+    // 预加载所有选项图片，确保显示
+    preloadOptionImages();
+});
+
+function preloadOptionImages() {
+    var images = document.querySelectorAll('.option-icon-img');
+    for (var i = 0; i < images.length; i++) {
+        if (images[i].complete && images[i].naturalWidth === 0) {
+            // 图片加载失败，触发 fallback
+            images[i].style.display = 'none';
+            var fallback = images[i].parentElement.querySelector('.option-icon-fallback');
+            if (fallback) fallback.style.display = 'flex';
+        }
+    }
+}
+
+function bindOptionEvents() {
+    var options = document.querySelectorAll('.option-card-modern');
+    for (var i = 0; i < options.length; i++) {
+        options[i].addEventListener('click', function() {
+            submitChoice(this.getAttribute('data-icon-id'));
+        });
+    }
+}
+
+function bindChainIconEvents() {
+    var chainIcons = document.querySelectorAll('.chain-icon-modern');
+    for (var i = 0; i < chainIcons.length; i++) {
+        chainIcons[i].addEventListener('mouseenter', function() {
+            if (translationMode) {
+                showTooltip(this, this.getAttribute('data-icon-meaning'));
+            }
+        });
+        chainIcons[i].addEventListener('mouseleave', hideTooltip);
+    }
+}
+
+var tooltipDiv = null;
+function showTooltip(element, text) {
+    if (!tooltipDiv) {
+        tooltipDiv = document.createElement('div');
+        tooltipDiv.style.cssText = 'position:fixed; background:#333; color:white; padding:5px 10px; border-radius:10px; font-size:12px; z-index:1000; pointer-events:none; max-width:220px; word-wrap:break-word;';
+        document.body.appendChild(tooltipDiv);
+    }
+    var rect = element.getBoundingClientRect();
+    var displayText = text || '无含义';
+    tooltipDiv.innerHTML = displayText;
+    tooltipDiv.style.display = 'block';
+    tooltipDiv.style.left = Math.max(5, rect.left + rect.width/2 - tooltipDiv.offsetWidth/2) + 'px';
+    tooltipDiv.style.top = (rect.bottom + 5) + 'px';
+}
+
+function hideTooltip() {
+    if (tooltipDiv) tooltipDiv.style.display = 'none';
+}
+
+function submitChoice(iconId) {
+    var options = document.querySelectorAll('.option-card-modern');
+    for (var i = 0; i < options.length; i++) {
+        options[i].style.pointerEvents = 'none';
+        options[i].style.opacity = '0.6';
+    }
+    fetch('/api/game/choose', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({session_id: gameSessionId, icon_id: iconId})
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (data.game_complete) {
+            var msg = '🎉 完成 ' + data.total_rounds + ' 回合！\n\n观看回放？';
+            if (confirm(msg)) showReplayFromData(data.chain);
+            else window.location.href = '/game_home';
+        } else if (data.game_over) {
+            alert(data.message);
+            window.location.href = '/game_home';
+        } else {
+            window.location.reload();
+        }
+    })
+    .catch(function(err) {
+        console.error('Error:', err);
+        alert('出错了，请重试');
+        for (var i = 0; i < options.length; i++) {
+            options[i].style.pointerEvents = 'auto';
+            options[i].style.opacity = '1';
+        }
+    });
+}
+
+function toggleTranslationMode() {
+    translationMode = !translationMode;
+    var btn = document.getElementById('translationBtn');
+    var meanings = document.querySelectorAll('.option-meaning-modern');
+    var currentMeaning = document.getElementById('currentMeaning');
+    
+    if (translationMode) {
+        btn.innerHTML = '<span class="btn-icon">🔒</span> 关闭翻译';
+        // 显示所有选项的含义
+        for (var i = 0; i < meanings.length; i++) {
+            meanings[i].style.display = 'block';
+        }
+        // 显示当前图标的含义
+        if (currentMeaning) {
+            currentMeaning.style.display = 'block';
+        }
+        // 为故事链中的图标添加悬停提示样式
+        var chainIcons = document.querySelectorAll('.chain-icon-modern');
+        for (var i = 0; i < chainIcons.length; i++) {
+            chainIcons[i].style.cursor = 'help';
+        }
+        btn.style.background = '#4caf50';
+        btn.style.color = 'white';
+    } else {
+        btn.innerHTML = '<span class="btn-icon">🔍</span> 翻译模式';
+        // 隐藏所有选项的含义
+        for (var i = 0; i < meanings.length; i++) {
+            meanings[i].style.display = 'none';
+        }
+        // 隐藏当前图标的含义
+        if (currentMeaning) {
+            currentMeaning.style.display = 'none';
+        }
+        // 恢复故事链图标的样式
+        var chainIcons = document.querySelectorAll('.chain-icon-modern');
+        for (var i = 0; i < chainIcons.length; i++) {
+            chainIcons[i].style.cursor = 'pointer';
+        }
+        btn.style.background = 'rgba(255,255,255,0.95)';
+        btn.style.color = '#333';
+    }
+}
+
+function showReplayFromChain() {
+    var icons = document.querySelectorAll('.chain-icon-modern');
+    var chain = [];
+    for (var i = 0; i < icons.length; i++) {
+        var img = icons[i].querySelector('.chain-icon-img');
+        var fallbackDiv = icons[i].querySelector('.chain-icon-fallback');
+        var isImgVisible = img && img.style.display !== 'none' && img.complete && img.naturalWidth > 0;
+        var meaning = icons[i].getAttribute('data-icon-meaning') || icons[i].querySelector('.chain-icon-meaning-tooltip')?.innerText || '';
+        chain.push({
+            id: icons[i].getAttribute('data-icon-id'),
+            name: icons[i].getAttribute('data-icon-name'),
+            meaning: meaning,
+            icon_url: isImgVisible ? img.src : null,
+            icon: '🖼️'
+        });
+    }
+    if (chain.length === 0) alert('没有故事可回放');
+    else showReplayFromData(chain);
+}
+
+function showReplayFromData(chain) {
+    replayChainData = chain;
+    replayCurrentIndex = -1;
+    var container = document.getElementById('replayChainContainer');
+    container.innerHTML = '';
+    for (var i = 0; i < chain.length; i++) {
+        var div = document.createElement('div');
+        div.className = 'replay-icon-item';
+        div.setAttribute('data-index', i);
+        var innerHtml = '';
+        if (chain[i].icon_url && chain[i].icon_url.trim()) {
+            innerHtml = '<img src="' + chain[i].icon_url + '" alt="' + chain[i].name + '" class="replay-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\'">' +
+                        '<div class="replay-icon-emoji" style="display:none;">🖼️</div>';
+        } else {
+            innerHtml = '<div class="replay-icon-emoji">🖼️</div>';
+        }
+        innerHtml += '<div class="replay-icon-name">' + (chain[i].name || '图标') + '</div>';
+        if (chain[i].meaning) {
+            innerHtml += '<div class="replay-icon-meaning" style="display:none;">' + chain[i].meaning + '</div>';
+        }
+        div.innerHTML = innerHtml;
+        container.appendChild(div);
+        if (i < chain.length - 1) {
+            var arrow = document.createElement('span');
+            arrow.className = 'replay-arrow';
+            arrow.innerHTML = '→';
+            container.appendChild(arrow);
+        }
+    }
+    document.getElementById('replayModal').style.display = 'flex';
+    resetReplay();
+}
+
+function playReplay() {
+    if (replayInterval) clearInterval(replayInterval);
+    if (replayCurrentIndex >= replayChainData.length - 1) resetReplay();
+    replayInterval = setInterval(function() {
+        if (replayCurrentIndex < replayChainData.length - 1) stepReplay();
+        else {
+            pauseReplay();
+            document.getElementById('replayMessage').innerHTML = '🎉 故事播放完成！';
+        }
+    }, 800 / replaySpeed);
+}
+
+function pauseReplay() {
+    if (replayInterval) { clearInterval(replayInterval); replayInterval = null; }
+}
+
+function resetReplay() {
+    pauseReplay();
+    replayCurrentIndex = -1;
+    var items = document.querySelectorAll('.replay-icon-item');
+    for (var i = 0; i < items.length; i++) items[i].classList.remove('active');
+    document.getElementById('replayMessage').innerHTML = '点击播放开始故事之旅 🎬';
+}
+
+function stepReplay() {
+    if (replayCurrentIndex + 1 >= replayChainData.length) return;
+    replayCurrentIndex++;
+    var items = document.querySelectorAll('.replay-icon-item');
+    for (var i = 0; i < items.length; i++) {
+        if (i === replayCurrentIndex) {
+            items[i].classList.add('active');
+            var icon = replayChainData[i];
+            var meaningText = icon.meaning ? (' - ' + icon.meaning) : '';
+            document.getElementById('replayMessage').innerHTML = '📖 ' + (icon.name || '图标') + meaningText;
+        } else {
+            items[i].classList.remove('active');
+        }
+    }
+}
+
+function setSpeed(speed) {
+    replaySpeed = speed;
+    var btns = document.querySelectorAll('.speed-btn');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+        var btnText = btns[i].innerText;
+        if ((speed === 0.5 && btnText === '0.5x') ||
+            (speed === 1 && btnText === '1x') ||
+            (speed === 1.5 && btnText === '1.5x') ||
+            (speed === 2 && btnText === '2x')) {
+            btns[i].classList.add('active');
+        }
+    }
+    if (replayInterval) {
+        playReplay();
+    }
+}
+
+function showReplayModal() { showReplayFromChain(); }
+function closeReplayModal() { pauseReplay(); document.getElementById('replayModal').style.display = 'none'; }
+
+function quitGame() {
+    if (confirm('确定退出游戏吗？')) {
+        fetch('/api/game/quit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({session_id: gameSessionId})
+        }).then(function() { window.location.href = '/game_home'; })
+        .catch(function() { window.location.href = '/game_home'; });
+    }
+}
+</script>
+{% endblock %}

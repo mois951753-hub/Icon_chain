@@ -1,0 +1,7746 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "42_R",
+    "pageEndKey": "44_L"
+  },
+  "groups": [
+    {
+      "id": "grp_969697_0",
+      "level": 1,
+      "children": [
+        "seg_009510",
+        "seg_009511"
+      ],
+      "leaf_start": 9510,
+      "leaf_end": 9511
+    },
+    {
+      "id": "grp_969698_10",
+      "level": 1,
+      "children": [
+        "seg_009512",
+        "seg_009513",
+        "seg_009514",
+        "seg_009515"
+      ],
+      "leaf_start": 9512,
+      "leaf_end": 9515
+    },
+    {
+      "id": "grp_969698_0",
+      "level": 1,
+      "children": [
+        "seg_009516",
+        "seg_009517"
+      ],
+      "leaf_start": 9516,
+      "leaf_end": 9517
+    },
+    {
+      "id": "grp_969698_41",
+      "level": 1,
+      "children": [
+        "seg_009518",
+        "seg_009519",
+        "seg_009520"
+      ],
+      "leaf_start": 9518,
+      "leaf_end": 9520
+    },
+    {
+      "id": "grp_969698_38",
+      "level": 1,
+      "children": [
+        "seg_009521",
+        "seg_009522",
+        "seg_009523",
+        "seg_009524"
+      ],
+      "leaf_start": 9521,
+      "leaf_end": 9524
+    },
+    {
+      "id": "grp_969698_99",
+      "level": 1,
+      "children": [
+        "seg_009525",
+        "seg_009526",
+        "seg_009527"
+      ],
+      "leaf_start": 9525,
+      "leaf_end": 9527
+    },
+    {
+      "id": "grp_969698_80",
+      "level": 1,
+      "children": [
+        "seg_009528",
+        "seg_009529",
+        "seg_009530"
+      ],
+      "leaf_start": 9528,
+      "leaf_end": 9530
+    },
+    {
+      "id": "grp_969698_36",
+      "level": 1,
+      "children": [
+        "seg_009531",
+        "seg_009532",
+        "seg_009533"
+      ],
+      "leaf_start": 9531,
+      "leaf_end": 9533
+    },
+    {
+      "id": "grp_969698_67",
+      "level": 1,
+      "children": [
+        "seg_009534",
+        "seg_009535",
+        "seg_009536",
+        "seg_009537"
+      ],
+      "leaf_start": 9534,
+      "leaf_end": 9537
+    },
+    {
+      "id": "grp_969698_83",
+      "level": 1,
+      "children": [
+        "seg_009538",
+        "seg_009539",
+        "seg_009540",
+        "seg_009541"
+      ],
+      "leaf_start": 9538,
+      "leaf_end": 9541
+    },
+    {
+      "id": "grp_969698_69",
+      "level": 1,
+      "children": [
+        "seg_009542",
+        "seg_009543",
+        "seg_009544"
+      ],
+      "leaf_start": 9542,
+      "leaf_end": 9544
+    },
+    {
+      "id": "grp_969698_90",
+      "level": 1,
+      "children": [
+        "seg_009545",
+        "seg_009546"
+      ],
+      "leaf_start": 9545,
+      "leaf_end": 9546
+    },
+    {
+      "id": "grp_969698_97",
+      "level": 1,
+      "children": [
+        "seg_009547",
+        "seg_009548"
+      ],
+      "leaf_start": 9547,
+      "leaf_end": 9548
+    },
+    {
+      "id": "grp_969698_38",
+      "level": 1,
+      "children": [
+        "seg_009549",
+        "seg_009550"
+      ],
+      "leaf_start": 9549,
+      "leaf_end": 9550
+    },
+    {
+      "id": "grp_969698_46",
+      "level": 1,
+      "children": [
+        "seg_009551",
+        "seg_009552",
+        "seg_009553"
+      ],
+      "leaf_start": 9551,
+      "leaf_end": 9553
+    },
+    {
+      "id": "grp_969698_89",
+      "level": 1,
+      "children": [
+        "seg_009554",
+        "seg_009555",
+        "seg_009556",
+        "seg_009557"
+      ],
+      "leaf_start": 9554,
+      "leaf_end": 9557
+    },
+    {
+      "id": "grp_969698_88",
+      "level": 1,
+      "children": [
+        "seg_009558",
+        "seg_009559",
+        "seg_009560"
+      ],
+      "leaf_start": 9558,
+      "leaf_end": 9560
+    },
+    {
+      "id": "grp_969698_10",
+      "level": 1,
+      "children": [
+        "seg_009561",
+        "seg_009562",
+        "seg_009563"
+      ],
+      "leaf_start": 9561,
+      "leaf_end": 9563
+    },
+    {
+      "id": "grp_969698_94",
+      "level": 1,
+      "children": [
+        "seg_009564",
+        "seg_009565",
+        "seg_009566",
+        "seg_009567"
+      ],
+      "leaf_start": 9564,
+      "leaf_end": 9567
+    },
+    {
+      "id": "grp_969698_64",
+      "level": 1,
+      "children": [
+        "seg_009568",
+        "seg_009569",
+        "seg_009570",
+        "seg_009571"
+      ],
+      "leaf_start": 9568,
+      "leaf_end": 9571
+    },
+    {
+      "id": "grp_969698_98",
+      "level": 1,
+      "children": [
+        "seg_009572",
+        "seg_009573",
+        "seg_009574"
+      ],
+      "leaf_start": 9572,
+      "leaf_end": 9574
+    },
+    {
+      "id": "grp_969698_93",
+      "level": 1,
+      "children": [
+        "seg_009575",
+        "seg_009576",
+        "seg_009577"
+      ],
+      "leaf_start": 9575,
+      "leaf_end": 9577
+    },
+    {
+      "id": "grp_969698_61",
+      "level": 1,
+      "children": [
+        "seg_009578",
+        "seg_009579",
+        "seg_009580"
+      ],
+      "leaf_start": 9578,
+      "leaf_end": 9580
+    },
+    {
+      "id": "grp_969698_73",
+      "level": 1,
+      "children": [
+        "seg_009581",
+        "seg_009582",
+        "seg_009583"
+      ],
+      "leaf_start": 9581,
+      "leaf_end": 9583
+    },
+    {
+      "id": "grp_969698_54",
+      "level": 1,
+      "children": [
+        "seg_009584",
+        "seg_009585"
+      ],
+      "leaf_start": 9584,
+      "leaf_end": 9585
+    },
+    {
+      "id": "grp_969698_94",
+      "level": 1,
+      "children": [
+        "seg_009586",
+        "seg_009587",
+        "seg_009588"
+      ],
+      "leaf_start": 9586,
+      "leaf_end": 9588
+    },
+    {
+      "id": "grp_969698_15",
+      "level": 1,
+      "children": [
+        "seg_009589",
+        "seg_009590"
+      ],
+      "leaf_start": 9589,
+      "leaf_end": 9590
+    },
+    {
+      "id": "grp_969698_18",
+      "level": 1,
+      "children": [
+        "seg_009591",
+        "seg_009592",
+        "seg_009593",
+        "seg_009594"
+      ],
+      "leaf_start": 9591,
+      "leaf_end": 9594
+    },
+    {
+      "id": "grp_969698_36",
+      "level": 1,
+      "children": [
+        "seg_009595",
+        "seg_009596"
+      ],
+      "leaf_start": 9595,
+      "leaf_end": 9596
+    },
+    {
+      "id": "grp_969698_90",
+      "level": 1,
+      "children": [
+        "seg_009597",
+        "seg_009598",
+        "seg_009599"
+      ],
+      "leaf_start": 9597,
+      "leaf_end": 9599
+    },
+    {
+      "id": "grp_969698_29",
+      "level": 1,
+      "children": [
+        "seg_009600",
+        "seg_009601",
+        "seg_009602",
+        "seg_009603"
+      ],
+      "leaf_start": 9600,
+      "leaf_end": 9603
+    },
+    {
+      "id": "grp_969698_79",
+      "level": 1,
+      "children": [
+        "seg_009604",
+        "seg_009605",
+        "seg_009606",
+        "seg_009607"
+      ],
+      "leaf_start": 9604,
+      "leaf_end": 9607
+    },
+    {
+      "id": "grp_969698_22",
+      "level": 1,
+      "children": [
+        "seg_009608",
+        "seg_009609"
+      ],
+      "leaf_start": 9608,
+      "leaf_end": 9609
+    },
+    {
+      "id": "grp_969698_71",
+      "level": 1,
+      "children": [
+        "seg_009610",
+        "seg_009611",
+        "seg_009612"
+      ],
+      "leaf_start": 9610,
+      "leaf_end": 9612
+    },
+    {
+      "id": "grp_969698_15",
+      "level": 1,
+      "children": [
+        "seg_009613",
+        "seg_009614"
+      ],
+      "leaf_start": 9613,
+      "leaf_end": 9614
+    },
+    {
+      "id": "grp_969698_78",
+      "level": 1,
+      "children": [
+        "seg_009615",
+        "seg_009616"
+      ],
+      "leaf_start": 9615,
+      "leaf_end": 9616
+    },
+    {
+      "id": "grp_969698_32",
+      "level": 1,
+      "children": [
+        "seg_009617",
+        "seg_009618",
+        "seg_009619"
+      ],
+      "leaf_start": 9617,
+      "leaf_end": 9619
+    },
+    {
+      "id": "grp_969698_59",
+      "level": 1,
+      "children": [
+        "seg_009620",
+        "seg_009621",
+        "seg_009622",
+        "seg_009623"
+      ],
+      "leaf_start": 9620,
+      "leaf_end": 9623
+    },
+    {
+      "id": "grp_969698_88",
+      "level": 1,
+      "children": [
+        "seg_009624",
+        "seg_009625"
+      ],
+      "leaf_start": 9624,
+      "leaf_end": 9625
+    },
+    {
+      "id": "grp_969698_67",
+      "level": 1,
+      "children": [
+        "seg_009626",
+        "seg_009627",
+        "seg_009628"
+      ],
+      "leaf_start": 9626,
+      "leaf_end": 9628
+    },
+    {
+      "id": "grp_969698_80",
+      "level": 1,
+      "children": [
+        "seg_009629",
+        "seg_009630",
+        "seg_009631",
+        "seg_009632"
+      ],
+      "leaf_start": 9629,
+      "leaf_end": 9632
+    },
+    {
+      "id": "grp_969698_61",
+      "level": 1,
+      "children": [
+        "seg_009633",
+        "seg_009634"
+      ],
+      "leaf_start": 9633,
+      "leaf_end": 9634
+    },
+    {
+      "id": "grp_969698_10",
+      "level": 1,
+      "children": [
+        "seg_009635",
+        "seg_009636",
+        "seg_009637",
+        "seg_009638"
+      ],
+      "leaf_start": 9635,
+      "leaf_end": 9638
+    },
+    {
+      "id": "grp_969698_38",
+      "level": 1,
+      "children": [
+        "seg_009639",
+        "seg_009640",
+        "seg_009641"
+      ],
+      "leaf_start": 9639,
+      "leaf_end": 9641
+    },
+    {
+      "id": "grp_969698_96",
+      "level": 1,
+      "children": [
+        "seg_009642",
+        "seg_009643"
+      ],
+      "leaf_start": 9642,
+      "leaf_end": 9643
+    },
+    {
+      "id": "grp_969698_99",
+      "level": 1,
+      "children": [
+        "seg_009644",
+        "seg_009645",
+        "seg_009646",
+        "seg_009647"
+      ],
+      "leaf_start": 9644,
+      "leaf_end": 9647
+    },
+    {
+      "id": "grp_969698_63",
+      "level": 1,
+      "children": [
+        "seg_009648",
+        "seg_009649",
+        "seg_009650"
+      ],
+      "leaf_start": 9648,
+      "leaf_end": 9650
+    },
+    {
+      "id": "grp_969698_21",
+      "level": 1,
+      "children": [
+        "seg_009651",
+        "seg_009652"
+      ],
+      "leaf_start": 9651,
+      "leaf_end": 9652
+    },
+    {
+      "id": "grp_969698_17",
+      "level": 1,
+      "children": [
+        "seg_009653",
+        "seg_009654"
+      ],
+      "leaf_start": 9653,
+      "leaf_end": 9654
+    },
+    {
+      "id": "grp_969698_21",
+      "level": 1,
+      "children": [
+        "seg_009655",
+        "seg_009656",
+        "seg_009657"
+      ],
+      "leaf_start": 9655,
+      "leaf_end": 9657
+    },
+    {
+      "id": "grp_969698_72",
+      "level": 1,
+      "children": [
+        "seg_009658",
+        "seg_009659"
+      ],
+      "leaf_start": 9658,
+      "leaf_end": 9659
+    },
+    {
+      "id": "grp_969698_6",
+      "level": 1,
+      "children": [
+        "seg_009660",
+        "seg_009661",
+        "seg_009662",
+        "seg_009663"
+      ],
+      "leaf_start": 9660,
+      "leaf_end": 9663
+    },
+    {
+      "id": "grp_969698_52",
+      "level": 1,
+      "children": [
+        "seg_009664",
+        "seg_009665",
+        "seg_009666",
+        "seg_009667"
+      ],
+      "leaf_start": 9664,
+      "leaf_end": 9667
+    },
+    {
+      "id": "grp_969698_11",
+      "level": 1,
+      "children": [
+        "seg_009668",
+        "seg_009669",
+        "seg_009670"
+      ],
+      "leaf_start": 9668,
+      "leaf_end": 9670
+    },
+    {
+      "id": "grp_969698_2",
+      "level": 1,
+      "children": [
+        "seg_009671",
+        "seg_009672",
+        "seg_009673",
+        "seg_009674"
+      ],
+      "leaf_start": 9671,
+      "leaf_end": 9674
+    },
+    {
+      "id": "grp_969698_59",
+      "level": 1,
+      "children": [
+        "seg_009675",
+        "seg_009676"
+      ],
+      "leaf_start": 9675,
+      "leaf_end": 9676
+    },
+    {
+      "id": "grp_969698_62",
+      "level": 1,
+      "children": [
+        "seg_009677",
+        "seg_009678",
+        "seg_009679"
+      ],
+      "leaf_start": 9677,
+      "leaf_end": 9679
+    },
+    {
+      "id": "grp_969698_52",
+      "level": 1,
+      "children": [
+        "seg_009680",
+        "seg_009681",
+        "seg_009682",
+        "seg_009683"
+      ],
+      "leaf_start": 9680,
+      "leaf_end": 9683
+    },
+    {
+      "id": "grp_969698_20",
+      "level": 1,
+      "children": [
+        "seg_009684",
+        "seg_009685"
+      ],
+      "leaf_start": 9684,
+      "leaf_end": 9685
+    },
+    {
+      "id": "grp_969698_86",
+      "level": 1,
+      "children": [
+        "seg_009686",
+        "seg_009687",
+        "seg_009688",
+        "seg_009689"
+      ],
+      "leaf_start": 9686,
+      "leaf_end": 9689
+    },
+    {
+      "id": "grp_969698_61",
+      "level": 1,
+      "children": [
+        "seg_009690",
+        "seg_009691",
+        "seg_009692",
+        "seg_009693"
+      ],
+      "leaf_start": 9690,
+      "leaf_end": 9693
+    },
+    {
+      "id": "grp_969698_29",
+      "level": 1,
+      "children": [
+        "seg_009694",
+        "seg_009695"
+      ],
+      "leaf_start": 9694,
+      "leaf_end": 9695
+    },
+    {
+      "id": "grp_969698_98",
+      "level": 1,
+      "children": [
+        "seg_009696",
+        "seg_009697"
+      ],
+      "leaf_start": 9696,
+      "leaf_end": 9697
+    },
+    {
+      "id": "grp_969698_41",
+      "level": 1,
+      "children": [
+        "seg_009698",
+        "seg_009699"
+      ],
+      "leaf_start": 9698,
+      "leaf_end": 9699
+    },
+    {
+      "id": "grp_969698_93",
+      "level": 1,
+      "children": [
+        "seg_009700",
+        "seg_009701"
+      ],
+      "leaf_start": 9700,
+      "leaf_end": 9701
+    },
+    {
+      "id": "grp_969698_96",
+      "level": 1,
+      "children": [
+        "seg_009702",
+        "seg_009703",
+        "seg_009704"
+      ],
+      "leaf_start": 9702,
+      "leaf_end": 9704
+    },
+    {
+      "id": "grp_969698_50",
+      "level": 1,
+      "children": [
+        "seg_009705",
+        "seg_009706",
+        "seg_009707"
+      ],
+      "leaf_start": 9705,
+      "leaf_end": 9707
+    },
+    {
+      "id": "grp_969698_76",
+      "level": 1,
+      "children": [
+        "seg_009708",
+        "seg_009709",
+        "seg_009710",
+        "seg_009711"
+      ],
+      "leaf_start": 9708,
+      "leaf_end": 9711
+    },
+    {
+      "id": "grp_969698_51",
+      "level": 1,
+      "children": [
+        "seg_009712",
+        "seg_009713",
+        "seg_009714",
+        "seg_009715"
+      ],
+      "leaf_start": 9712,
+      "leaf_end": 9715
+    },
+    {
+      "id": "grp_969698_48",
+      "level": 1,
+      "children": [
+        "seg_009716",
+        "seg_009717",
+        "seg_009718",
+        "seg_009719"
+      ],
+      "leaf_start": 9716,
+      "leaf_end": 9719
+    },
+    {
+      "id": "grp_969698_59",
+      "level": 1,
+      "children": [
+        "seg_009720",
+        "seg_009721",
+        "seg_009722",
+        "seg_009723"
+      ],
+      "leaf_start": 9720,
+      "leaf_end": 9723
+    },
+    {
+      "id": "grp_969698_51",
+      "level": 1,
+      "children": [
+        "seg_009724",
+        "seg_009725"
+      ],
+      "leaf_start": 9724,
+      "leaf_end": 9725
+    },
+    {
+      "id": "grp_969698_90",
+      "level": 1,
+      "children": [
+        "seg_009726",
+        "seg_009727",
+        "seg_009728"
+      ],
+      "leaf_start": 9726,
+      "leaf_end": 9728
+    },
+    {
+      "id": "grp_969698_76",
+      "level": 1,
+      "children": [
+        "seg_009729",
+        "seg_009730",
+        "seg_009731",
+        "seg_009732"
+      ],
+      "leaf_start": 9729,
+      "leaf_end": 9732
+    },
+    {
+      "id": "grp_969698_83",
+      "level": 1,
+      "children": [
+        "seg_009733",
+        "seg_009734",
+        "seg_009735"
+      ],
+      "leaf_start": 9733,
+      "leaf_end": 9735
+    },
+    {
+      "id": "grp_969698_72",
+      "level": 1,
+      "children": [
+        "seg_009736",
+        "seg_009737",
+        "seg_009738",
+        "seg_009739"
+      ],
+      "leaf_start": 9736,
+      "leaf_end": 9739
+    },
+    {
+      "id": "grp_969698_57",
+      "level": 1,
+      "children": [
+        "seg_009740",
+        "seg_009741"
+      ],
+      "leaf_start": 9740,
+      "leaf_end": 9741
+    },
+    {
+      "id": "grp_969698_71",
+      "level": 1,
+      "children": [
+        "seg_009742",
+        "seg_009743",
+        "seg_009744"
+      ],
+      "leaf_start": 9742,
+      "leaf_end": 9744
+    },
+    {
+      "id": "grp_969698_17",
+      "level": 1,
+      "children": [
+        "seg_009745",
+        "seg_009746"
+      ],
+      "leaf_start": 9745,
+      "leaf_end": 9746
+    },
+    {
+      "id": "grp_969698_3",
+      "level": 1,
+      "children": [
+        "seg_009747",
+        "seg_009748",
+        "seg_009749"
+      ],
+      "leaf_start": 9747,
+      "leaf_end": 9749
+    },
+    {
+      "id": "grp_969698_17",
+      "level": 1,
+      "children": [
+        "seg_009750",
+        "seg_009751",
+        "seg_009752"
+      ],
+      "leaf_start": 9750,
+      "leaf_end": 9752
+    },
+    {
+      "id": "grp_969698_11",
+      "level": 1,
+      "children": [
+        "seg_009753",
+        "seg_009754",
+        "seg_009755"
+      ],
+      "leaf_start": 9753,
+      "leaf_end": 9755
+    },
+    {
+      "id": "grp_969698_85",
+      "level": 1,
+      "children": [
+        "seg_009756",
+        "seg_009757"
+      ],
+      "leaf_start": 9756,
+      "leaf_end": 9757
+    },
+    {
+      "id": "grp_969698_38",
+      "level": 1,
+      "children": [
+        "seg_009758",
+        "seg_009759"
+      ],
+      "leaf_start": 9758,
+      "leaf_end": 9759
+    },
+    {
+      "id": "grp_969698_56",
+      "level": 1,
+      "children": [
+        "seg_009760",
+        "seg_009761",
+        "seg_009762"
+      ],
+      "leaf_start": 9760,
+      "leaf_end": 9762
+    },
+    {
+      "id": "grp_969698_58",
+      "level": 1,
+      "children": [
+        "seg_009763",
+        "seg_009764",
+        "seg_009765"
+      ],
+      "leaf_start": 9763,
+      "leaf_end": 9765
+    },
+    {
+      "id": "grp_969698_23",
+      "level": 1,
+      "children": [
+        "seg_009766",
+        "seg_009767"
+      ],
+      "leaf_start": 9766,
+      "leaf_end": 9767
+    },
+    {
+      "id": "grp_969698_78",
+      "level": 1,
+      "children": [
+        "seg_009768",
+        "seg_009769",
+        "seg_009770"
+      ],
+      "leaf_start": 9768,
+      "leaf_end": 9770
+    },
+    {
+      "id": "grp_969698_98",
+      "level": 1,
+      "children": [
+        "seg_009771",
+        "seg_009772",
+        "seg_009773"
+      ],
+      "leaf_start": 9771,
+      "leaf_end": 9773
+    },
+    {
+      "id": "grp_969698_75",
+      "level": 1,
+      "children": [
+        "seg_009774",
+        "seg_009775"
+      ],
+      "leaf_start": 9774,
+      "leaf_end": 9775
+    },
+    {
+      "id": "grp_969698_32",
+      "level": 1,
+      "children": [
+        "seg_009776",
+        "seg_009777",
+        "seg_009778",
+        "seg_009779"
+      ],
+      "leaf_start": 9776,
+      "leaf_end": 9779
+    },
+    {
+      "id": "grp_969698_64",
+      "level": 1,
+      "children": [
+        "seg_009780",
+        "seg_009781"
+      ],
+      "leaf_start": 9780,
+      "leaf_end": 9781
+    },
+    {
+      "id": "grp_969698_15",
+      "level": 1,
+      "children": [
+        "seg_009782",
+        "seg_009783"
+      ],
+      "leaf_start": 9782,
+      "leaf_end": 9783
+    },
+    {
+      "id": "grp_969698_34",
+      "level": 1,
+      "children": [
+        "seg_009784",
+        "seg_009785"
+      ],
+      "leaf_start": 9784,
+      "leaf_end": 9785
+    },
+    {
+      "id": "grp_969698_18",
+      "level": 1,
+      "children": [
+        "seg_009786",
+        "seg_009787",
+        "seg_009788",
+        "seg_009789"
+      ],
+      "leaf_start": 9786,
+      "leaf_end": 9789
+    },
+    {
+      "id": "grp_969698_79",
+      "level": 1,
+      "children": [
+        "seg_009790",
+        "seg_009791"
+      ],
+      "leaf_start": 9790,
+      "leaf_end": 9791
+    },
+    {
+      "id": "grp_969698_25",
+      "level": 1,
+      "children": [
+        "seg_009792",
+        "seg_009793"
+      ],
+      "leaf_start": 9792,
+      "leaf_end": 9793
+    },
+    {
+      "id": "grp_969698_16",
+      "level": 1,
+      "children": [
+        "seg_009794",
+        "seg_009795",
+        "seg_009796",
+        "seg_009797"
+      ],
+      "leaf_start": 9794,
+      "leaf_end": 9797
+    },
+    {
+      "id": "grp_969698_49",
+      "level": 1,
+      "children": [
+        "seg_009798",
+        "seg_009799"
+      ],
+      "leaf_start": 9798,
+      "leaf_end": 9799
+    },
+    {
+      "id": "grp_969698_83",
+      "level": 1,
+      "children": [
+        "seg_009800",
+        "seg_009801",
+        "seg_009802"
+      ],
+      "leaf_start": 9800,
+      "leaf_end": 9802
+    },
+    {
+      "id": "grp_969698_5",
+      "level": 1,
+      "children": [
+        "seg_009803",
+        "seg_009804"
+      ],
+      "leaf_start": 9803,
+      "leaf_end": 9804
+    },
+    {
+      "id": "grp_969698_87",
+      "level": 1,
+      "children": [
+        "seg_009805",
+        "seg_009806"
+      ],
+      "leaf_start": 9805,
+      "leaf_end": 9806
+    },
+    {
+      "id": "grp_969698_57",
+      "level": 1,
+      "children": [
+        "seg_009807",
+        "seg_009808",
+        "seg_009809"
+      ],
+      "leaf_start": 9807,
+      "leaf_end": 9809
+    },
+    {
+      "id": "grp_969698_24",
+      "level": 1,
+      "children": [
+        "seg_009810",
+        "seg_009811",
+        "seg_009812",
+        "seg_009813"
+      ],
+      "leaf_start": 9810,
+      "leaf_end": 9813
+    },
+    {
+      "id": "grp_969698_47",
+      "level": 1,
+      "children": [
+        "seg_009814",
+        "seg_009815",
+        "seg_009816"
+      ],
+      "leaf_start": 9814,
+      "leaf_end": 9816
+    },
+    {
+      "id": "grp_969698_28",
+      "level": 1,
+      "children": [
+        "seg_009817",
+        "seg_009818"
+      ],
+      "leaf_start": 9817,
+      "leaf_end": 9818
+    },
+    {
+      "id": "grp_969698_10",
+      "level": 1,
+      "children": [
+        "seg_009819",
+        "seg_009820",
+        "seg_009821",
+        "seg_009822"
+      ],
+      "leaf_start": 9819,
+      "leaf_end": 9822
+    },
+    {
+      "id": "grp_969698_79",
+      "level": 1,
+      "children": [
+        "seg_009823",
+        "seg_009824",
+        "seg_009825",
+        "seg_009826"
+      ],
+      "leaf_start": 9823,
+      "leaf_end": 9826
+    },
+    {
+      "id": "grp_969698_80",
+      "level": 1,
+      "children": [
+        "seg_009827",
+        "seg_009828",
+        "seg_009829"
+      ],
+      "leaf_start": 9827,
+      "leaf_end": 9829
+    },
+    {
+      "id": "grp_969698_60",
+      "level": 1,
+      "children": [
+        "seg_009830",
+        "seg_009831",
+        "seg_009832",
+        "seg_009833"
+      ],
+      "leaf_start": 9830,
+      "leaf_end": 9833
+    },
+    {
+      "id": "grp_969698_18",
+      "level": 1,
+      "children": [
+        "seg_009834",
+        "seg_009835",
+        "seg_009836"
+      ],
+      "leaf_start": 9834,
+      "leaf_end": 9836
+    },
+    {
+      "id": "grp_969698_38",
+      "level": 1,
+      "children": [
+        "seg_009837",
+        "seg_009838",
+        "seg_009839",
+        "seg_009840"
+      ],
+      "leaf_start": 9837,
+      "leaf_end": 9840
+    },
+    {
+      "id": "grp_969698_70",
+      "level": 1,
+      "children": [
+        "seg_009841",
+        "seg_009842",
+        "seg_009843"
+      ],
+      "leaf_start": 9841,
+      "leaf_end": 9843
+    },
+    {
+      "id": "grp_969698_45",
+      "level": 1,
+      "children": [
+        "seg_009844",
+        "seg_009845",
+        "seg_009846"
+      ],
+      "leaf_start": 9844,
+      "leaf_end": 9846
+    },
+    {
+      "id": "grp_969698_70",
+      "level": 1,
+      "children": [
+        "seg_009847",
+        "seg_009848",
+        "seg_009849"
+      ],
+      "leaf_start": 9847,
+      "leaf_end": 9849
+    },
+    {
+      "id": "grp_969698_17",
+      "level": 1,
+      "children": [
+        "seg_009850",
+        "seg_009851"
+      ],
+      "leaf_start": 9850,
+      "leaf_end": 9851
+    },
+    {
+      "id": "grp_969698_18",
+      "level": 1,
+      "children": [
+        "seg_009852",
+        "seg_009853",
+        "seg_009854"
+      ],
+      "leaf_start": 9852,
+      "leaf_end": 9854
+    },
+    {
+      "id": "grp_969698_87",
+      "level": 1,
+      "children": [
+        "seg_009855",
+        "seg_009856"
+      ],
+      "leaf_start": 9855,
+      "leaf_end": 9856
+    },
+    {
+      "id": "grp_969698_43",
+      "level": 1,
+      "children": [
+        "seg_009857",
+        "seg_009858",
+        "seg_009859",
+        "seg_009860"
+      ],
+      "leaf_start": 9857,
+      "leaf_end": 9860
+    },
+    {
+      "id": "grp_969698_63",
+      "level": 1,
+      "children": [
+        "seg_009861",
+        "seg_009862",
+        "seg_009863"
+      ],
+      "leaf_start": 9861,
+      "leaf_end": 9863
+    },
+    {
+      "id": "grp_969698_74",
+      "level": 1,
+      "children": [
+        "seg_009864",
+        "seg_009865",
+        "seg_009866",
+        "seg_009867"
+      ],
+      "leaf_start": 9864,
+      "leaf_end": 9867
+    },
+    {
+      "id": "grp_969698_39",
+      "level": 1,
+      "children": [
+        "seg_009868",
+        "seg_009869",
+        "seg_009870"
+      ],
+      "leaf_start": 9868,
+      "leaf_end": 9870
+    },
+    {
+      "id": "grp_969698_29",
+      "level": 1,
+      "children": [
+        "seg_009871",
+        "seg_009872",
+        "seg_009873"
+      ],
+      "leaf_start": 9871,
+      "leaf_end": 9873
+    },
+    {
+      "id": "grp_969698_40",
+      "level": 1,
+      "children": [
+        "seg_009874",
+        "seg_009875"
+      ],
+      "leaf_start": 9874,
+      "leaf_end": 9875
+    },
+    {
+      "id": "grp_969698_80",
+      "level": 1,
+      "children": [
+        "seg_009876",
+        "seg_009877",
+        "seg_009878",
+        "seg_009879"
+      ],
+      "leaf_start": 9876,
+      "leaf_end": 9879
+    },
+    {
+      "id": "grp_969698_39",
+      "level": 1,
+      "children": [
+        "seg_009880",
+        "seg_009881",
+        "seg_009882",
+        "seg_009883"
+      ],
+      "leaf_start": 9880,
+      "leaf_end": 9883
+    },
+    {
+      "id": "grp_969698_32",
+      "level": 1,
+      "children": [
+        "seg_009884",
+        "seg_009885",
+        "seg_009886",
+        "seg_009887"
+      ],
+      "leaf_start": 9884,
+      "leaf_end": 9887
+    },
+    {
+      "id": "grp_969698_84",
+      "level": 1,
+      "children": [
+        "seg_009888",
+        "seg_009889",
+        "seg_009890",
+        "seg_009891"
+      ],
+      "leaf_start": 9888,
+      "leaf_end": 9891
+    },
+    {
+      "id": "grp_969698_36",
+      "level": 1,
+      "children": [
+        "seg_009892",
+        "seg_009893"
+      ],
+      "leaf_start": 9892,
+      "leaf_end": 9893
+    },
+    {
+      "id": "grp_969698_69",
+      "level": 1,
+      "children": [
+        "seg_009894",
+        "seg_009895",
+        "seg_009896"
+      ],
+      "leaf_start": 9894,
+      "leaf_end": 9896
+    },
+    {
+      "id": "grp_969698_89",
+      "level": 1,
+      "children": [
+        "seg_009897",
+        "seg_009898"
+      ],
+      "leaf_start": 9897,
+      "leaf_end": 9898
+    },
+    {
+      "id": "grp_969698_8",
+      "level": 1,
+      "children": [
+        "seg_009899",
+        "seg_009900",
+        "seg_009901",
+        "seg_009902"
+      ],
+      "leaf_start": 9899,
+      "leaf_end": 9902
+    },
+    {
+      "id": "grp_969698_96",
+      "level": 1,
+      "children": [
+        "seg_009903",
+        "seg_009904",
+        "seg_009905"
+      ],
+      "leaf_start": 9903,
+      "leaf_end": 9905
+    },
+    {
+      "id": "grp_969698_95",
+      "level": 1,
+      "children": [
+        "seg_009906",
+        "seg_009907",
+        "seg_009908",
+        "seg_009909"
+      ],
+      "leaf_start": 9906,
+      "leaf_end": 9909
+    },
+    {
+      "id": "grp_969698_11",
+      "level": 1,
+      "children": [
+        "seg_009910",
+        "seg_009911",
+        "seg_009912",
+        "seg_009913"
+      ],
+      "leaf_start": 9910,
+      "leaf_end": 9913
+    },
+    {
+      "id": "grp_969698_94",
+      "level": 1,
+      "children": [
+        "seg_009914",
+        "seg_009915",
+        "seg_009916",
+        "seg_009917"
+      ],
+      "leaf_start": 9914,
+      "leaf_end": 9917
+    },
+    {
+      "id": "grp_969698_19",
+      "level": 1,
+      "children": [
+        "seg_009918",
+        "seg_009919",
+        "seg_009920",
+        "seg_009921"
+      ],
+      "leaf_start": 9918,
+      "leaf_end": 9921
+    },
+    {
+      "id": "grp_969698_70",
+      "level": 1,
+      "children": [
+        "seg_009922",
+        "seg_009923",
+        "seg_009924",
+        "seg_009925"
+      ],
+      "leaf_start": 9922,
+      "leaf_end": 9925
+    },
+    {
+      "id": "grp_969698_21",
+      "level": 1,
+      "children": [
+        "seg_009926",
+        "seg_009927",
+        "seg_009928",
+        "seg_009929"
+      ],
+      "leaf_start": 9926,
+      "leaf_end": 9929
+    },
+    {
+      "id": "grp_969698_75",
+      "level": 1,
+      "children": [
+        "seg_009930",
+        "seg_009931"
+      ],
+      "leaf_start": 9930,
+      "leaf_end": 9931
+    },
+    {
+      "id": "grp_969698_35",
+      "level": 1,
+      "children": [
+        "seg_009932",
+        "seg_009933",
+        "seg_009934"
+      ],
+      "leaf_start": 9932,
+      "leaf_end": 9934
+    },
+    {
+      "id": "grp_969698_5",
+      "level": 1,
+      "children": [
+        "seg_009935",
+        "seg_009936",
+        "seg_009937",
+        "seg_009938"
+      ],
+      "leaf_start": 9935,
+      "leaf_end": 9938
+    },
+    {
+      "id": "grp_969698_66",
+      "level": 1,
+      "children": [
+        "seg_009939",
+        "seg_009940",
+        "seg_009941",
+        "seg_009942"
+      ],
+      "leaf_start": 9939,
+      "leaf_end": 9942
+    },
+    {
+      "id": "grp_969698_23",
+      "level": 1,
+      "children": [
+        "seg_009943",
+        "seg_009944"
+      ],
+      "leaf_start": 9943,
+      "leaf_end": 9944
+    },
+    {
+      "id": "grp_969698_17",
+      "level": 1,
+      "children": [
+        "seg_009945",
+        "seg_009946",
+        "seg_009947",
+        "seg_009948"
+      ],
+      "leaf_start": 9945,
+      "leaf_end": 9948
+    },
+    {
+      "id": "grp_969698_13",
+      "level": 1,
+      "children": [
+        "seg_009949",
+        "seg_009950",
+        "seg_009951",
+        "seg_009952"
+      ],
+      "leaf_start": 9949,
+      "leaf_end": 9952
+    },
+    {
+      "id": "grp_969698_1",
+      "level": 1,
+      "children": [
+        "seg_009953",
+        "seg_009954",
+        "seg_009955",
+        "seg_009956"
+      ],
+      "leaf_start": 9953,
+      "leaf_end": 9956
+    },
+    {
+      "id": "grp_969698_9",
+      "level": 1,
+      "children": [
+        "seg_009957",
+        "seg_009958"
+      ],
+      "leaf_start": 9957,
+      "leaf_end": 9958
+    },
+    {
+      "id": "grp_969698_47",
+      "level": 1,
+      "children": [
+        "seg_009959",
+        "seg_009960",
+        "seg_009961"
+      ],
+      "leaf_start": 9959,
+      "leaf_end": 9961
+    },
+    {
+      "id": "grp_969698_98",
+      "level": 1,
+      "children": [
+        "seg_009962",
+        "seg_009963",
+        "seg_009964"
+      ],
+      "leaf_start": 9962,
+      "leaf_end": 9964
+    },
+    {
+      "id": "grp_969698_14",
+      "level": 1,
+      "children": [
+        "seg_009965",
+        "seg_009966",
+        "seg_009967",
+        "seg_009968"
+      ],
+      "leaf_start": 9965,
+      "leaf_end": 9968
+    },
+    {
+      "id": "grp_969698_47",
+      "level": 1,
+      "children": [
+        "seg_009969",
+        "seg_009970",
+        "seg_009971"
+      ],
+      "leaf_start": 9969,
+      "leaf_end": 9971
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_009510",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009511",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009512",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009513",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009514",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009515",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009516",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009517",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009518",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009519",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009520",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009521",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009522",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009523",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009524",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "最高级 / Superlative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009525",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009526",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009527",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009528",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009529",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009530",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "复数/集合 / Plural-Collective",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009531",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009532",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009533",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009534",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009535",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009536",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009537",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009538",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009539",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "重复/迭代 / Iterative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009540",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "强调 / Emphasis",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009541",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009542",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009543",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009544",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009545",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009546",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009547",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009548",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009549",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009550",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "现在 / Present",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009551",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "重复/迭代 / Iterative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009552",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009553",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009554",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009555",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009556",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009557",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "程度增强 / Intensified",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009558",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009559",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009560",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009561",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009562",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009563",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009564",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "完成体 / Perfect",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009565",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009566",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009567",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009568",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009569",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009570",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009571",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009572",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009573",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009574",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009575",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009576",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009577",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009578",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009579",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "最高级 / Superlative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009580",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009581",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "过去 / Past",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009582",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "复数/集合 / Plural-Collective",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009583",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009584",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009585",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009586",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009587",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009588",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009589",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "过去 / Past",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009590",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009591",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009592",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009593",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009594",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009595",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "进行体 / Progressive",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009596",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009597",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009598",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009599",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "将来 / Future",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009600",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009601",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009602",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "程度增强 / Intensified",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009603",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009604",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009605",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009606",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009607",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009608",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009609",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009610",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009611",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009612",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009613",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009614",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009615",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009616",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009617",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009618",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009619",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009620",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009621",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009622",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009623",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009624",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "比较 / Comparative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009625",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009626",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009627",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009628",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009629",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009630",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009631",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009632",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "比较 / Comparative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009633",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009634",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009635",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009636",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009637",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009638",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009639",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009640",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009641",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009642",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009643",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "将来 / Future",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009644",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009645",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009646",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009647",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009648",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009649",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009650",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009651",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009652",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009653",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "完成体 / Perfect",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009654",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "最高级 / Superlative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009655",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009656",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009657",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009658",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009659",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009660",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009661",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009662",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009663",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009664",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009665",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009666",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009667",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009668",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "完成体 / Perfect",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009669",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009670",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009671",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009672",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009673",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009674",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009675",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009676",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009677",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009678",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009679",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009680",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009681",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009682",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009683",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "最高级 / Superlative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009684",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009685",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009686",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009687",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009688",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009689",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009690",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009691",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "最高级 / Superlative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009692",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009693",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009694",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009695",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009696",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009697",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009698",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009699",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009700",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009701",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009702",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009703",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009704",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009705",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009706",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009707",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009708",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009709",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009710",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009711",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009712",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009713",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009714",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009715",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009716",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009717",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009718",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009719",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009720",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009721",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009722",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009723",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009724",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "比较 / Comparative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009725",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009726",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009727",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009728",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009729",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009730",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009731",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009732",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "强调 / Emphasis",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009733",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009734",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009735",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009736",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009737",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009738",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009739",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009740",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009741",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009742",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009743",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009744",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009745",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009746",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009747",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009748",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009749",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009750",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009751",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009752",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "将来 / Future",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009753",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009754",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009755",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009756",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009757",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009758",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "复数/集合 / Plural-Collective",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009759",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009760",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "将来 / Future",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009761",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009762",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009763",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009764",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009765",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009766",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009767",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009768",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009769",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009770",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009771",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009772",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009773",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009774",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009775",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009776",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009777",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009778",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009779",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009780",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009781",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "将来 / Future",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009782",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009783",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009784",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009785",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "完成体 / Perfect",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009786",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "将来 / Future",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009787",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009788",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "现在 / Present",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009789",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009790",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009791",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009792",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009793",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009794",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009795",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009796",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009797",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009798",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "将来 / Future",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009799",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009800",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009801",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009802",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "现在 / Present",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009803",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009804",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009805",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009806",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009807",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009808",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "现在 / Present",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009809",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009810",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009811",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009812",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009813",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009814",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009815",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009816",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009817",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009818",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009819",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "进行体 / Progressive",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009820",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "否定 / Negation",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009821",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009822",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009823",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009824",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009825",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009826",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009827",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009828",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009829",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009830",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "程度增强 / Intensified",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009831",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009832",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009833",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009834",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "程度增强 / Intensified",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009835",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "将来 / Future",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009836",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009837",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009838",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009839",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009840",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "完成体 / Perfect",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009841",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009842",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009843",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009844",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009845",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "程度增强 / Intensified",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009846",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009847",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009848",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009849",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009850",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009851",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009852",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009853",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009854",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009855",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009856",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009857",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009858",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009859",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009860",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009861",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009862",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009863",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009864",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009865",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009866",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009867",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009868",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009869",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "将来 / Future",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009870",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009871",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009872",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "强调 / Emphasis",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009873",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009874",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009875",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009876",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009877",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009878",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009879",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009880",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "将来 / Future",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009881",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "最高级 / Superlative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009882",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009883",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009884",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009885",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "完成体 / Perfect",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009886",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009887",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009888",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009889",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009890",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009891",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009892",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "最高级 / Superlative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009893",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009894",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "将来 / Future",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009895",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009896",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009897",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009898",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009899",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009900",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009901",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009902",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009903",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009904",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "否定 / Negation",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009905",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009906",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009907",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009908",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009909",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009910",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009911",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009912",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009913",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009914",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009915",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009916",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009917",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009918",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "重复/迭代 / Iterative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009919",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009920",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009921",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "过去 / Past",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009922",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009923",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009924",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009925",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009926",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009927",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009928",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009929",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009930",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009931",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009932",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009933",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "程度增强 / Intensified",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009934",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009935",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009936",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009937",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009938",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "现在 / Present",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009939",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009940",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009941",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009942",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009943",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009944",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009945",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "进行体 / Progressive",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009946",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009947",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009948",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009949",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009950",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009951",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009952",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009953",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009954",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009955",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "完成体 / Perfect",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009956",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009957",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009958",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009959",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009960",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009961",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "复数/集合 / Plural-Collective",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009962",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009963",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "将来 / Future",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009964",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009965",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009966",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009967",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009968",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009969",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009970",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "seg_009971",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "强调 / Emphasis",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969697_0",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "将来 / Future",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_10",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_0",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_41",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_38",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_99",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_80",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_36",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_67",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_83",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_69",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_90",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_97",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_38",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_46",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_89",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_88",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "强调 / Emphasis",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_10",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_94",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_64",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_98",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_93",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "比较 / Comparative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_61",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "否定 / Negation",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_73",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_54",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_94",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_15",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "最高级 / Superlative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_18",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_36",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "强调 / Emphasis",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_90",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_29",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_79",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_22",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_71",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_15",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_78",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_32",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "将来 / Future",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_59",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_88",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_67",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_80",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_61",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "过去 / Past",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_10",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_38",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_96",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_99",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_63",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_21",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_17",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_21",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_72",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_6",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_52",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_11",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_2",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "过去 / Past",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_59",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_62",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "重复/迭代 / Iterative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_52",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_20",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "将来 / Future",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_86",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_61",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_29",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "过去 / Past",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_98",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_41",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_93",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_96",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_50",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_76",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "强调 / Emphasis",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_51",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_48",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_59",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_51",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "完成体 / Perfect",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_90",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_76",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_83",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_72",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_57",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_71",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "复数/集合 / Plural-Collective",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_17",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_3",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_17",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_11",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_85",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_38",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_56",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_58",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_23",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_78",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_98",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "最高级 / Superlative",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_75",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_32",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "将来 / Future",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_64",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_15",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_34",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_18",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_79",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_25",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_16",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "将来 / Future",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_49",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_83",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "强调 / Emphasis",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_5",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "进行体 / Progressive",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_87",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_57",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_24",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "将来 / Future",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_47",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_28",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "复数/集合 / Plural-Collective",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_10",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_79",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_80",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_60",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "现在 / Present",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_18",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_38",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_70",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "完成体 / Perfect",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_45",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "过去 / Past",
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_70",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_17",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_18",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "比较 / Comparative",
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_87",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_43",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past",
+        "重复/迭代 / Iterative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_63",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "否定 / Negation",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_74",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "现在 / Present",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_39",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_29",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_40",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "重复/迭代 / Iterative",
+        "程度增强 / Intensified"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_80",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_39",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "完成体 / Perfect",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_32",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "最高级 / Superlative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_84",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "程度增强 / Intensified",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_36",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_69",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "完成体 / Perfect",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_89",
+      "task_id": "morphological_features",
+      "value": [
+        "程度增强 / Intensified",
+        "否定 / Negation",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_8",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_96",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_95",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_11",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "最高级 / Superlative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_94",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_19",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_70",
+      "task_id": "morphological_features",
+      "value": [
+        "最高级 / Superlative",
+        "现在 / Present",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_21",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_75",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_35",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_5",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_66",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "完成体 / Perfect",
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_23",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_17",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_13",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_1",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_9",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_47",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation",
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_98",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_14",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    },
+    {
+      "target_id": "grp_969698_47",
+      "task_id": "morphological_features",
+      "value": [
+        "复数/集合 / Plural-Collective"
+      ],
+      "updated_at": "2026-05-05T08:49:29Z"
+    }
+  ]
+}

@@ -1,0 +1,5043 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "23_R",
+    "pageEndKey": "25_R"
+  },
+  "groups": [
+    {
+      "id": "grp_545617_53",
+      "level": 1,
+      "children": [
+        "seg_005785",
+        "seg_005786"
+      ],
+      "leaf_start": 5785,
+      "leaf_end": 5786
+    },
+    {
+      "id": "grp_556349_83",
+      "level": 1,
+      "children": [
+        "seg_005788",
+        "seg_005789",
+        "seg_005790",
+        "seg_005791",
+        "seg_005792",
+        "seg_005793",
+        "seg_005794",
+        "seg_005795"
+      ],
+      "leaf_start": 5788,
+      "leaf_end": 5795
+    },
+    {
+      "id": "grp_561433_41",
+      "level": 1,
+      "children": [
+        "seg_005798",
+        "seg_005799"
+      ],
+      "leaf_start": 5798,
+      "leaf_end": 5799
+    },
+    {
+      "id": "grp_569188_8",
+      "level": 1,
+      "children": [
+        "seg_005874",
+        "seg_005875",
+        "seg_005876",
+        "seg_005877",
+        "seg_005878",
+        "seg_005879"
+      ],
+      "leaf_start": 5874,
+      "leaf_end": 5879
+    },
+    {
+      "id": "grp_571476_16",
+      "level": 1,
+      "children": [
+        "seg_005884",
+        "seg_005885",
+        "seg_005886",
+        "seg_005887",
+        "seg_005888",
+        "seg_005889",
+        "seg_005890"
+      ],
+      "leaf_start": 5884,
+      "leaf_end": 5890
+    },
+    {
+      "id": "grp_573622_4",
+      "level": 1,
+      "children": [
+        "seg_005923",
+        "seg_005924",
+        "seg_005925",
+        "seg_005926",
+        "seg_005927",
+        "seg_005928",
+        "seg_005929",
+        "seg_005930",
+        "seg_005931"
+      ],
+      "leaf_start": 5923,
+      "leaf_end": 5931
+    },
+    {
+      "id": "grp_575727_0",
+      "level": 1,
+      "children": [
+        "seg_005949",
+        "seg_005950",
+        "seg_005951",
+        "seg_005952",
+        "seg_005953",
+        "seg_005954"
+      ],
+      "leaf_start": 5949,
+      "leaf_end": 5954
+    },
+    {
+      "id": "grp_577611_84",
+      "level": 1,
+      "children": [
+        "seg_005977",
+        "seg_005978",
+        "seg_005979",
+        "seg_005980",
+        "seg_005981",
+        "seg_005982",
+        "seg_005983"
+      ],
+      "leaf_start": 5977,
+      "leaf_end": 5983
+    },
+    {
+      "id": "grp_580017_53",
+      "level": 1,
+      "children": [
+        "seg_006015",
+        "seg_006016",
+        "seg_006017",
+        "seg_006018"
+      ],
+      "leaf_start": 6015,
+      "leaf_end": 6018
+    },
+    {
+      "id": "grp_583318_82",
+      "level": 1,
+      "children": [
+        "seg_006024",
+        "seg_006025",
+        "seg_006026",
+        "seg_006027",
+        "seg_006028"
+      ],
+      "leaf_start": 6024,
+      "leaf_end": 6028
+    },
+    {
+      "id": "grp_585852_93",
+      "level": 1,
+      "children": [
+        "seg_006058",
+        "seg_006059",
+        "seg_006060",
+        "seg_006061"
+      ],
+      "leaf_start": 6058,
+      "leaf_end": 6061
+    },
+    {
+      "id": "grp_587727_97",
+      "level": 1,
+      "children": [
+        "seg_006089",
+        "seg_006090",
+        "seg_006091",
+        "seg_006092",
+        "seg_006093",
+        "seg_006094",
+        "seg_006095",
+        "seg_006096"
+      ],
+      "leaf_start": 6089,
+      "leaf_end": 6096
+    },
+    {
+      "id": "grp_590233_59",
+      "level": 1,
+      "children": [
+        "seg_006121",
+        "seg_006122",
+        "seg_006123",
+        "seg_006124"
+      ],
+      "leaf_start": 6121,
+      "leaf_end": 6124
+    },
+    {
+      "id": "grp_592191_87",
+      "level": 1,
+      "children": [
+        "seg_006157",
+        "seg_006158",
+        "seg_006159",
+        "seg_006160",
+        "seg_006161"
+      ],
+      "leaf_start": 6157,
+      "leaf_end": 6161
+    },
+    {
+      "id": "grp_594919_75",
+      "level": 1,
+      "children": [
+        "seg_006193",
+        "seg_006194",
+        "seg_006195",
+        "seg_006196",
+        "seg_006197",
+        "seg_006198",
+        "seg_006199",
+        "seg_006200"
+      ],
+      "leaf_start": 6193,
+      "leaf_end": 6200
+    },
+    {
+      "id": "grp_612597_88",
+      "level": 1,
+      "children": [
+        "seg_006239",
+        "seg_006240",
+        "seg_006241"
+      ],
+      "leaf_start": 6239,
+      "leaf_end": 6241
+    },
+    {
+      "id": "grp_614564_27",
+      "level": 1,
+      "children": [
+        "seg_006264",
+        "seg_006265",
+        "seg_006266",
+        "seg_006267"
+      ],
+      "leaf_start": 6264,
+      "leaf_end": 6267
+    },
+    {
+      "id": "grp_616420_96",
+      "level": 1,
+      "children": [
+        "seg_006309",
+        "seg_006310",
+        "seg_006311",
+        "seg_006312",
+        "seg_006313",
+        "seg_006314"
+      ],
+      "leaf_start": 6309,
+      "leaf_end": 6314
+    },
+    {
+      "id": "grp_618370_54",
+      "level": 1,
+      "children": [
+        "seg_006361",
+        "seg_006362",
+        "seg_006363",
+        "seg_006364",
+        "seg_006365",
+        "seg_006366",
+        "seg_006367"
+      ],
+      "leaf_start": 6361,
+      "leaf_end": 6367
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_005785",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:56:23.028Z"
+    },
+    {
+      "target_id": "seg_005786",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:56:26.434Z"
+    },
+    {
+      "target_id": "seg_005787",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T05:56:31.278Z"
+    },
+    {
+      "target_id": "seg_005788",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T05:58:41.024Z"
+    },
+    {
+      "target_id": "seg_005789",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T05:58:48.202Z"
+    },
+    {
+      "target_id": "seg_005790",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:58:50.623Z"
+    },
+    {
+      "target_id": "seg_005791",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector",
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T05:58:56.907Z"
+    },
+    {
+      "target_id": "seg_005792",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:01.009Z"
+    },
+    {
+      "target_id": "seg_005793",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:06.762Z"
+    },
+    {
+      "target_id": "seg_005794",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:08.899Z"
+    },
+    {
+      "target_id": "seg_005795",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like",
+        "虚词/语法标记 / Grammatical Marker",
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T05:59:14.674Z"
+    },
+    {
+      "target_id": "seg_005798",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T05:59:27.476Z"
+    },
+    {
+      "target_id": "seg_005799",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T05:59:33.708Z"
+    },
+    {
+      "target_id": "seg_005800",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:36.393Z"
+    },
+    {
+      "target_id": "seg_005801",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T05:59:40.180Z"
+    },
+    {
+      "target_id": "seg_005802",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:43.691Z"
+    },
+    {
+      "target_id": "seg_005803",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like",
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:46.022Z"
+    },
+    {
+      "target_id": "seg_005804",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T05:59:50.462Z"
+    },
+    {
+      "target_id": "seg_005805",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T05:59:53.853Z"
+    },
+    {
+      "target_id": "seg_005806",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:56.709Z"
+    },
+    {
+      "target_id": "seg_005807",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T05:59:58.968Z"
+    },
+    {
+      "target_id": "seg_005808",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:00:02.882Z"
+    },
+    {
+      "target_id": "seg_005809",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:00:05.334Z"
+    },
+    {
+      "target_id": "seg_005810",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:00:08.414Z"
+    },
+    {
+      "target_id": "seg_005813",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:01:01.148Z"
+    },
+    {
+      "target_id": "seg_005814",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:01:05.092Z"
+    },
+    {
+      "target_id": "seg_005815",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:01:08.526Z"
+    },
+    {
+      "target_id": "seg_005816",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:01:10.814Z"
+    },
+    {
+      "target_id": "seg_005817",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker",
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:01:19.393Z"
+    },
+    {
+      "target_id": "seg_005818",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker",
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:01:23.542Z"
+    },
+    {
+      "target_id": "seg_005819",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:01:30.634Z"
+    },
+    {
+      "target_id": "seg_005820",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:01:32.840Z"
+    },
+    {
+      "target_id": "seg_005821",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:01:36.297Z"
+    },
+    {
+      "target_id": "seg_005822",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:01:38.713Z"
+    },
+    {
+      "target_id": "seg_005823",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:01:40.820Z"
+    },
+    {
+      "target_id": "seg_005824",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:01:42.654Z"
+    },
+    {
+      "target_id": "seg_005825",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:01:45.560Z"
+    },
+    {
+      "target_id": "seg_005826",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:01:50.914Z"
+    },
+    {
+      "target_id": "seg_005827",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:01:53.015Z"
+    },
+    {
+      "target_id": "seg_005830",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:01:56.749Z"
+    },
+    {
+      "target_id": "seg_005831",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:00.807Z"
+    },
+    {
+      "target_id": "seg_005832",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:03.808Z"
+    },
+    {
+      "target_id": "seg_005833",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:06.214Z"
+    },
+    {
+      "target_id": "seg_005834",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:02:08.592Z"
+    },
+    {
+      "target_id": "seg_005835",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:02:11.681Z"
+    },
+    {
+      "target_id": "seg_005837",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:02:13.909Z"
+    },
+    {
+      "target_id": "seg_005836",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:02:17.374Z"
+    },
+    {
+      "target_id": "seg_005838",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:02:19.881Z"
+    },
+    {
+      "target_id": "seg_005839",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:02:22.226Z"
+    },
+    {
+      "target_id": "seg_005840",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:24.176Z"
+    },
+    {
+      "target_id": "seg_005841",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:02:26.996Z"
+    },
+    {
+      "target_id": "seg_005842",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:02:29.021Z"
+    },
+    {
+      "target_id": "seg_005843",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:02:30.580Z"
+    },
+    {
+      "target_id": "seg_005844",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:32.725Z"
+    },
+    {
+      "target_id": "seg_005845",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:02:34.346Z"
+    },
+    {
+      "target_id": "seg_005846",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:36.610Z"
+    },
+    {
+      "target_id": "seg_005847",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:02:39.414Z"
+    },
+    {
+      "target_id": "seg_005850",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:02:43.724Z"
+    },
+    {
+      "target_id": "seg_005851",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:03:15.954Z"
+    },
+    {
+      "target_id": "seg_005852",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:03:18.909Z"
+    },
+    {
+      "target_id": "seg_005853",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:03:53.036Z"
+    },
+    {
+      "target_id": "seg_005854",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:07:08.467Z"
+    },
+    {
+      "target_id": "seg_005855",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:11:20.741Z"
+    },
+    {
+      "target_id": "seg_005856",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:11:23.650Z"
+    },
+    {
+      "target_id": "seg_005857",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:11:25.840Z"
+    },
+    {
+      "target_id": "seg_005858",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:11:31.915Z"
+    },
+    {
+      "target_id": "seg_005859",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:11:34.810Z"
+    },
+    {
+      "target_id": "seg_005860",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:11:36.423Z"
+    },
+    {
+      "target_id": "seg_005861",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:11:38.125Z"
+    },
+    {
+      "target_id": "seg_005862",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:11:41.028Z"
+    },
+    {
+      "target_id": "seg_005865",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like",
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:11:44.801Z"
+    },
+    {
+      "target_id": "seg_005866",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:11:47.666Z"
+    },
+    {
+      "target_id": "seg_005867",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:11:50.153Z"
+    },
+    {
+      "target_id": "seg_005868",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:11:53.266Z"
+    },
+    {
+      "target_id": "seg_005869",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:11:55.029Z"
+    },
+    {
+      "target_id": "seg_005870",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:11:56.978Z"
+    },
+    {
+      "target_id": "seg_005871",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:11:58.945Z"
+    },
+    {
+      "target_id": "seg_005872",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:06.811Z"
+    },
+    {
+      "target_id": "seg_005873",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:08.746Z"
+    },
+    {
+      "target_id": "seg_005874",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:10.358Z"
+    },
+    {
+      "target_id": "seg_005875",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:12:11.730Z"
+    },
+    {
+      "target_id": "seg_005876",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:13.944Z"
+    },
+    {
+      "target_id": "seg_005877",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:16.116Z"
+    },
+    {
+      "target_id": "seg_005878",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:12:17.495Z"
+    },
+    {
+      "target_id": "seg_005879",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:22.397Z"
+    },
+    {
+      "target_id": "seg_005882",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:26.534Z"
+    },
+    {
+      "target_id": "seg_005883",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:31.305Z"
+    },
+    {
+      "target_id": "seg_005884",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:12:34.500Z"
+    },
+    {
+      "target_id": "seg_005885",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:12:36.390Z"
+    },
+    {
+      "target_id": "seg_005886",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:38.722Z"
+    },
+    {
+      "target_id": "seg_005887",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:12:40.635Z"
+    },
+    {
+      "target_id": "seg_005888",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:42.540Z"
+    },
+    {
+      "target_id": "seg_005889",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:44.812Z"
+    },
+    {
+      "target_id": "seg_005891",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:12:46.722Z"
+    },
+    {
+      "target_id": "seg_005890",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:12:48.637Z"
+    },
+    {
+      "target_id": "seg_005892",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:50.639Z"
+    },
+    {
+      "target_id": "seg_005893",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:12:52.087Z"
+    },
+    {
+      "target_id": "seg_005894",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:55.162Z"
+    },
+    {
+      "target_id": "seg_005895",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:12:59.775Z"
+    },
+    {
+      "target_id": "seg_005896",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:01.456Z"
+    },
+    {
+      "target_id": "seg_005897",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:03.215Z"
+    },
+    {
+      "target_id": "seg_005900",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:05.775Z"
+    },
+    {
+      "target_id": "seg_005901",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:07.890Z"
+    },
+    {
+      "target_id": "seg_005902",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:09.936Z"
+    },
+    {
+      "target_id": "seg_005903",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:13:13.445Z"
+    },
+    {
+      "target_id": "seg_005904",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:13:15.306Z"
+    },
+    {
+      "target_id": "seg_005905",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:17.047Z"
+    },
+    {
+      "target_id": "seg_005906",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:18.734Z"
+    },
+    {
+      "target_id": "seg_005907",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:20.879Z"
+    },
+    {
+      "target_id": "seg_005908",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:22.926Z"
+    },
+    {
+      "target_id": "seg_005909",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:24.957Z"
+    },
+    {
+      "target_id": "seg_005910",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:27.283Z"
+    },
+    {
+      "target_id": "seg_005911",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:13:29.054Z"
+    },
+    {
+      "target_id": "seg_005912",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:30.664Z"
+    },
+    {
+      "target_id": "seg_005913",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:32.420Z"
+    },
+    {
+      "target_id": "seg_005916",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:35.278Z"
+    },
+    {
+      "target_id": "seg_005917",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:38.000Z"
+    },
+    {
+      "target_id": "seg_005918",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:13:40.017Z"
+    },
+    {
+      "target_id": "seg_005919",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:13:42.536Z"
+    },
+    {
+      "target_id": "seg_005920",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:44.829Z"
+    },
+    {
+      "target_id": "seg_005921",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:13:50.904Z"
+    },
+    {
+      "target_id": "seg_005922",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:13:52.992Z"
+    },
+    {
+      "target_id": "seg_005923",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:55.609Z"
+    },
+    {
+      "target_id": "seg_005924",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:57.830Z"
+    },
+    {
+      "target_id": "seg_005925",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:13:59.988Z"
+    },
+    {
+      "target_id": "seg_005926",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:14:10.174Z"
+    },
+    {
+      "target_id": "seg_005927",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:14:11.472Z"
+    },
+    {
+      "target_id": "seg_005928",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:14:16.324Z"
+    },
+    {
+      "target_id": "seg_005929",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:14:30.985Z"
+    },
+    {
+      "target_id": "seg_005930",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:14:32.919Z"
+    },
+    {
+      "target_id": "seg_005931",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:14:34.931Z"
+    },
+    {
+      "target_id": "seg_005932",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:14:37.721Z"
+    },
+    {
+      "target_id": "seg_005933",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:14:38.938Z"
+    },
+    {
+      "target_id": "seg_005934",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:14:41.140Z"
+    },
+    {
+      "target_id": "seg_005937",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:14:45.227Z"
+    },
+    {
+      "target_id": "seg_005938",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:14:48.992Z"
+    },
+    {
+      "target_id": "seg_005939",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:14:50.269Z"
+    },
+    {
+      "target_id": "seg_005940",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:14:52.037Z"
+    },
+    {
+      "target_id": "seg_005941",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:14:54.069Z"
+    },
+    {
+      "target_id": "seg_005942",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-04-29T06:14:57.534Z"
+    },
+    {
+      "target_id": "seg_005943",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-04-29T06:14:59.680Z"
+    },
+    {
+      "target_id": "seg_005944",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:15:03.372Z"
+    },
+    {
+      "target_id": "seg_005945",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:15:07.905Z"
+    },
+    {
+      "target_id": "seg_005948",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:15:09.790Z"
+    },
+    {
+      "target_id": "seg_005949",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:15:12.166Z"
+    },
+    {
+      "target_id": "seg_005950",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:14.266Z"
+    },
+    {
+      "target_id": "seg_005951",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:15:16.104Z"
+    },
+    {
+      "target_id": "seg_005952",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:15:19.862Z"
+    },
+    {
+      "target_id": "seg_005953",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:15:28.596Z"
+    },
+    {
+      "target_id": "seg_005954",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:31.012Z"
+    },
+    {
+      "target_id": "seg_005955",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:33.210Z"
+    },
+    {
+      "target_id": "seg_005956",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:35.107Z"
+    },
+    {
+      "target_id": "seg_005957",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:38.116Z"
+    },
+    {
+      "target_id": "seg_005960",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:40.914Z"
+    },
+    {
+      "target_id": "seg_005961",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:43.094Z"
+    },
+    {
+      "target_id": "seg_005962",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:44.904Z"
+    },
+    {
+      "target_id": "seg_005963",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:47.296Z"
+    },
+    {
+      "target_id": "seg_005964",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:48.877Z"
+    },
+    {
+      "target_id": "seg_005965",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:51.338Z"
+    },
+    {
+      "target_id": "seg_005966",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:15:52.975Z"
+    },
+    {
+      "target_id": "seg_005967",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:15:54.469Z"
+    },
+    {
+      "target_id": "seg_005968",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:15:56.661Z"
+    },
+    {
+      "target_id": "seg_005969",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:15:59.162Z"
+    },
+    {
+      "target_id": "seg_005970",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like",
+        "副词性 / Degree-like",
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:01.941Z"
+    },
+    {
+      "target_id": "seg_005971",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:16:03.314Z"
+    },
+    {
+      "target_id": "seg_005974",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:16:07.491Z"
+    },
+    {
+      "target_id": "seg_005975",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:09.082Z"
+    },
+    {
+      "target_id": "seg_005976",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:16:12.850Z"
+    },
+    {
+      "target_id": "seg_005977",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:16:18.650Z"
+    },
+    {
+      "target_id": "seg_005978",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like",
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:16:28.064Z"
+    },
+    {
+      "target_id": "seg_005979",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:30.035Z"
+    },
+    {
+      "target_id": "seg_005980",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:16:32.444Z"
+    },
+    {
+      "target_id": "seg_005981",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:16:37.893Z"
+    },
+    {
+      "target_id": "seg_005982",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:16:39.412Z"
+    },
+    {
+      "target_id": "seg_005983",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:16:43.145Z"
+    },
+    {
+      "target_id": "seg_005984",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:46.267Z"
+    },
+    {
+      "target_id": "seg_005985",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:47.600Z"
+    },
+    {
+      "target_id": "seg_005986",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:16:49.318Z"
+    },
+    {
+      "target_id": "seg_005989",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:16:52.452Z"
+    },
+    {
+      "target_id": "seg_005990",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:16:55.084Z"
+    },
+    {
+      "target_id": "seg_005991",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:16:58.670Z"
+    },
+    {
+      "target_id": "seg_005992",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:17:01.360Z"
+    },
+    {
+      "target_id": "seg_005995",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:17:04.633Z"
+    },
+    {
+      "target_id": "seg_005996",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:17:06.709Z"
+    },
+    {
+      "target_id": "seg_005997",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:09.005Z"
+    },
+    {
+      "target_id": "seg_005998",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:17:11.714Z"
+    },
+    {
+      "target_id": "seg_005999",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:13.548Z"
+    },
+    {
+      "target_id": "seg_006000",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:17:16.030Z"
+    },
+    {
+      "target_id": "seg_006001",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:17:18.102Z"
+    },
+    {
+      "target_id": "seg_006002",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:19.788Z"
+    },
+    {
+      "target_id": "seg_006003",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:21.199Z"
+    },
+    {
+      "target_id": "seg_006006",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:23.703Z"
+    },
+    {
+      "target_id": "seg_006007",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:25.680Z"
+    },
+    {
+      "target_id": "seg_006008",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:27.154Z"
+    },
+    {
+      "target_id": "seg_006009",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:29.035Z"
+    },
+    {
+      "target_id": "seg_006010",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:31.286Z"
+    },
+    {
+      "target_id": "seg_006013",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:35.966Z"
+    },
+    {
+      "target_id": "seg_006014",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:37.815Z"
+    },
+    {
+      "target_id": "seg_006015",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:39.940Z"
+    },
+    {
+      "target_id": "seg_006016",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:41.771Z"
+    },
+    {
+      "target_id": "seg_006017",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:43.428Z"
+    },
+    {
+      "target_id": "seg_006018",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:44.906Z"
+    },
+    {
+      "target_id": "seg_006019",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:46.671Z"
+    },
+    {
+      "target_id": "seg_006020",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:49.053Z"
+    },
+    {
+      "target_id": "seg_006021",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:17:50.845Z"
+    },
+    {
+      "target_id": "seg_006024",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:17:53.274Z"
+    },
+    {
+      "target_id": "seg_006025",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:17:54.766Z"
+    },
+    {
+      "target_id": "seg_006026",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like",
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:17:58.202Z"
+    },
+    {
+      "target_id": "seg_006027",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:18:00.117Z"
+    },
+    {
+      "target_id": "seg_006028",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:05.019Z"
+    },
+    {
+      "target_id": "seg_006029",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:07.060Z"
+    },
+    {
+      "target_id": "seg_006030",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:08.829Z"
+    },
+    {
+      "target_id": "seg_006031",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:18:12.412Z"
+    },
+    {
+      "target_id": "seg_006032",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:13.973Z"
+    },
+    {
+      "target_id": "seg_006033",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:15.969Z"
+    },
+    {
+      "target_id": "seg_006036",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:19.201Z"
+    },
+    {
+      "target_id": "seg_006037",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:21.782Z"
+    },
+    {
+      "target_id": "seg_006038",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:24.323Z"
+    },
+    {
+      "target_id": "seg_006039",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:26.054Z"
+    },
+    {
+      "target_id": "seg_006040",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:28.111Z"
+    },
+    {
+      "target_id": "seg_006041",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:29.830Z"
+    },
+    {
+      "target_id": "seg_006042",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:32.334Z"
+    },
+    {
+      "target_id": "seg_006043",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:33.759Z"
+    },
+    {
+      "target_id": "seg_006046",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:36.322Z"
+    },
+    {
+      "target_id": "seg_006047",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:38.047Z"
+    },
+    {
+      "target_id": "seg_006048",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:39.848Z"
+    },
+    {
+      "target_id": "seg_006049",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:41.547Z"
+    },
+    {
+      "target_id": "seg_006050",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:43.298Z"
+    },
+    {
+      "target_id": "seg_006051",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:44.707Z"
+    },
+    {
+      "target_id": "seg_006052",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:46.291Z"
+    },
+    {
+      "target_id": "seg_006053",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:47.743Z"
+    },
+    {
+      "target_id": "seg_006054",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:49.560Z"
+    },
+    {
+      "target_id": "seg_006057",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:53.138Z"
+    },
+    {
+      "target_id": "seg_006058",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:54.839Z"
+    },
+    {
+      "target_id": "seg_006059",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:18:56.603Z"
+    },
+    {
+      "target_id": "seg_006060",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:18:59.991Z"
+    },
+    {
+      "target_id": "seg_006061",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:02.092Z"
+    },
+    {
+      "target_id": "seg_006064",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:06.051Z"
+    },
+    {
+      "target_id": "seg_006065",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:07.919Z"
+    },
+    {
+      "target_id": "seg_006066",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:09.690Z"
+    },
+    {
+      "target_id": "seg_006067",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:12.366Z"
+    },
+    {
+      "target_id": "seg_006068",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:19:14.728Z"
+    },
+    {
+      "target_id": "seg_006069",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:19:16.986Z"
+    },
+    {
+      "target_id": "seg_006070",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:19.012Z"
+    },
+    {
+      "target_id": "seg_006071",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:19:21.643Z"
+    },
+    {
+      "target_id": "seg_006072",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:23.263Z"
+    },
+    {
+      "target_id": "seg_006075",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:30.185Z"
+    },
+    {
+      "target_id": "seg_006076",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:33.748Z"
+    },
+    {
+      "target_id": "seg_006077",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:35.457Z"
+    },
+    {
+      "target_id": "seg_006078",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:37.745Z"
+    },
+    {
+      "target_id": "seg_006079",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:39.711Z"
+    },
+    {
+      "target_id": "seg_006080",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:19:41.555Z"
+    },
+    {
+      "target_id": "seg_006081",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:44.003Z"
+    },
+    {
+      "target_id": "seg_006082",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:46.571Z"
+    },
+    {
+      "target_id": "seg_006083",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:48.687Z"
+    },
+    {
+      "target_id": "seg_006084",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:19:50.795Z"
+    },
+    {
+      "target_id": "seg_006087",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:19:53.622Z"
+    },
+    {
+      "target_id": "seg_006088",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:19:55.647Z"
+    },
+    {
+      "target_id": "seg_006089",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:19:58.880Z"
+    },
+    {
+      "target_id": "seg_006090",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:20:01.160Z"
+    },
+    {
+      "target_id": "seg_006091",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like",
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:03.311Z"
+    },
+    {
+      "target_id": "seg_006092",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:20:06.176Z"
+    },
+    {
+      "target_id": "seg_006093",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:20:09.637Z"
+    },
+    {
+      "target_id": "seg_006094",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:20:11.694Z"
+    },
+    {
+      "target_id": "seg_006095",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:20:13.256Z"
+    },
+    {
+      "target_id": "seg_006096",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:20:14.919Z"
+    },
+    {
+      "target_id": "seg_006097",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:20:16.943Z"
+    },
+    {
+      "target_id": "seg_006098",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:20:18.161Z"
+    },
+    {
+      "target_id": "seg_006099",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:20:19.525Z"
+    },
+    {
+      "target_id": "seg_006100",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:20:20.718Z"
+    },
+    {
+      "target_id": "seg_006101",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:20:21.978Z"
+    },
+    {
+      "target_id": "seg_006104",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:20:26.050Z"
+    },
+    {
+      "target_id": "seg_006105",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:20:27.941Z"
+    },
+    {
+      "target_id": "seg_006106",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:30.559Z"
+    },
+    {
+      "target_id": "seg_006107",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:20:32.700Z"
+    },
+    {
+      "target_id": "seg_006108",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:20:34.421Z"
+    },
+    {
+      "target_id": "seg_006109",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:37.267Z"
+    },
+    {
+      "target_id": "seg_006110",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:20:39.115Z"
+    },
+    {
+      "target_id": "seg_006111",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:41.387Z"
+    },
+    {
+      "target_id": "seg_006112",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:20:43.726Z"
+    },
+    {
+      "target_id": "seg_006113",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:45.931Z"
+    },
+    {
+      "target_id": "seg_006114",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:20:49.373Z"
+    },
+    {
+      "target_id": "seg_006115",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:51.043Z"
+    },
+    {
+      "target_id": "seg_006116",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:20:52.420Z"
+    },
+    {
+      "target_id": "seg_006117",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:20:54.946Z"
+    },
+    {
+      "target_id": "seg_006120",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:20:57.062Z"
+    },
+    {
+      "target_id": "seg_006121",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:20:58.741Z"
+    },
+    {
+      "target_id": "seg_006122",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:21:00.215Z"
+    },
+    {
+      "target_id": "seg_006123",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:21:02.206Z"
+    },
+    {
+      "target_id": "seg_006124",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:21:04.367Z"
+    },
+    {
+      "target_id": "seg_006125",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:21:07.277Z"
+    },
+    {
+      "target_id": "seg_006126",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:11.319Z"
+    },
+    {
+      "target_id": "seg_006127",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:13.231Z"
+    },
+    {
+      "target_id": "seg_006128",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:14.656Z"
+    },
+    {
+      "target_id": "seg_006129",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:16.441Z"
+    },
+    {
+      "target_id": "seg_006130",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:21:18.397Z"
+    },
+    {
+      "target_id": "seg_006131",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:21:19.832Z"
+    },
+    {
+      "target_id": "seg_006132",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:21:22.260Z"
+    },
+    {
+      "target_id": "seg_006135",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:21:25.029Z"
+    },
+    {
+      "target_id": "seg_006136",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:21:27.210Z"
+    },
+    {
+      "target_id": "seg_006137",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:29.378Z"
+    },
+    {
+      "target_id": "seg_006138",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:21:31.951Z"
+    },
+    {
+      "target_id": "seg_006139",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:21:33.668Z"
+    },
+    {
+      "target_id": "seg_006140",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:21:35.236Z"
+    },
+    {
+      "target_id": "seg_006141",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:21:37.051Z"
+    },
+    {
+      "target_id": "seg_006142",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:21:38.857Z"
+    },
+    {
+      "target_id": "seg_006143",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:21:40.447Z"
+    },
+    {
+      "target_id": "seg_006144",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:21:43.597Z"
+    },
+    {
+      "target_id": "seg_006145",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:21:45.562Z"
+    },
+    {
+      "target_id": "seg_006146",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:21:48.599Z"
+    },
+    {
+      "target_id": "seg_006147",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:21:50.347Z"
+    },
+    {
+      "target_id": "seg_006148",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-04-29T06:21:54.917Z"
+    },
+    {
+      "target_id": "seg_006149",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker",
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:21:56.978Z"
+    },
+    {
+      "target_id": "seg_006152",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:21:59.811Z"
+    },
+    {
+      "target_id": "seg_006153",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:22:03.122Z"
+    },
+    {
+      "target_id": "seg_006154",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:23:50.717Z"
+    },
+    {
+      "target_id": "seg_006155",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:23:52.622Z"
+    },
+    {
+      "target_id": "seg_006156",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:23:54.677Z"
+    },
+    {
+      "target_id": "seg_006157",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:23:56.567Z"
+    },
+    {
+      "target_id": "seg_006158",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:23:59.403Z"
+    },
+    {
+      "target_id": "seg_006159",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:24:01.345Z"
+    },
+    {
+      "target_id": "seg_006160",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:04.644Z"
+    },
+    {
+      "target_id": "seg_006161",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:24:07.899Z"
+    },
+    {
+      "target_id": "seg_006162",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:09.443Z"
+    },
+    {
+      "target_id": "seg_006163",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:10.863Z"
+    },
+    {
+      "target_id": "seg_006164",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:12.495Z"
+    },
+    {
+      "target_id": "seg_006165",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:14.507Z"
+    },
+    {
+      "target_id": "seg_006166",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:24:16.935Z"
+    },
+    {
+      "target_id": "seg_006393",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:26.184Z"
+    },
+    {
+      "target_id": "seg_006394",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:24:28.516Z"
+    },
+    {
+      "target_id": "seg_006395",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:24:30.097Z"
+    },
+    {
+      "target_id": "seg_006396",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:24:32.624Z"
+    },
+    {
+      "target_id": "seg_006397",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:24:34.530Z"
+    },
+    {
+      "target_id": "seg_006398",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:24:39.375Z"
+    },
+    {
+      "target_id": "seg_006376",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:24:41.639Z"
+    },
+    {
+      "target_id": "seg_006377",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:44.782Z"
+    },
+    {
+      "target_id": "seg_006378",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:47.444Z"
+    },
+    {
+      "target_id": "seg_006379",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:49.530Z"
+    },
+    {
+      "target_id": "seg_006380",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:51.487Z"
+    },
+    {
+      "target_id": "seg_006381",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:53.736Z"
+    },
+    {
+      "target_id": "seg_006382",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:55.604Z"
+    },
+    {
+      "target_id": "seg_006383",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:24:57.650Z"
+    },
+    {
+      "target_id": "seg_006384",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:24:59.068Z"
+    },
+    {
+      "target_id": "seg_006385",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:00.669Z"
+    },
+    {
+      "target_id": "seg_006386",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:03.254Z"
+    },
+    {
+      "target_id": "seg_006387",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:04.559Z"
+    },
+    {
+      "target_id": "seg_006388",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:06.336Z"
+    },
+    {
+      "target_id": "seg_006389",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:07.919Z"
+    },
+    {
+      "target_id": "seg_006390",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:10.347Z"
+    },
+    {
+      "target_id": "seg_006355",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:25:15.186Z"
+    },
+    {
+      "target_id": "seg_006356",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:25:16.962Z"
+    },
+    {
+      "target_id": "seg_006357",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:19.063Z"
+    },
+    {
+      "target_id": "seg_006358",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:25:22.138Z"
+    },
+    {
+      "target_id": "seg_006359",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:25:24.132Z"
+    },
+    {
+      "target_id": "seg_006360",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:26.071Z"
+    },
+    {
+      "target_id": "seg_006361",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:28.917Z"
+    },
+    {
+      "target_id": "seg_006362",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:32.059Z"
+    },
+    {
+      "target_id": "seg_006363",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:34.129Z"
+    },
+    {
+      "target_id": "seg_006364",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:25:36.867Z"
+    },
+    {
+      "target_id": "seg_006365",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:25:39.680Z"
+    },
+    {
+      "target_id": "seg_006366",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:25:41.734Z"
+    },
+    {
+      "target_id": "seg_006367",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:25:44.120Z"
+    },
+    {
+      "target_id": "seg_006368",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:46.933Z"
+    },
+    {
+      "target_id": "seg_006369",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:48.603Z"
+    },
+    {
+      "target_id": "seg_006370",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:25:50.187Z"
+    },
+    {
+      "target_id": "seg_006371",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:25:51.934Z"
+    },
+    {
+      "target_id": "seg_006372",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:53.981Z"
+    },
+    {
+      "target_id": "seg_006373",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:55.341Z"
+    },
+    {
+      "target_id": "seg_006340",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:25:59.554Z"
+    },
+    {
+      "target_id": "seg_006341",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:01.421Z"
+    },
+    {
+      "target_id": "seg_006342",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:26:04.309Z"
+    },
+    {
+      "target_id": "seg_006343",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:26:06.975Z"
+    },
+    {
+      "target_id": "seg_006344",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:08.883Z"
+    },
+    {
+      "target_id": "seg_006345",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:26:11.203Z"
+    },
+    {
+      "target_id": "seg_006346",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:13.129Z"
+    },
+    {
+      "target_id": "seg_006347",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:14.922Z"
+    },
+    {
+      "target_id": "seg_006349",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:26:23.110Z"
+    },
+    {
+      "target_id": "seg_006348",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:18.812Z"
+    },
+    {
+      "target_id": "seg_006350",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:20.613Z"
+    },
+    {
+      "target_id": "seg_006351",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:24.537Z"
+    },
+    {
+      "target_id": "seg_006352",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:26:27.654Z"
+    },
+    {
+      "target_id": "seg_006326",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:30.904Z"
+    },
+    {
+      "target_id": "seg_006327",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:32.897Z"
+    },
+    {
+      "target_id": "seg_006328",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:34.652Z"
+    },
+    {
+      "target_id": "seg_006329",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:26:36.579Z"
+    },
+    {
+      "target_id": "seg_006330",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:26:39.197Z"
+    },
+    {
+      "target_id": "seg_006331",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:42.730Z"
+    },
+    {
+      "target_id": "seg_006332",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:26:47.949Z"
+    },
+    {
+      "target_id": "seg_006333",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:26:51.032Z"
+    },
+    {
+      "target_id": "seg_006334",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:53.463Z"
+    },
+    {
+      "target_id": "seg_006335",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:54.991Z"
+    },
+    {
+      "target_id": "seg_006337",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:57.640Z"
+    },
+    {
+      "target_id": "seg_006336",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:26:59.026Z"
+    },
+    {
+      "target_id": "seg_006306",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:27:02.104Z"
+    },
+    {
+      "target_id": "seg_006307",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:03.975Z"
+    },
+    {
+      "target_id": "seg_006309",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:27:08.171Z"
+    },
+    {
+      "target_id": "seg_006308",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:27:10.860Z"
+    },
+    {
+      "target_id": "seg_006310",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:27:13.770Z"
+    },
+    {
+      "target_id": "seg_006311",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:15.548Z"
+    },
+    {
+      "target_id": "seg_006312",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:27:18.031Z"
+    },
+    {
+      "target_id": "seg_006313",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:27:19.996Z"
+    },
+    {
+      "target_id": "seg_006314",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:27:22.009Z"
+    },
+    {
+      "target_id": "seg_006315",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:27:24.361Z"
+    },
+    {
+      "target_id": "seg_006316",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:27:26.760Z"
+    },
+    {
+      "target_id": "seg_006317",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:27:28.928Z"
+    },
+    {
+      "target_id": "seg_006318",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:30.901Z"
+    },
+    {
+      "target_id": "seg_006319",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:27:33.505Z"
+    },
+    {
+      "target_id": "seg_006320",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:27:35.303Z"
+    },
+    {
+      "target_id": "seg_006321",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:27:36.690Z"
+    },
+    {
+      "target_id": "seg_006322",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:38.272Z"
+    },
+    {
+      "target_id": "seg_006323",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:27:43.791Z"
+    },
+    {
+      "target_id": "seg_006291",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:27:50.129Z"
+    },
+    {
+      "target_id": "seg_006292",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:52.148Z"
+    },
+    {
+      "target_id": "seg_006293",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:54.411Z"
+    },
+    {
+      "target_id": "seg_006294",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:27:58.792Z"
+    },
+    {
+      "target_id": "seg_006295",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:00.701Z"
+    },
+    {
+      "target_id": "seg_006296",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:28:02.459Z"
+    },
+    {
+      "target_id": "seg_006297",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:04.244Z"
+    },
+    {
+      "target_id": "seg_006298",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:05.885Z"
+    },
+    {
+      "target_id": "seg_006299",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker",
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:28:08.012Z"
+    },
+    {
+      "target_id": "seg_006300",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:09.418Z"
+    },
+    {
+      "target_id": "seg_006301",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:28:11.990Z"
+    },
+    {
+      "target_id": "seg_006302",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:13.506Z"
+    },
+    {
+      "target_id": "seg_006303",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:14.738Z"
+    },
+    {
+      "target_id": "seg_006276",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:18.794Z"
+    },
+    {
+      "target_id": "seg_006277",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:28:21.319Z"
+    },
+    {
+      "target_id": "seg_006278",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:23.090Z"
+    },
+    {
+      "target_id": "seg_006279",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:25.100Z"
+    },
+    {
+      "target_id": "seg_006280",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:27.005Z"
+    },
+    {
+      "target_id": "seg_006281",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:28.927Z"
+    },
+    {
+      "target_id": "seg_006282",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:30.689Z"
+    },
+    {
+      "target_id": "seg_006283",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:32.540Z"
+    },
+    {
+      "target_id": "seg_006284",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:34.220Z"
+    },
+    {
+      "target_id": "seg_006285",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:28:37.796Z"
+    },
+    {
+      "target_id": "seg_006286",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:40.571Z"
+    },
+    {
+      "target_id": "seg_006287",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:42.087Z"
+    },
+    {
+      "target_id": "seg_006288",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:44.293Z"
+    },
+    {
+      "target_id": "seg_006263",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:28:47.449Z"
+    },
+    {
+      "target_id": "seg_006264",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:28:51.965Z"
+    },
+    {
+      "target_id": "seg_006265",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:54.354Z"
+    },
+    {
+      "target_id": "seg_006266",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:28:56.141Z"
+    },
+    {
+      "target_id": "seg_006267",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:28:58.669Z"
+    },
+    {
+      "target_id": "seg_006268",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:00.201Z"
+    },
+    {
+      "target_id": "seg_006269",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:01.946Z"
+    },
+    {
+      "target_id": "seg_006270",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:03.881Z"
+    },
+    {
+      "target_id": "seg_006271",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:05.660Z"
+    },
+    {
+      "target_id": "seg_006272",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:07.301Z"
+    },
+    {
+      "target_id": "seg_006273",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:29:09.333Z"
+    },
+    {
+      "target_id": "seg_006251",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:29:11.808Z"
+    },
+    {
+      "target_id": "seg_006252",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:13.526Z"
+    },
+    {
+      "target_id": "seg_006253",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:29:15.257Z"
+    },
+    {
+      "target_id": "seg_006254",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:18.378Z"
+    },
+    {
+      "target_id": "seg_006255",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:20.432Z"
+    },
+    {
+      "target_id": "seg_006256",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:22.323Z"
+    },
+    {
+      "target_id": "seg_006257",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:25.285Z"
+    },
+    {
+      "target_id": "seg_006258",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:27.168Z"
+    },
+    {
+      "target_id": "seg_006259",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:29:29.510Z"
+    },
+    {
+      "target_id": "seg_006260",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:29:31.489Z"
+    },
+    {
+      "target_id": "seg_006169",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:29:36.932Z"
+    },
+    {
+      "target_id": "seg_006170",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:29:39.302Z"
+    },
+    {
+      "target_id": "seg_006171",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:31:13.761Z"
+    },
+    {
+      "target_id": "seg_006172",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:31:15.775Z"
+    },
+    {
+      "target_id": "seg_006173",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:31:17.534Z"
+    },
+    {
+      "target_id": "seg_006174",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:31:19.662Z"
+    },
+    {
+      "target_id": "seg_006175",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:31:21.531Z"
+    },
+    {
+      "target_id": "seg_006176",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:31:25.244Z"
+    },
+    {
+      "target_id": "seg_006177",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:31:28.274Z"
+    },
+    {
+      "target_id": "seg_006178",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:31:30.290Z"
+    },
+    {
+      "target_id": "seg_006179",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:31:31.917Z"
+    },
+    {
+      "target_id": "seg_006180",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:31:33.966Z"
+    },
+    {
+      "target_id": "seg_006181",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:31:36.109Z"
+    },
+    {
+      "target_id": "seg_006184",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like",
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:31:41.209Z"
+    },
+    {
+      "target_id": "seg_006185",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:31:44.187Z"
+    },
+    {
+      "target_id": "seg_006186",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:31:47.389Z"
+    },
+    {
+      "target_id": "seg_006187",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:31:49.601Z"
+    },
+    {
+      "target_id": "seg_006188",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:31:51.507Z"
+    },
+    {
+      "target_id": "seg_006189",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:31:58.301Z"
+    },
+    {
+      "target_id": "seg_006190",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:02.224Z"
+    },
+    {
+      "target_id": "seg_006191",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:32:03.972Z"
+    },
+    {
+      "target_id": "seg_006192",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:06.431Z"
+    },
+    {
+      "target_id": "seg_006193",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:08.703Z"
+    },
+    {
+      "target_id": "seg_006194",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:32:10.570Z"
+    },
+    {
+      "target_id": "seg_006195",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:12.296Z"
+    },
+    {
+      "target_id": "seg_006196",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:32:13.901Z"
+    },
+    {
+      "target_id": "seg_006197",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:32:15.993Z"
+    },
+    {
+      "target_id": "seg_006198",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:17.957Z"
+    },
+    {
+      "target_id": "seg_006199",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:32:19.931Z"
+    },
+    {
+      "target_id": "seg_006200",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:32:21.744Z"
+    },
+    {
+      "target_id": "seg_006201",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:32:22.960Z"
+    },
+    {
+      "target_id": "seg_006202",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:32:25.151Z"
+    },
+    {
+      "target_id": "seg_006203",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:32:26.645Z"
+    },
+    {
+      "target_id": "seg_006236",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:32:33.393Z"
+    },
+    {
+      "target_id": "seg_006237",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:35.282Z"
+    },
+    {
+      "target_id": "seg_006238",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:37.331Z"
+    },
+    {
+      "target_id": "seg_006239",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:32:39.295Z"
+    },
+    {
+      "target_id": "seg_006240",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:41.537Z"
+    },
+    {
+      "target_id": "seg_006241",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:32:43.232Z"
+    },
+    {
+      "target_id": "seg_006242",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:45.347Z"
+    },
+    {
+      "target_id": "seg_006243",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:47.245Z"
+    },
+    {
+      "target_id": "seg_006244",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:49.052Z"
+    },
+    {
+      "target_id": "seg_006245",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:50.645Z"
+    },
+    {
+      "target_id": "seg_006247",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:52.232Z"
+    },
+    {
+      "target_id": "seg_006246",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:32:54.324Z"
+    },
+    {
+      "target_id": "seg_006248",
+      "task_id": "pos_like_category",
+      "value": [
+        "连接/关系标记 / Connector"
+      ],
+      "updated_at": "2026-04-29T06:32:55.802Z"
+    },
+    {
+      "target_id": "seg_006223",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:00.140Z"
+    },
+    {
+      "target_id": "seg_006224",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:33:01.989Z"
+    },
+    {
+      "target_id": "seg_006225",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:33:04.179Z"
+    },
+    {
+      "target_id": "seg_006226",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:33:06.106Z"
+    },
+    {
+      "target_id": "seg_006227",
+      "task_id": "pos_like_category",
+      "value": [
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:08.050Z"
+    },
+    {
+      "target_id": "seg_006228",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:33:09.976Z"
+    },
+    {
+      "target_id": "seg_006229",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:12.638Z"
+    },
+    {
+      "target_id": "seg_006230",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:33:14.535Z"
+    },
+    {
+      "target_id": "seg_006231",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:18.192Z"
+    },
+    {
+      "target_id": "seg_006232",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:20.315Z"
+    },
+    {
+      "target_id": "seg_006233",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:22.379Z"
+    },
+    {
+      "target_id": "seg_006206",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:28.689Z"
+    },
+    {
+      "target_id": "seg_006207",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:33:30.961Z"
+    },
+    {
+      "target_id": "seg_006208",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:33.909Z"
+    },
+    {
+      "target_id": "seg_006209",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:36.030Z"
+    },
+    {
+      "target_id": "seg_006210",
+      "task_id": "pos_like_category",
+      "value": [
+        "标点/边界标记 / Boundary Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:38.249Z"
+    },
+    {
+      "target_id": "seg_006211",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like",
+        "虚词/语法标记 / Grammatical Marker"
+      ],
+      "updated_at": "2026-04-29T06:33:49.245Z"
+    },
+    {
+      "target_id": "seg_006212",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-04-29T06:33:51.209Z"
+    },
+    {
+      "target_id": "seg_006213",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit",
+        "无法判断 / Undetermined"
+      ],
+      "updated_at": "2026-04-29T06:33:58.183Z"
+    },
+    {
+      "target_id": "seg_006214",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:34:00.914Z"
+    },
+    {
+      "target_id": "seg_006215",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-04-29T06:34:02.668Z"
+    },
+    {
+      "target_id": "seg_006216",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:34:06.156Z"
+    },
+    {
+      "target_id": "seg_006217",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-04-29T06:34:07.865Z"
+    },
+    {
+      "target_id": "seg_006218",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-04-29T06:34:12.397Z"
+    },
+    {
+      "target_id": "seg_006219",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:34:14.144Z"
+    },
+    {
+      "target_id": "seg_006220",
+      "task_id": "pos_like_category",
+      "value": [
+        "代词/指示性 / Deictic-like"
+      ],
+      "updated_at": "2026-04-29T06:34:15.908Z"
+    }
+  ]
+}

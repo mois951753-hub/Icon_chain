@@ -1,0 +1,3692 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "23_R",
+    "pageEndKey": "25_R"
+  },
+  "groups": [
+    {
+      "id": "grp_149131_26",
+      "level": 1,
+      "children": [
+        "seg_005785",
+        "seg_005786"
+      ],
+      "leaf_start": 5785,
+      "leaf_end": 5786
+    },
+    {
+      "id": "grp_162163_62",
+      "level": 1,
+      "children": [
+        "seg_005789",
+        "seg_005790"
+      ],
+      "leaf_start": 5789,
+      "leaf_end": 5790
+    },
+    {
+      "id": "grp_169544_0",
+      "level": 1,
+      "children": [
+        "seg_005791",
+        "seg_005792"
+      ],
+      "leaf_start": 5791,
+      "leaf_end": 5792
+    },
+    {
+      "id": "grp_180681_95",
+      "level": 1,
+      "children": [
+        "seg_005793",
+        "seg_005794",
+        "seg_005795"
+      ],
+      "leaf_start": 5793,
+      "leaf_end": 5795
+    },
+    {
+      "id": "grp_393681_62",
+      "level": 1,
+      "children": [
+        "seg_005799",
+        "seg_005800"
+      ],
+      "leaf_start": 5799,
+      "leaf_end": 5800
+    },
+    {
+      "id": "grp_401133_28",
+      "level": 1,
+      "children": [
+        "seg_005801",
+        "seg_005802",
+        "seg_005803",
+        "seg_005804"
+      ],
+      "leaf_start": 5801,
+      "leaf_end": 5804
+    },
+    {
+      "id": "grp_432307_25",
+      "level": 1,
+      "children": [
+        "seg_005806",
+        "seg_005807",
+        "seg_005808",
+        "seg_005809",
+        "seg_005810"
+      ],
+      "leaf_start": 5806,
+      "leaf_end": 5810
+    },
+    {
+      "id": "grp_586943_47",
+      "level": 1,
+      "children": [
+        "seg_005813",
+        "seg_005814",
+        "seg_005815"
+      ],
+      "leaf_start": 5813,
+      "leaf_end": 5815
+    },
+    {
+      "id": "grp_598707_1",
+      "level": 1,
+      "children": [
+        "seg_005816",
+        "seg_005817",
+        "seg_005818",
+        "seg_005819",
+        "seg_005820",
+        "seg_005821",
+        "seg_005822"
+      ],
+      "leaf_start": 5816,
+      "leaf_end": 5822
+    },
+    {
+      "id": "grp_614072_93",
+      "level": 1,
+      "children": [
+        "seg_005825",
+        "seg_005826"
+      ],
+      "leaf_start": 5825,
+      "leaf_end": 5826
+    },
+    {
+      "id": "grp_493190_67",
+      "level": 1,
+      "children": [
+        "seg_005830",
+        "seg_005831",
+        "seg_005832",
+        "seg_005833"
+      ],
+      "leaf_start": 5830,
+      "leaf_end": 5833
+    },
+    {
+      "id": "grp_500385_41",
+      "level": 1,
+      "children": [
+        "seg_005834",
+        "seg_005835",
+        "seg_005836",
+        "seg_005837"
+      ],
+      "leaf_start": 5834,
+      "leaf_end": 5837
+    },
+    {
+      "id": "grp_504867_4",
+      "level": 1,
+      "children": [
+        "seg_005838",
+        "seg_005839"
+      ],
+      "leaf_start": 5838,
+      "leaf_end": 5839
+    },
+    {
+      "id": "grp_550371_28",
+      "level": 1,
+      "children": [
+        "seg_005842",
+        "seg_005843",
+        "seg_005844",
+        "seg_005845",
+        "seg_005846"
+      ],
+      "leaf_start": 5842,
+      "leaf_end": 5846
+    },
+    {
+      "id": "grp_850221_32",
+      "level": 1,
+      "children": [
+        "seg_005850",
+        "seg_005851"
+      ],
+      "leaf_start": 5850,
+      "leaf_end": 5851
+    },
+    {
+      "id": "grp_860068_0",
+      "level": 1,
+      "children": [
+        "seg_005853",
+        "seg_005854",
+        "seg_005855"
+      ],
+      "leaf_start": 5853,
+      "leaf_end": 5855
+    },
+    {
+      "id": "grp_879692_95",
+      "level": 1,
+      "children": [
+        "seg_005857",
+        "seg_005858",
+        "seg_005859",
+        "seg_005860"
+      ],
+      "leaf_start": 5857,
+      "leaf_end": 5860
+    },
+    {
+      "id": "grp_095821_34",
+      "level": 1,
+      "children": [
+        "seg_005861",
+        "seg_005862"
+      ],
+      "leaf_start": 5861,
+      "leaf_end": 5862
+    },
+    {
+      "id": "grp_103652_92",
+      "level": 1,
+      "children": [
+        "seg_005867",
+        "seg_005868"
+      ],
+      "leaf_start": 5867,
+      "leaf_end": 5868
+    },
+    {
+      "id": "grp_109001_45",
+      "level": 1,
+      "children": [
+        "seg_005871",
+        "seg_005872",
+        "seg_005873"
+      ],
+      "leaf_start": 5871,
+      "leaf_end": 5873
+    },
+    {
+      "id": "grp_113153_56",
+      "level": 1,
+      "children": [
+        "seg_005874",
+        "seg_005875"
+      ],
+      "leaf_start": 5874,
+      "leaf_end": 5875
+    },
+    {
+      "id": "grp_306719_16",
+      "level": 1,
+      "children": [
+        "seg_005884",
+        "seg_005885"
+      ],
+      "leaf_start": 5884,
+      "leaf_end": 5885
+    },
+    {
+      "id": "grp_311774_86",
+      "level": 1,
+      "children": [
+        "seg_005889",
+        "seg_005890",
+        "seg_005891"
+      ],
+      "leaf_start": 5889,
+      "leaf_end": 5891
+    },
+    {
+      "id": "grp_317833_97",
+      "level": 1,
+      "children": [
+        "seg_005893",
+        "seg_005894"
+      ],
+      "leaf_start": 5893,
+      "leaf_end": 5894
+    },
+    {
+      "id": "grp_625406_61",
+      "level": 1,
+      "children": [
+        "seg_005901",
+        "seg_005902"
+      ],
+      "leaf_start": 5901,
+      "leaf_end": 5902
+    },
+    {
+      "id": "grp_626735_13",
+      "level": 1,
+      "children": [
+        "seg_005903",
+        "seg_005904"
+      ],
+      "leaf_start": 5903,
+      "leaf_end": 5904
+    },
+    {
+      "id": "grp_629872_85",
+      "level": 1,
+      "children": [
+        "seg_005906",
+        "seg_005907"
+      ],
+      "leaf_start": 5906,
+      "leaf_end": 5907
+    },
+    {
+      "id": "grp_631399_20",
+      "level": 1,
+      "children": [
+        "seg_005909",
+        "seg_005910"
+      ],
+      "leaf_start": 5909,
+      "leaf_end": 5910
+    },
+    {
+      "id": "grp_633379_64",
+      "level": 1,
+      "children": [
+        "seg_005911",
+        "seg_005912"
+      ],
+      "leaf_start": 5911,
+      "leaf_end": 5912
+    },
+    {
+      "id": "grp_647897_74",
+      "level": 1,
+      "children": [
+        "seg_005916",
+        "seg_005917",
+        "seg_005918",
+        "seg_005919"
+      ],
+      "leaf_start": 5916,
+      "leaf_end": 5919
+    },
+    {
+      "id": "grp_652730_98",
+      "level": 1,
+      "children": [
+        "seg_005920",
+        "seg_005921"
+      ],
+      "leaf_start": 5920,
+      "leaf_end": 5921
+    },
+    {
+      "id": "grp_658014_78",
+      "level": 1,
+      "children": [
+        "seg_005924",
+        "seg_005925"
+      ],
+      "leaf_start": 5924,
+      "leaf_end": 5925
+    },
+    {
+      "id": "grp_659741_20",
+      "level": 1,
+      "children": [
+        "seg_005922",
+        "seg_005923"
+      ],
+      "leaf_start": 5922,
+      "leaf_end": 5923
+    },
+    {
+      "id": "grp_662184_17",
+      "level": 1,
+      "children": [
+        "seg_005926",
+        "seg_005927",
+        "seg_005928",
+        "seg_005929"
+      ],
+      "leaf_start": 5926,
+      "leaf_end": 5929
+    },
+    {
+      "id": "grp_666566_27",
+      "level": 1,
+      "children": [
+        "seg_005931",
+        "seg_005932",
+        "seg_005933"
+      ],
+      "leaf_start": 5931,
+      "leaf_end": 5933
+    },
+    {
+      "id": "grp_669419_81",
+      "level": 1,
+      "children": [
+        "seg_005937",
+        "seg_005938"
+      ],
+      "leaf_start": 5937,
+      "leaf_end": 5938
+    },
+    {
+      "id": "grp_671311_23",
+      "level": 1,
+      "children": [
+        "seg_005939",
+        "seg_005940"
+      ],
+      "leaf_start": 5939,
+      "leaf_end": 5940
+    },
+    {
+      "id": "grp_674229_99",
+      "level": 1,
+      "children": [
+        "seg_005941",
+        "seg_005942",
+        "seg_005943"
+      ],
+      "leaf_start": 5941,
+      "leaf_end": 5943
+    },
+    {
+      "id": "grp_675470_57",
+      "level": 1,
+      "children": [
+        "seg_005944",
+        "seg_005945"
+      ],
+      "leaf_start": 5944,
+      "leaf_end": 5945
+    },
+    {
+      "id": "grp_678468_87",
+      "level": 1,
+      "children": [
+        "seg_005949",
+        "seg_005950"
+      ],
+      "leaf_start": 5949,
+      "leaf_end": 5950
+    },
+    {
+      "id": "grp_682552_77",
+      "level": 1,
+      "children": [
+        "seg_005951",
+        "seg_005952",
+        "seg_005953"
+      ],
+      "leaf_start": 5951,
+      "leaf_end": 5953
+    },
+    {
+      "id": "grp_688132_77",
+      "level": 1,
+      "children": [
+        "seg_005965",
+        "seg_005966",
+        "seg_005967"
+      ],
+      "leaf_start": 5965,
+      "leaf_end": 5967
+    },
+    {
+      "id": "grp_689936_7",
+      "level": 1,
+      "children": [
+        "seg_005969",
+        "seg_005970"
+      ],
+      "leaf_start": 5969,
+      "leaf_end": 5970
+    },
+    {
+      "id": "grp_697768_91",
+      "level": 1,
+      "children": [
+        "seg_005990",
+        "seg_005991",
+        "seg_005992"
+      ],
+      "leaf_start": 5990,
+      "leaf_end": 5992
+    },
+    {
+      "id": "grp_701090_36",
+      "level": 1,
+      "children": [
+        "seg_005995",
+        "seg_005996"
+      ],
+      "leaf_start": 5995,
+      "leaf_end": 5996
+    },
+    {
+      "id": "grp_702542_98",
+      "level": 1,
+      "children": [
+        "seg_005997",
+        "seg_005998"
+      ],
+      "leaf_start": 5997,
+      "leaf_end": 5998
+    },
+    {
+      "id": "grp_704158_41",
+      "level": 1,
+      "children": [
+        "seg_005999",
+        "seg_006000"
+      ],
+      "leaf_start": 5999,
+      "leaf_end": 6000
+    },
+    {
+      "id": "grp_351960_54",
+      "level": 1,
+      "children": [
+        "seg_006001",
+        "seg_006002",
+        "seg_006003"
+      ],
+      "leaf_start": 6001,
+      "leaf_end": 6003
+    },
+    {
+      "id": "grp_468146_20",
+      "level": 1,
+      "children": [
+        "seg_006008",
+        "seg_006009",
+        "seg_006010"
+      ],
+      "leaf_start": 6008,
+      "leaf_end": 6010
+    },
+    {
+      "id": "grp_624459_37",
+      "level": 1,
+      "children": [
+        "seg_006019",
+        "seg_006020",
+        "seg_006021"
+      ],
+      "leaf_start": 6019,
+      "leaf_end": 6021
+    },
+    {
+      "id": "grp_631565_36",
+      "level": 1,
+      "children": [
+        "seg_006024",
+        "seg_006025",
+        "seg_006026",
+        "seg_006027",
+        "seg_006028"
+      ],
+      "leaf_start": 6024,
+      "leaf_end": 6028
+    },
+    {
+      "id": "grp_634927_97",
+      "level": 1,
+      "children": [
+        "seg_006036",
+        "seg_006037",
+        "seg_006038",
+        "seg_006039"
+      ],
+      "leaf_start": 6036,
+      "leaf_end": 6039
+    },
+    {
+      "id": "grp_637340_77",
+      "level": 1,
+      "children": [
+        "seg_006052",
+        "seg_006053",
+        "seg_006054"
+      ],
+      "leaf_start": 6052,
+      "leaf_end": 6054
+    },
+    {
+      "id": "grp_639094_90",
+      "level": 1,
+      "children": [
+        "seg_006046",
+        "seg_006047",
+        "seg_006048"
+      ],
+      "leaf_start": 6046,
+      "leaf_end": 6048
+    },
+    {
+      "id": "grp_644538_19",
+      "level": 1,
+      "children": [
+        "seg_006067",
+        "seg_006068",
+        "seg_006069",
+        "seg_006070",
+        "seg_006071",
+        "seg_006072"
+      ],
+      "leaf_start": 6067,
+      "leaf_end": 6072
+    },
+    {
+      "id": "grp_647090_34",
+      "level": 1,
+      "children": [
+        "seg_006081",
+        "seg_006082",
+        "seg_006083"
+      ],
+      "leaf_start": 6081,
+      "leaf_end": 6083
+    },
+    {
+      "id": "grp_232464_71",
+      "level": 1,
+      "children": [
+        "seg_006057",
+        "seg_006058"
+      ],
+      "leaf_start": 6057,
+      "leaf_end": 6058
+    },
+    {
+      "id": "grp_460421_55",
+      "level": 1,
+      "children": [
+        "seg_006088",
+        "seg_006089",
+        "seg_006090"
+      ],
+      "leaf_start": 6088,
+      "leaf_end": 6090
+    },
+    {
+      "id": "grp_462168_3",
+      "level": 1,
+      "children": [
+        "seg_006093",
+        "seg_006094"
+      ],
+      "leaf_start": 6093,
+      "leaf_end": 6094
+    },
+    {
+      "id": "grp_463672_41",
+      "level": 1,
+      "children": [
+        "seg_006096",
+        "seg_006097"
+      ],
+      "leaf_start": 6096,
+      "leaf_end": 6097
+    },
+    {
+      "id": "grp_466658_21",
+      "level": 1,
+      "children": [
+        "seg_006104",
+        "seg_006105"
+      ],
+      "leaf_start": 6104,
+      "leaf_end": 6105
+    },
+    {
+      "id": "grp_471551_32",
+      "level": 1,
+      "children": [
+        "seg_006107",
+        "seg_006108"
+      ],
+      "leaf_start": 6107,
+      "leaf_end": 6108
+    },
+    {
+      "id": "grp_473229_31",
+      "level": 1,
+      "children": [
+        "seg_006110",
+        "seg_006111"
+      ],
+      "leaf_start": 6110,
+      "leaf_end": 6111
+    },
+    {
+      "id": "grp_476515_38",
+      "level": 1,
+      "children": [
+        "seg_006114",
+        "seg_006115"
+      ],
+      "leaf_start": 6114,
+      "leaf_end": 6115
+    },
+    {
+      "id": "grp_483411_40",
+      "level": 1,
+      "children": [
+        "seg_006124",
+        "seg_006125",
+        "seg_006126"
+      ],
+      "leaf_start": 6124,
+      "leaf_end": 6126
+    },
+    {
+      "id": "grp_484904_41",
+      "level": 1,
+      "children": [
+        "seg_006129",
+        "seg_006130"
+      ],
+      "leaf_start": 6129,
+      "leaf_end": 6130
+    },
+    {
+      "id": "grp_490827_44",
+      "level": 1,
+      "children": [
+        "seg_006135",
+        "seg_006136"
+      ],
+      "leaf_start": 6135,
+      "leaf_end": 6136
+    },
+    {
+      "id": "grp_493171_18",
+      "level": 1,
+      "children": [
+        "seg_006138",
+        "seg_006139",
+        "seg_006140",
+        "seg_006141"
+      ],
+      "leaf_start": 6138,
+      "leaf_end": 6141
+    },
+    {
+      "id": "grp_495622_12",
+      "level": 1,
+      "children": [
+        "seg_006142",
+        "seg_006143",
+        "seg_006144"
+      ],
+      "leaf_start": 6142,
+      "leaf_end": 6144
+    },
+    {
+      "id": "grp_498635_62",
+      "level": 1,
+      "children": [
+        "seg_006145",
+        "seg_006146"
+      ],
+      "leaf_start": 6145,
+      "leaf_end": 6146
+    },
+    {
+      "id": "grp_500940_25",
+      "level": 1,
+      "children": [
+        "seg_006148",
+        "seg_006149"
+      ],
+      "leaf_start": 6148,
+      "leaf_end": 6149
+    },
+    {
+      "id": "grp_507069_31",
+      "level": 1,
+      "children": [
+        "seg_006153",
+        "seg_006154",
+        "seg_006155",
+        "seg_006156"
+      ],
+      "leaf_start": 6153,
+      "leaf_end": 6156
+    },
+    {
+      "id": "grp_511289_68",
+      "level": 1,
+      "children": [
+        "seg_006158",
+        "seg_006159"
+      ],
+      "leaf_start": 6158,
+      "leaf_end": 6159
+    },
+    {
+      "id": "grp_513231_43",
+      "level": 1,
+      "children": [
+        "seg_006162",
+        "seg_006163"
+      ],
+      "leaf_start": 6162,
+      "leaf_end": 6163
+    },
+    {
+      "id": "grp_523004_3",
+      "level": 1,
+      "children": [
+        "seg_006170",
+        "seg_006171"
+      ],
+      "leaf_start": 6170,
+      "leaf_end": 6171
+    },
+    {
+      "id": "grp_525062_26",
+      "level": 1,
+      "children": [
+        "seg_006173",
+        "seg_006174"
+      ],
+      "leaf_start": 6173,
+      "leaf_end": 6174
+    },
+    {
+      "id": "grp_530902_18",
+      "level": 1,
+      "children": [
+        "seg_006175",
+        "seg_006176"
+      ],
+      "leaf_start": 6175,
+      "leaf_end": 6176
+    },
+    {
+      "id": "grp_534243_22",
+      "level": 1,
+      "children": [
+        "seg_006178",
+        "seg_006179",
+        "seg_006180"
+      ],
+      "leaf_start": 6178,
+      "leaf_end": 6180
+    },
+    {
+      "id": "grp_538632_21",
+      "level": 1,
+      "children": [
+        "seg_006184",
+        "seg_006185",
+        "seg_006186",
+        "seg_006187"
+      ],
+      "leaf_start": 6184,
+      "leaf_end": 6187
+    },
+    {
+      "id": "grp_922774_0",
+      "level": 1,
+      "children": [
+        "seg_006164",
+        "seg_006165"
+      ],
+      "leaf_start": 6164,
+      "leaf_end": 6165
+    },
+    {
+      "id": "grp_320462_19",
+      "level": 1,
+      "children": [
+        "seg_006189",
+        "seg_006190",
+        "seg_006191",
+        "seg_006192",
+        "seg_006193",
+        "seg_006194",
+        "seg_006195"
+      ],
+      "leaf_start": 6189,
+      "leaf_end": 6195
+    },
+    {
+      "id": "grp_324335_29",
+      "level": 1,
+      "children": [
+        "seg_006196",
+        "seg_006197"
+      ],
+      "leaf_start": 6196,
+      "leaf_end": 6197
+    },
+    {
+      "id": "grp_327224_57",
+      "level": 1,
+      "children": [
+        "seg_006198",
+        "seg_006199",
+        "seg_006200"
+      ],
+      "leaf_start": 6198,
+      "leaf_end": 6200
+    },
+    {
+      "id": "grp_329249_3",
+      "level": 1,
+      "children": [
+        "seg_006201",
+        "seg_006202"
+      ],
+      "leaf_start": 6201,
+      "leaf_end": 6202
+    },
+    {
+      "id": "grp_536833_20",
+      "level": 1,
+      "children": [
+        "seg_006206",
+        "seg_006207"
+      ],
+      "leaf_start": 6206,
+      "leaf_end": 6207
+    },
+    {
+      "id": "grp_539009_88",
+      "level": 1,
+      "children": [
+        "seg_006208",
+        "seg_006209",
+        "seg_006210"
+      ],
+      "leaf_start": 6208,
+      "leaf_end": 6210
+    },
+    {
+      "id": "grp_543401_56",
+      "level": 1,
+      "children": [
+        "seg_006211",
+        "seg_006212",
+        "seg_006213",
+        "seg_006214",
+        "seg_006215",
+        "seg_006216"
+      ],
+      "leaf_start": 6211,
+      "leaf_end": 6216
+    },
+    {
+      "id": "grp_545925_80",
+      "level": 1,
+      "children": [
+        "seg_006218",
+        "seg_006219",
+        "seg_006220"
+      ],
+      "leaf_start": 6218,
+      "leaf_end": 6220
+    },
+    {
+      "id": "grp_714642_75",
+      "level": 1,
+      "children": [
+        "seg_006231",
+        "seg_006232",
+        "seg_006233"
+      ],
+      "leaf_start": 6231,
+      "leaf_end": 6233
+    },
+    {
+      "id": "grp_720847_99",
+      "level": 1,
+      "children": [
+        "seg_006223",
+        "seg_006224",
+        "seg_006225"
+      ],
+      "leaf_start": 6223,
+      "leaf_end": 6225
+    },
+    {
+      "id": "grp_722467_57",
+      "level": 1,
+      "children": [
+        "seg_006227",
+        "seg_006228"
+      ],
+      "leaf_start": 6227,
+      "leaf_end": 6228
+    },
+    {
+      "id": "grp_724325_1",
+      "level": 1,
+      "children": [
+        "seg_006236",
+        "seg_006237"
+      ],
+      "leaf_start": 6236,
+      "leaf_end": 6237
+    },
+    {
+      "id": "grp_726576_21",
+      "level": 1,
+      "children": [
+        "seg_006238",
+        "seg_006239"
+      ],
+      "leaf_start": 6238,
+      "leaf_end": 6239
+    },
+    {
+      "id": "grp_729697_78",
+      "level": 1,
+      "children": [
+        "seg_006240",
+        "seg_006241"
+      ],
+      "leaf_start": 6240,
+      "leaf_end": 6241
+    },
+    {
+      "id": "grp_732839_2",
+      "level": 1,
+      "children": [
+        "seg_006242",
+        "seg_006243",
+        "seg_006244",
+        "seg_006245",
+        "seg_006246",
+        "seg_006247"
+      ],
+      "leaf_start": 6242,
+      "leaf_end": 6247
+    },
+    {
+      "id": "grp_736451_80",
+      "level": 1,
+      "children": [
+        "seg_006251",
+        "seg_006252"
+      ],
+      "leaf_start": 6251,
+      "leaf_end": 6252
+    },
+    {
+      "id": "grp_740576_75",
+      "level": 1,
+      "children": [
+        "seg_006254",
+        "seg_006255",
+        "seg_006256",
+        "seg_006257",
+        "seg_006258",
+        "seg_006259"
+      ],
+      "leaf_start": 6254,
+      "leaf_end": 6259
+    },
+    {
+      "id": "grp_743017_94",
+      "level": 1,
+      "children": [
+        "seg_006263",
+        "seg_006264"
+      ],
+      "leaf_start": 6263,
+      "leaf_end": 6264
+    },
+    {
+      "id": "grp_751586_51",
+      "level": 1,
+      "children": [
+        "seg_006265",
+        "seg_006266",
+        "seg_006267",
+        "seg_006268",
+        "seg_006269",
+        "seg_006270",
+        "seg_006271",
+        "seg_006272"
+      ],
+      "leaf_start": 6265,
+      "leaf_end": 6272
+    },
+    {
+      "id": "grp_753456_39",
+      "level": 1,
+      "children": [
+        "seg_006276",
+        "seg_006277"
+      ],
+      "leaf_start": 6276,
+      "leaf_end": 6277
+    },
+    {
+      "id": "grp_762393_32",
+      "level": 1,
+      "children": [
+        "seg_006279",
+        "seg_006280",
+        "seg_006281",
+        "seg_006282",
+        "seg_006283",
+        "seg_006284"
+      ],
+      "leaf_start": 6279,
+      "leaf_end": 6284
+    },
+    {
+      "id": "grp_767203_85",
+      "level": 1,
+      "children": [
+        "seg_006293",
+        "seg_006294",
+        "seg_006295"
+      ],
+      "leaf_start": 6293,
+      "leaf_end": 6295
+    },
+    {
+      "id": "grp_769961_33",
+      "level": 1,
+      "children": [
+        "seg_006298",
+        "seg_006299"
+      ],
+      "leaf_start": 6298,
+      "leaf_end": 6299
+    },
+    {
+      "id": "grp_773006_98",
+      "level": 1,
+      "children": [
+        "seg_006306",
+        "seg_006307"
+      ],
+      "leaf_start": 6306,
+      "leaf_end": 6307
+    },
+    {
+      "id": "grp_774266_40",
+      "level": 1,
+      "children": [
+        "seg_006308",
+        "seg_006309"
+      ],
+      "leaf_start": 6308,
+      "leaf_end": 6309
+    },
+    {
+      "id": "grp_777802_44",
+      "level": 1,
+      "children": [
+        "seg_006311",
+        "seg_006312",
+        "seg_006313"
+      ],
+      "leaf_start": 6311,
+      "leaf_end": 6313
+    },
+    {
+      "id": "grp_780797_2",
+      "level": 1,
+      "children": [
+        "seg_006315",
+        "seg_006316",
+        "seg_006317"
+      ],
+      "leaf_start": 6315,
+      "leaf_end": 6317
+    },
+    {
+      "id": "grp_782280_79",
+      "level": 1,
+      "children": [
+        "seg_006320",
+        "seg_006321"
+      ],
+      "leaf_start": 6320,
+      "leaf_end": 6321
+    },
+    {
+      "id": "grp_092658_18",
+      "level": 1,
+      "children": [
+        "seg_006329",
+        "seg_006330"
+      ],
+      "leaf_start": 6329,
+      "leaf_end": 6330
+    },
+    {
+      "id": "grp_093926_84",
+      "level": 1,
+      "children": [
+        "seg_006331",
+        "seg_006332"
+      ],
+      "leaf_start": 6331,
+      "leaf_end": 6332
+    },
+    {
+      "id": "grp_096103_99",
+      "level": 1,
+      "children": [
+        "seg_006334",
+        "seg_006335"
+      ],
+      "leaf_start": 6334,
+      "leaf_end": 6335
+    },
+    {
+      "id": "grp_097433_24",
+      "level": 1,
+      "children": [
+        "seg_006336",
+        "seg_006337"
+      ],
+      "leaf_start": 6336,
+      "leaf_end": 6337
+    },
+    {
+      "id": "grp_100848_65",
+      "level": 1,
+      "children": [
+        "seg_006340",
+        "seg_006341",
+        "seg_006342"
+      ],
+      "leaf_start": 6340,
+      "leaf_end": 6342
+    },
+    {
+      "id": "grp_102314_51",
+      "level": 1,
+      "children": [
+        "seg_006344",
+        "seg_006345"
+      ],
+      "leaf_start": 6344,
+      "leaf_end": 6345
+    },
+    {
+      "id": "grp_109554_74",
+      "level": 1,
+      "children": [
+        "seg_006355",
+        "seg_006356",
+        "seg_006357"
+      ],
+      "leaf_start": 6355,
+      "leaf_end": 6357
+    },
+    {
+      "id": "grp_112029_94",
+      "level": 1,
+      "children": [
+        "seg_006359",
+        "seg_006360",
+        "seg_006361"
+      ],
+      "leaf_start": 6359,
+      "leaf_end": 6361
+    },
+    {
+      "id": "grp_113648_88",
+      "level": 1,
+      "children": [
+        "seg_006362",
+        "seg_006363",
+        "seg_006364"
+      ],
+      "leaf_start": 6362,
+      "leaf_end": 6364
+    },
+    {
+      "id": "grp_115134_74",
+      "level": 1,
+      "children": [
+        "seg_006365",
+        "seg_006366",
+        "seg_006367"
+      ],
+      "leaf_start": 6365,
+      "leaf_end": 6367
+    },
+    {
+      "id": "grp_116760_17",
+      "level": 1,
+      "children": [
+        "seg_006368",
+        "seg_006369"
+      ],
+      "leaf_start": 6368,
+      "leaf_end": 6369
+    },
+    {
+      "id": "grp_120577_17",
+      "level": 1,
+      "children": [
+        "seg_006372",
+        "seg_006373"
+      ],
+      "leaf_start": 6372,
+      "leaf_end": 6373
+    },
+    {
+      "id": "grp_123325_86",
+      "level": 1,
+      "children": [
+        "seg_006376",
+        "seg_006377"
+      ],
+      "leaf_start": 6376,
+      "leaf_end": 6377
+    },
+    {
+      "id": "grp_124599_34",
+      "level": 1,
+      "children": [
+        "seg_006378",
+        "seg_006379"
+      ],
+      "leaf_start": 6378,
+      "leaf_end": 6379
+    },
+    {
+      "id": "grp_125744_44",
+      "level": 1,
+      "children": [
+        "seg_006380",
+        "seg_006381"
+      ],
+      "leaf_start": 6380,
+      "leaf_end": 6381
+    },
+    {
+      "id": "grp_127670_29",
+      "level": 1,
+      "children": [
+        "seg_006382",
+        "seg_006383"
+      ],
+      "leaf_start": 6382,
+      "leaf_end": 6383
+    },
+    {
+      "id": "grp_130415_15",
+      "level": 1,
+      "children": [
+        "seg_006384",
+        "seg_006385",
+        "seg_006386"
+      ],
+      "leaf_start": 6384,
+      "leaf_end": 6386
+    },
+    {
+      "id": "grp_132593_24",
+      "level": 1,
+      "children": [
+        "seg_006387",
+        "seg_006388"
+      ],
+      "leaf_start": 6387,
+      "leaf_end": 6388
+    },
+    {
+      "id": "grp_133788_97",
+      "level": 1,
+      "children": [
+        "seg_006389",
+        "seg_006390"
+      ],
+      "leaf_start": 6389,
+      "leaf_end": 6390
+    },
+    {
+      "id": "grp_135720_64",
+      "level": 1,
+      "children": [
+        "seg_006393",
+        "seg_006394"
+      ],
+      "leaf_start": 6393,
+      "leaf_end": 6394
+    },
+    {
+      "id": "grp_270101_87",
+      "level": 1,
+      "children": [
+        "seg_006346",
+        "seg_006347",
+        "seg_006348",
+        "seg_006349",
+        "seg_006350",
+        "seg_006351"
+      ],
+      "leaf_start": 6346,
+      "leaf_end": 6351
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "grp_149131_26",
+      "task_id": "literal_gloss",
+      "value": "步行前往",
+      "updated_at": "2026-05-08T08:33:33.424Z"
+    },
+    {
+      "target_id": "seg_005787",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T08:33:40.726Z"
+    },
+    {
+      "target_id": "seg_005788",
+      "task_id": "literal_gloss",
+      "value": "打算",
+      "updated_at": "2026-05-08T08:33:52.773Z"
+    },
+    {
+      "target_id": "grp_162163_62",
+      "task_id": "literal_gloss",
+      "value": "送礼物",
+      "updated_at": "2026-05-08T08:34:03.080Z"
+    },
+    {
+      "target_id": "grp_169544_0",
+      "task_id": "literal_gloss",
+      "value": "给朋友",
+      "updated_at": "2026-05-08T08:34:11.496Z"
+    },
+    {
+      "target_id": "grp_180681_95",
+      "task_id": "literal_gloss",
+      "value": "30岁的生日蛋糕",
+      "updated_at": "2026-05-08T08:34:42.583Z"
+    },
+    {
+      "target_id": "seg_005798",
+      "task_id": "literal_gloss",
+      "value": "且",
+      "updated_at": "2026-05-08T08:37:20.309Z"
+    },
+    {
+      "target_id": "grp_393681_62",
+      "task_id": "literal_gloss",
+      "value": "送礼",
+      "updated_at": "2026-05-08T08:37:25.172Z"
+    },
+    {
+      "target_id": "grp_401133_28",
+      "task_id": "literal_gloss",
+      "value": "给一对结婚的新人",
+      "updated_at": "2026-05-08T08:37:40.263Z"
+    },
+    {
+      "target_id": "seg_005805",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T08:37:49.742Z"
+    },
+    {
+      "target_id": "grp_432307_25",
+      "task_id": "literal_gloss",
+      "value": "礼物没确定是什么",
+      "updated_at": "2026-05-08T08:38:07.866Z"
+    },
+    {
+      "target_id": "grp_586943_47",
+      "task_id": "literal_gloss",
+      "value": "去香奈儿商店",
+      "updated_at": "2026-05-08T08:40:37.239Z"
+    },
+    {
+      "target_id": "grp_598707_1",
+      "task_id": "literal_gloss",
+      "value": "想到会花太多的钱",
+      "updated_at": "2026-05-08T08:40:59.030Z"
+    },
+    {
+      "target_id": "grp_614072_93",
+      "task_id": "literal_gloss",
+      "value": "决定不去香奈儿店铺",
+      "updated_at": "2026-05-08T09:59:48.207Z"
+    },
+    {
+      "target_id": "seg_005824",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:00:00.586Z"
+    },
+    {
+      "target_id": "seg_005827",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:00:07.249Z"
+    },
+    {
+      "target_id": "seg_005823",
+      "task_id": "literal_gloss",
+      "value": "无语",
+      "updated_at": "2026-05-08T10:00:15.691Z"
+    },
+    {
+      "target_id": "grp_493190_67",
+      "task_id": "literal_gloss",
+      "value": "走了一段时间",
+      "updated_at": "2026-05-08T10:02:43.307Z"
+    },
+    {
+      "target_id": "grp_500385_41",
+      "task_id": "literal_gloss",
+      "value": "观察了一会",
+      "updated_at": "2026-05-08T10:02:52.257Z"
+    },
+    {
+      "target_id": "grp_504867_4",
+      "task_id": "literal_gloss",
+      "value": "前往书店",
+      "updated_at": "2026-05-08T10:03:03.608Z"
+    },
+    {
+      "target_id": "seg_005840",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:03:10.664Z"
+    },
+    {
+      "target_id": "seg_005841",
+      "task_id": "literal_gloss",
+      "value": "开心的想到",
+      "updated_at": "2026-05-08T10:03:23.705Z"
+    },
+    {
+      "target_id": "grp_550371_28",
+      "task_id": "literal_gloss",
+      "value": "认可书作为礼物",
+      "updated_at": "2026-05-08T10:03:46.709Z"
+    },
+    {
+      "target_id": "grp_850221_32",
+      "task_id": "literal_gloss",
+      "value": "前往书店",
+      "updated_at": "2026-05-08T10:08:49.566Z"
+    },
+    {
+      "target_id": "grp_860068_0",
+      "task_id": "literal_gloss",
+      "value": "挑选书籍",
+      "updated_at": "2026-05-08T10:09:02.060Z"
+    },
+    {
+      "target_id": "seg_005852",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:09:13.361Z"
+    },
+    {
+      "target_id": "seg_005856",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:09:16.766Z"
+    },
+    {
+      "target_id": "grp_879692_95",
+      "task_id": "literal_gloss",
+      "value": "阅读书籍",
+      "updated_at": "2026-05-08T10:09:33.003Z"
+    },
+    {
+      "target_id": "grp_881504_63",
+      "task_id": "literal_gloss",
+      "value": "书的内容是美好的故事变成",
+      "updated_at": "2026-05-08T10:11:20.393Z"
+    },
+    {
+      "target_id": "grp_095821_34",
+      "task_id": "literal_gloss",
+      "value": "书的内容是美好的故事转变为",
+      "updated_at": "2026-05-08T10:12:14.861Z"
+    },
+    {
+      "target_id": "seg_005865",
+      "task_id": "literal_gloss",
+      "value": "结局是坏的",
+      "updated_at": "2026-05-08T10:12:39.775Z"
+    },
+    {
+      "target_id": "grp_103652_92",
+      "task_id": "literal_gloss",
+      "value": "伤心",
+      "updated_at": "2026-05-08T10:12:51.340Z"
+    },
+    {
+      "target_id": "seg_005869",
+      "task_id": "literal_gloss",
+      "value": "流泪",
+      "updated_at": "2026-05-08T10:12:55.419Z"
+    },
+    {
+      "target_id": "seg_005866",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:13:00.025Z"
+    },
+    {
+      "target_id": "seg_005870",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:13:03.254Z"
+    },
+    {
+      "target_id": "grp_109001_45",
+      "task_id": "literal_gloss",
+      "value": "又看到一本书",
+      "updated_at": "2026-05-08T10:13:09.594Z"
+    },
+    {
+      "target_id": "grp_113153_56",
+      "task_id": "literal_gloss",
+      "value": "书的内容是",
+      "updated_at": "2026-05-08T10:13:16.575Z"
+    },
+    {
+      "target_id": "seg_005877",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:13:25.422Z"
+    },
+    {
+      "target_id": "seg_005879",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:13:29.002Z"
+    },
+    {
+      "target_id": "seg_005876",
+      "task_id": "literal_gloss",
+      "value": "侦探",
+      "updated_at": "2026-05-08T10:14:06.372Z"
+    },
+    {
+      "target_id": "seg_005878",
+      "task_id": "literal_gloss",
+      "value": "枪击",
+      "updated_at": "2026-05-08T10:14:12.131Z"
+    },
+    {
+      "target_id": "grp_306719_16",
+      "task_id": "literal_gloss",
+      "value": "人被击中且倒地",
+      "updated_at": "2026-05-08T10:17:11.116Z"
+    },
+    {
+      "target_id": "seg_005886",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T10:17:17.738Z"
+    },
+    {
+      "target_id": "seg_005887",
+      "task_id": "literal_gloss",
+      "value": "看着很爽",
+      "updated_at": "2026-05-08T10:17:26.632Z"
+    },
+    {
+      "target_id": "seg_005888",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:17:30.178Z"
+    },
+    {
+      "target_id": "grp_311774_86",
+      "task_id": "literal_gloss",
+      "value": "看到一本书",
+      "updated_at": "2026-05-08T10:17:41.623Z"
+    },
+    {
+      "target_id": "seg_005892",
+      "task_id": "literal_gloss",
+      "value": "书的内容关于",
+      "updated_at": "2026-05-08T10:17:49.367Z"
+    },
+    {
+      "target_id": "grp_317833_97",
+      "task_id": "literal_gloss",
+      "value": "环球旅行",
+      "updated_at": "2026-05-08T10:17:56.883Z"
+    },
+    {
+      "target_id": "seg_005895",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:18:00.807Z"
+    },
+    {
+      "target_id": "seg_005897",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:18:07.800Z"
+    },
+    {
+      "target_id": "seg_005896",
+      "task_id": "literal_gloss",
+      "value": "高兴",
+      "updated_at": "2026-05-08T10:18:11.102Z"
+    },
+    {
+      "target_id": "seg_005883",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:18:15.278Z"
+    },
+    {
+      "target_id": "seg_005882",
+      "task_id": "literal_gloss",
+      "value": "在路上",
+      "updated_at": "2026-05-08T10:20:08.540Z"
+    },
+    {
+      "target_id": "seg_005900",
+      "task_id": "literal_gloss",
+      "value": "想到什么",
+      "updated_at": "2026-05-08T10:20:19.007Z"
+    },
+    {
+      "target_id": "grp_625406_61",
+      "task_id": "literal_gloss",
+      "value": "情侣变成",
+      "updated_at": "2026-05-08T10:22:05.426Z"
+    },
+    {
+      "target_id": "grp_626735_13",
+      "task_id": "literal_gloss",
+      "value": "结婚以后要",
+      "updated_at": "2026-05-08T10:22:16.029Z"
+    },
+    {
+      "target_id": "seg_005905",
+      "task_id": "literal_gloss",
+      "value": "环球旅行",
+      "updated_at": "2026-05-08T10:22:23.068Z"
+    },
+    {
+      "target_id": "grp_629872_85",
+      "task_id": "literal_gloss",
+      "value": "很好",
+      "updated_at": "2026-05-08T10:22:27.612Z"
+    },
+    {
+      "target_id": "seg_005908",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:22:31.994Z"
+    },
+    {
+      "target_id": "grp_631399_20",
+      "task_id": "literal_gloss",
+      "value": "打电话",
+      "updated_at": "2026-05-08T10:22:36.940Z"
+    },
+    {
+      "target_id": "grp_633379_64",
+      "task_id": "literal_gloss",
+      "value": "给情侣",
+      "updated_at": "2026-05-08T10:22:46.029Z"
+    },
+    {
+      "target_id": "seg_005913",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:22:49.766Z"
+    },
+    {
+      "target_id": "grp_647897_74",
+      "task_id": "literal_gloss",
+      "value": "我说",
+      "updated_at": "2026-05-08T10:23:00.439Z"
+    },
+    {
+      "target_id": "grp_652730_98",
+      "task_id": "literal_gloss",
+      "value": "结婚以后",
+      "updated_at": "2026-05-08T10:23:07.182Z"
+    },
+    {
+      "target_id": "grp_659741_20",
+      "task_id": "literal_gloss",
+      "value": "是否去环球旅行",
+      "updated_at": "2026-05-08T10:23:15.451Z"
+    },
+    {
+      "target_id": "grp_658014_78",
+      "task_id": "literal_gloss",
+      "value": "下双引号",
+      "updated_at": "2026-05-08T10:23:27.273Z"
+    },
+    {
+      "target_id": "grp_662184_17",
+      "task_id": "literal_gloss",
+      "value": "情侣中的男生说",
+      "updated_at": "2026-05-08T10:23:42.586Z"
+    },
+    {
+      "target_id": "seg_005930",
+      "task_id": "literal_gloss",
+      "value": "他想",
+      "updated_at": "2026-05-08T10:23:47.623Z"
+    },
+    {
+      "target_id": "grp_666566_27",
+      "task_id": "literal_gloss",
+      "value": "去看自由女神像",
+      "updated_at": "2026-05-08T10:23:56.295Z"
+    },
+    {
+      "target_id": "seg_005934",
+      "task_id": "literal_gloss",
+      "value": "且",
+      "updated_at": "2026-05-08T10:24:00.026Z"
+    },
+    {
+      "target_id": "grp_669419_81",
+      "task_id": "literal_gloss",
+      "value": "女方想",
+      "updated_at": "2026-05-08T10:24:05.927Z"
+    },
+    {
+      "target_id": "grp_671311_23",
+      "task_id": "literal_gloss",
+      "value": "去看埃菲尔铁塔",
+      "updated_at": "2026-05-08T10:24:12.802Z"
+    },
+    {
+      "target_id": "grp_674229_99",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T10:24:23.361Z"
+    },
+    {
+      "target_id": "grp_675470_57",
+      "task_id": "literal_gloss",
+      "value": "下引号",
+      "updated_at": "2026-05-08T10:24:29.001Z"
+    },
+    {
+      "target_id": "seg_005948",
+      "task_id": "literal_gloss",
+      "value": "电话结束",
+      "updated_at": "2026-05-08T10:24:36.083Z"
+    },
+    {
+      "target_id": "grp_678468_87",
+      "task_id": "literal_gloss",
+      "value": "看到许多书",
+      "updated_at": "2026-05-08T10:24:47.742Z"
+    },
+    {
+      "target_id": "grp_682552_77",
+      "task_id": "literal_gloss",
+      "value": "关于环球旅行",
+      "updated_at": "2026-05-08T10:24:54.136Z"
+    },
+    {
+      "target_id": "seg_005954",
+      "task_id": "literal_gloss",
+      "value": "悉尼歌剧院",
+      "updated_at": "2026-05-08T10:25:00.567Z"
+    },
+    {
+      "target_id": "seg_005955",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:25:03.780Z"
+    },
+    {
+      "target_id": "seg_005956",
+      "task_id": "literal_gloss",
+      "value": "富士山",
+      "updated_at": "2026-05-08T10:25:07.751Z"
+    },
+    {
+      "target_id": "seg_005957",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:25:12.210Z"
+    },
+    {
+      "target_id": "seg_005960",
+      "task_id": "literal_gloss",
+      "value": "泰国",
+      "updated_at": "2026-05-08T10:25:19.710Z"
+    },
+    {
+      "target_id": "seg_005961",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:25:23.297Z"
+    },
+    {
+      "target_id": "seg_005962",
+      "task_id": "literal_gloss",
+      "value": "加拿大",
+      "updated_at": "2026-05-08T10:25:29.898Z"
+    },
+    {
+      "target_id": "seg_005963",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:25:35.267Z"
+    },
+    {
+      "target_id": "seg_005964",
+      "task_id": "literal_gloss",
+      "value": "金字塔",
+      "updated_at": "2026-05-08T10:25:42.290Z"
+    },
+    {
+      "target_id": "grp_688132_77",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T10:25:46.591Z"
+    },
+    {
+      "target_id": "seg_005968",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T10:25:50.006Z"
+    },
+    {
+      "target_id": "grp_689936_7",
+      "task_id": "literal_gloss",
+      "value": "选择去美国",
+      "updated_at": "2026-05-08T10:25:58.603Z"
+    },
+    {
+      "target_id": "seg_005971",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:26:02.296Z"
+    },
+    {
+      "target_id": "seg_005974",
+      "task_id": "literal_gloss",
+      "value": "美国有的景点",
+      "updated_at": "2026-05-08T10:26:16.070Z"
+    },
+    {
+      "target_id": "seg_005975",
+      "task_id": "literal_gloss",
+      "value": "白宫",
+      "updated_at": "2026-05-08T10:26:20.519Z"
+    },
+    {
+      "target_id": "seg_005976",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:26:24.539Z"
+    },
+    {
+      "target_id": "seg_005977",
+      "task_id": "literal_gloss",
+      "value": "迪士尼",
+      "updated_at": "2026-05-08T10:26:29.147Z"
+    },
+    {
+      "target_id": "seg_005978",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:26:33.956Z"
+    },
+    {
+      "target_id": "seg_005979",
+      "task_id": "literal_gloss",
+      "value": "玛丽莲梦露",
+      "updated_at": "2026-05-08T10:26:40.250Z"
+    },
+    {
+      "target_id": "seg_005980",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:26:43.766Z"
+    },
+    {
+      "target_id": "seg_005983",
+      "task_id": "literal_gloss",
+      "value": "自由女神像",
+      "updated_at": "2026-05-08T10:27:05.410Z"
+    },
+    {
+      "target_id": "seg_005985",
+      "task_id": "literal_gloss",
+      "value": "双子塔",
+      "updated_at": "2026-05-08T10:27:14.015Z"
+    },
+    {
+      "target_id": "seg_005982",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:27:17.803Z"
+    },
+    {
+      "target_id": "seg_005984",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:27:21.847Z"
+    },
+    {
+      "target_id": "seg_005986",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T10:27:26.453Z"
+    },
+    {
+      "target_id": "seg_005981",
+      "task_id": "literal_gloss",
+      "value": "林肯纪念堂",
+      "updated_at": "2026-05-08T10:29:18.649Z"
+    },
+    {
+      "target_id": "seg_005989",
+      "task_id": "literal_gloss",
+      "value": "想到",
+      "updated_at": "2026-05-08T10:29:24.429Z"
+    },
+    {
+      "target_id": "grp_697768_91",
+      "task_id": "literal_gloss",
+      "value": "双子塔被炸了",
+      "updated_at": "2026-05-08T10:29:39.367Z"
+    },
+    {
+      "target_id": "grp_701090_36",
+      "task_id": "literal_gloss",
+      "value": "书里写道",
+      "updated_at": "2026-05-08T10:29:47.716Z"
+    },
+    {
+      "target_id": "grp_702542_98",
+      "task_id": "literal_gloss",
+      "value": "飞机飞往",
+      "updated_at": "2026-05-08T10:31:58.752Z"
+    },
+    {
+      "target_id": "grp_704158_41",
+      "task_id": "literal_gloss",
+      "value": "纽约",
+      "updated_at": "2026-05-08T10:32:13.764Z"
+    },
+    {
+      "target_id": "grp_351960_54",
+      "task_id": "literal_gloss",
+      "value": "查询航班机场等相关信息",
+      "updated_at": "2026-05-08T10:32:52.302Z"
+    },
+    {
+      "target_id": "seg_006006",
+      "task_id": "literal_gloss",
+      "value": "轨道",
+      "updated_at": "2026-05-08T10:34:10.777Z"
+    },
+    {
+      "target_id": "seg_006007",
+      "task_id": "literal_gloss",
+      "value": "火车出行",
+      "updated_at": "2026-05-08T10:34:20.286Z"
+    },
+    {
+      "target_id": "grp_468146_20",
+      "task_id": "literal_gloss",
+      "value": "火车的信息",
+      "updated_at": "2026-05-08T10:34:44.057Z"
+    },
+    {
+      "target_id": "seg_006013",
+      "task_id": "literal_gloss",
+      "value": "鱼尾狮",
+      "updated_at": "2026-05-08T10:38:03.358Z"
+    },
+    {
+      "target_id": "seg_006014",
+      "task_id": "literal_gloss",
+      "value": "酒店",
+      "updated_at": "2026-05-08T10:38:10.033Z"
+    },
+    {
+      "target_id": "grp_624459_37",
+      "task_id": "literal_gloss",
+      "value": "等等",
+      "updated_at": "2026-05-08T10:38:36.951Z"
+    },
+    {
+      "target_id": "seg_006015",
+      "task_id": "literal_gloss",
+      "value": "七号标志",
+      "updated_at": "2026-05-08T10:40:14.518Z"
+    },
+    {
+      "target_id": "seg_006016",
+      "task_id": "literal_gloss",
+      "value": "酒店标志",
+      "updated_at": "2026-05-08T10:40:20.279Z"
+    },
+    {
+      "target_id": "seg_006017",
+      "task_id": "literal_gloss",
+      "value": "树",
+      "updated_at": "2026-05-08T10:40:25.239Z"
+    },
+    {
+      "target_id": "seg_006018",
+      "task_id": "literal_gloss",
+      "value": "野鸭",
+      "updated_at": "2026-05-08T10:40:30.267Z"
+    },
+    {
+      "target_id": "grp_631565_36",
+      "task_id": "literal_gloss",
+      "value": "五星级",
+      "updated_at": "2026-05-08T10:41:22.818Z"
+    },
+    {
+      "target_id": "seg_006029",
+      "task_id": "literal_gloss",
+      "value": "床",
+      "updated_at": "2026-05-08T10:41:30.527Z"
+    },
+    {
+      "target_id": "seg_006030",
+      "task_id": "literal_gloss",
+      "value": "户外座椅",
+      "updated_at": "2026-05-08T10:41:42.275Z"
+    },
+    {
+      "target_id": "seg_006031",
+      "task_id": "literal_gloss",
+      "value": "健身",
+      "updated_at": "2026-05-08T10:41:45.623Z"
+    },
+    {
+      "target_id": "seg_006032",
+      "task_id": "literal_gloss",
+      "value": "晒衣服",
+      "updated_at": "2026-05-08T10:41:50.429Z"
+    },
+    {
+      "target_id": "seg_006033",
+      "task_id": "literal_gloss",
+      "value": "酒",
+      "updated_at": "2026-05-08T10:41:53.594Z"
+    },
+    {
+      "target_id": "grp_634927_97",
+      "task_id": "literal_gloss",
+      "value": "四星级",
+      "updated_at": "2026-05-08T10:41:58.033Z"
+    },
+    {
+      "target_id": "seg_006040",
+      "task_id": "literal_gloss",
+      "value": "床",
+      "updated_at": "2026-05-08T10:42:03.125Z"
+    },
+    {
+      "target_id": "seg_006041",
+      "task_id": "literal_gloss",
+      "value": "户外座椅",
+      "updated_at": "2026-05-08T10:42:07.602Z"
+    },
+    {
+      "target_id": "seg_006042",
+      "task_id": "literal_gloss",
+      "value": "晒衣服",
+      "updated_at": "2026-05-08T10:42:12.254Z"
+    },
+    {
+      "target_id": "seg_006043",
+      "task_id": "literal_gloss",
+      "value": "酒",
+      "updated_at": "2026-05-08T10:42:15.155Z"
+    },
+    {
+      "target_id": "grp_639094_90",
+      "task_id": "literal_gloss",
+      "value": "三星级",
+      "updated_at": "2026-05-08T10:42:20.060Z"
+    },
+    {
+      "target_id": "seg_006049",
+      "task_id": "literal_gloss",
+      "value": "床",
+      "updated_at": "2026-05-08T10:42:23.296Z"
+    },
+    {
+      "target_id": "seg_006050",
+      "task_id": "literal_gloss",
+      "value": "户外座椅",
+      "updated_at": "2026-05-08T10:42:27.359Z"
+    },
+    {
+      "target_id": "seg_006051",
+      "task_id": "literal_gloss",
+      "value": "晒衣服",
+      "updated_at": "2026-05-08T10:42:32.528Z"
+    },
+    {
+      "target_id": "grp_637340_77",
+      "task_id": "literal_gloss",
+      "value": "等等",
+      "updated_at": "2026-05-08T10:42:38.214Z"
+    },
+    {
+      "target_id": "seg_006057",
+      "task_id": "literal_gloss",
+      "value": "",
+      "updated_at": "2026-05-08T10:47:04.815Z"
+    },
+    {
+      "target_id": "grp_232464_71",
+      "task_id": "literal_gloss",
+      "value": "纽约现代博物馆",
+      "updated_at": "2026-05-08T10:47:26.922Z"
+    },
+    {
+      "target_id": "seg_006059",
+      "task_id": "literal_gloss",
+      "value": "浏览",
+      "updated_at": "2026-05-08T10:47:45.273Z"
+    },
+    {
+      "target_id": "seg_006060",
+      "task_id": "literal_gloss",
+      "value": "连接符",
+      "updated_at": "2026-05-08T10:47:49.151Z"
+    },
+    {
+      "target_id": "seg_006061",
+      "task_id": "literal_gloss",
+      "value": "展品",
+      "updated_at": "2026-05-08T10:47:54.563Z"
+    },
+    {
+      "target_id": "seg_006064",
+      "task_id": "literal_gloss",
+      "value": "歌剧魅影",
+      "updated_at": "2026-05-08T10:48:51.996Z"
+    },
+    {
+      "target_id": "seg_006065",
+      "task_id": "literal_gloss",
+      "value": "狮身人面像",
+      "updated_at": "2026-05-08T10:49:00.649Z"
+    },
+    {
+      "target_id": "seg_006066",
+      "task_id": "literal_gloss",
+      "value": "黑幕",
+      "updated_at": "2026-05-08T10:49:09.739Z"
+    },
+    {
+      "target_id": "grp_644538_19",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T10:49:13.768Z"
+    },
+    {
+      "target_id": "seg_006075",
+      "task_id": "literal_gloss",
+      "value": "香奈儿",
+      "updated_at": "2026-05-08T10:50:04.411Z"
+    },
+    {
+      "target_id": "seg_006076",
+      "task_id": "literal_gloss",
+      "value": "ck品牌",
+      "updated_at": "2026-05-08T10:50:17.811Z"
+    },
+    {
+      "target_id": "seg_006077",
+      "task_id": "literal_gloss",
+      "value": "苹果商标",
+      "updated_at": "2026-05-08T10:50:24.270Z"
+    },
+    {
+      "target_id": "seg_006078",
+      "task_id": "literal_gloss",
+      "value": "雅诗兰黛",
+      "updated_at": "2026-05-08T10:50:32.403Z"
+    },
+    {
+      "target_id": "seg_006079",
+      "task_id": "literal_gloss",
+      "value": "黑幕",
+      "updated_at": "2026-05-08T10:50:39.133Z"
+    },
+    {
+      "target_id": "seg_006080",
+      "task_id": "literal_gloss",
+      "value": "阿玛尼",
+      "updated_at": "2026-05-08T10:50:46.371Z"
+    },
+    {
+      "target_id": "grp_647090_34",
+      "task_id": "literal_gloss",
+      "value": "等等",
+      "updated_at": "2026-05-08T10:50:48.978Z"
+    },
+    {
+      "target_id": "seg_006084",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T10:50:53.881Z"
+    },
+    {
+      "target_id": "seg_006087",
+      "task_id": "literal_gloss",
+      "value": "我想到",
+      "updated_at": "2026-05-08T10:52:33.313Z"
+    },
+    {
+      "target_id": "grp_460421_55",
+      "task_id": "literal_gloss",
+      "value": "书很不错",
+      "updated_at": "2026-05-08T10:52:39.888Z"
+    },
+    {
+      "target_id": "seg_006091",
+      "task_id": "literal_gloss",
+      "value": "开心",
+      "updated_at": "2026-05-08T10:52:46.935Z"
+    },
+    {
+      "target_id": "seg_006092",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:52:50.630Z"
+    },
+    {
+      "target_id": "grp_462168_3",
+      "task_id": "literal_gloss",
+      "value": "拿着书",
+      "updated_at": "2026-05-08T10:53:05.915Z"
+    },
+    {
+      "target_id": "grp_463672_41",
+      "task_id": "literal_gloss",
+      "value": "走去",
+      "updated_at": "2026-05-08T10:53:43.600Z"
+    },
+    {
+      "target_id": "seg_006098",
+      "task_id": "literal_gloss",
+      "value": "柜台",
+      "updated_at": "2026-05-08T10:53:47.640Z"
+    },
+    {
+      "target_id": "seg_006099",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:53:50.939Z"
+    },
+    {
+      "target_id": "seg_006101",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-05-08T10:54:04.977Z"
+    },
+    {
+      "target_id": "grp_466658_21",
+      "task_id": "literal_gloss",
+      "value": "瞪大双眼",
+      "updated_at": "2026-05-08T10:54:25.864Z"
+    },
+    {
+      "target_id": "seg_006106",
+      "task_id": "literal_gloss",
+      "value": "想到",
+      "updated_at": "2026-05-08T10:54:30.127Z"
+    },
+    {
+      "target_id": "grp_471551_32",
+      "task_id": "literal_gloss",
+      "value": "女生的要求",
+      "updated_at": "2026-05-08T10:54:37.389Z"
+    },
+    {
+      "target_id": "seg_006109",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:54:42.369Z"
+    },
+    {
+      "target_id": "grp_473229_31",
+      "task_id": "literal_gloss",
+      "value": "折返回去",
+      "updated_at": "2026-05-08T10:54:55.877Z"
+    },
+    {
+      "target_id": "seg_006112",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:54:59.851Z"
+    },
+    {
+      "target_id": "seg_006113",
+      "task_id": "literal_gloss",
+      "value": "拿起",
+      "updated_at": "2026-05-08T10:55:04.969Z"
+    },
+    {
+      "target_id": "grp_476515_38",
+      "task_id": "literal_gloss",
+      "value": "书的内容",
+      "updated_at": "2026-05-08T10:55:13.025Z"
+    },
+    {
+      "target_id": "seg_006116",
+      "task_id": "literal_gloss",
+      "value": "埃菲尔铁塔",
+      "updated_at": "2026-05-08T10:55:19.109Z"
+    },
+    {
+      "target_id": "seg_006117",
+      "task_id": "literal_gloss",
+      "value": "凯旋门",
+      "updated_at": "2026-05-08T10:55:23.316Z"
+    },
+    {
+      "target_id": "seg_006100",
+      "task_id": "literal_gloss",
+      "value": "快付款时",
+      "updated_at": "2026-05-08T10:55:40.274Z"
+    },
+    {
+      "target_id": "seg_006121",
+      "task_id": "literal_gloss",
+      "value": "美术",
+      "updated_at": "2026-05-08T10:55:46.699Z"
+    },
+    {
+      "target_id": "seg_006122",
+      "task_id": "literal_gloss",
+      "value": "蒙娜丽莎的微笑",
+      "updated_at": "2026-05-08T10:55:52.191Z"
+    },
+    {
+      "target_id": "seg_006123",
+      "task_id": "literal_gloss",
+      "value": "牛角包",
+      "updated_at": "2026-05-08T10:55:56.475Z"
+    },
+    {
+      "target_id": "grp_483411_40",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T10:56:02.331Z"
+    },
+    {
+      "target_id": "seg_006127",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T10:56:06.865Z"
+    },
+    {
+      "target_id": "seg_006128",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:56:10.151Z"
+    },
+    {
+      "target_id": "grp_484904_41",
+      "task_id": "literal_gloss",
+      "value": "走去",
+      "updated_at": "2026-05-08T10:56:16.048Z"
+    },
+    {
+      "target_id": "seg_006131",
+      "task_id": "literal_gloss",
+      "value": "柜台",
+      "updated_at": "2026-05-08T10:56:19.634Z"
+    },
+    {
+      "target_id": "seg_006132",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:56:24.645Z"
+    },
+    {
+      "target_id": "seg_006120",
+      "task_id": "literal_gloss",
+      "value": "巴黎圣母院",
+      "updated_at": "2026-05-08T10:57:09.104Z"
+    },
+    {
+      "target_id": "grp_490827_44",
+      "task_id": "literal_gloss",
+      "value": "给柜员刷卡",
+      "updated_at": "2026-05-08T10:57:17.460Z"
+    },
+    {
+      "target_id": "seg_006137",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:57:20.629Z"
+    },
+    {
+      "target_id": "grp_493171_18",
+      "task_id": "literal_gloss",
+      "value": "说",
+      "updated_at": "2026-05-08T10:57:25.598Z"
+    },
+    {
+      "target_id": "grp_495622_12",
+      "task_id": "literal_gloss",
+      "value": "两本书合在一起",
+      "updated_at": "2026-05-08T10:57:31.513Z"
+    },
+    {
+      "target_id": "grp_498635_62",
+      "task_id": "literal_gloss",
+      "value": "包装成礼物",
+      "updated_at": "2026-05-08T10:57:38.194Z"
+    },
+    {
+      "target_id": "seg_006147",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T10:57:42.446Z"
+    },
+    {
+      "target_id": "grp_500940_25",
+      "task_id": "literal_gloss",
+      "value": "双引号",
+      "updated_at": "2026-05-08T10:57:48.239Z"
+    },
+    {
+      "target_id": "seg_006152",
+      "task_id": "literal_gloss",
+      "value": "微笑表情",
+      "updated_at": "2026-05-08T10:57:59.448Z"
+    },
+    {
+      "target_id": "grp_507069_31",
+      "task_id": "literal_gloss",
+      "value": "柜员说",
+      "updated_at": "2026-05-08T10:58:06.904Z"
+    },
+    {
+      "target_id": "seg_006157",
+      "task_id": "literal_gloss",
+      "value": "好的",
+      "updated_at": "2026-05-08T10:58:10.611Z"
+    },
+    {
+      "target_id": "grp_511289_68",
+      "task_id": "literal_gloss",
+      "value": "双引号",
+      "updated_at": "2026-05-08T10:58:17.345Z"
+    },
+    {
+      "target_id": "seg_006160",
+      "task_id": "literal_gloss",
+      "value": "刷卡",
+      "updated_at": "2026-05-08T10:58:20.651Z"
+    },
+    {
+      "target_id": "seg_006161",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:58:24.371Z"
+    },
+    {
+      "target_id": "grp_513231_43",
+      "task_id": "literal_gloss",
+      "value": "两本书放一起",
+      "updated_at": "2026-05-08T10:58:32.556Z"
+    },
+    {
+      "target_id": "seg_006166",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:58:35.969Z"
+    },
+    {
+      "target_id": "grp_922774_0",
+      "task_id": "literal_gloss",
+      "value": "包成礼物",
+      "updated_at": "2026-05-08T10:58:54.071Z"
+    },
+    {
+      "target_id": "seg_006169",
+      "task_id": "literal_gloss",
+      "value": "礼物",
+      "updated_at": "2026-05-08T10:58:59.973Z"
+    },
+    {
+      "target_id": "grp_523004_3",
+      "task_id": "literal_gloss",
+      "value": "放进袋子",
+      "updated_at": "2026-05-08T10:59:04.969Z"
+    },
+    {
+      "target_id": "seg_006172",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T10:59:09.352Z"
+    },
+    {
+      "target_id": "grp_525062_26",
+      "task_id": "literal_gloss",
+      "value": "柜员表情微笑",
+      "updated_at": "2026-05-08T10:59:21.576Z"
+    },
+    {
+      "target_id": "grp_530902_18",
+      "task_id": "literal_gloss",
+      "value": "把袋子递给",
+      "updated_at": "2026-05-08T10:59:30.309Z"
+    },
+    {
+      "target_id": "seg_006177",
+      "task_id": "literal_gloss",
+      "value": "我想",
+      "updated_at": "2026-05-08T10:59:34.818Z"
+    },
+    {
+      "target_id": "grp_534243_22",
+      "task_id": "literal_gloss",
+      "value": "他们看到一定很开心",
+      "updated_at": "2026-05-08T10:59:45.859Z"
+    },
+    {
+      "target_id": "grp_538632_21",
+      "task_id": "literal_gloss",
+      "value": "查看",
+      "updated_at": "2026-05-08T11:09:24.823Z"
+    },
+    {
+      "target_id": "seg_006188",
+      "task_id": "literal_gloss",
+      "value": "书本",
+      "updated_at": "2026-05-08T11:09:58.322Z"
+    },
+    {
+      "target_id": "grp_320462_19",
+      "task_id": "literal_gloss",
+      "value": "人物移动",
+      "updated_at": "2026-05-08T11:10:07.890Z"
+    },
+    {
+      "target_id": "grp_324335_29",
+      "task_id": "literal_gloss",
+      "value": "收银台",
+      "updated_at": "2026-05-08T11:10:20.307Z"
+    },
+    {
+      "target_id": "grp_327224_57",
+      "task_id": "literal_gloss",
+      "value": "感叹疑问",
+      "updated_at": "2026-05-08T11:10:37.593Z"
+    },
+    {
+      "target_id": "grp_329249_3",
+      "task_id": "literal_gloss",
+      "value": "对书的想法",
+      "updated_at": "2026-05-08T11:10:50.349Z"
+    },
+    {
+      "target_id": "seg_006203",
+      "task_id": "literal_gloss",
+      "value": "书",
+      "updated_at": "2026-05-08T11:10:53.354Z"
+    },
+    {
+      "target_id": "grp_536833_20",
+      "task_id": "literal_gloss",
+      "value": "离开书店",
+      "updated_at": "2026-05-08T11:11:02.734Z"
+    },
+    {
+      "target_id": "grp_539009_88",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:11:07.020Z"
+    },
+    {
+      "target_id": "grp_543401_56",
+      "task_id": "literal_gloss",
+      "value": "接下来去哪",
+      "updated_at": "2026-05-08T11:11:30.025Z"
+    },
+    {
+      "target_id": "seg_006217",
+      "task_id": "literal_gloss",
+      "value": "思考",
+      "updated_at": "2026-05-08T11:11:35.136Z"
+    },
+    {
+      "target_id": "grp_545925_80",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:11:39.074Z"
+    },
+    {
+      "target_id": "grp_720847_99",
+      "task_id": "literal_gloss",
+      "value": "男生生日",
+      "updated_at": "2026-05-08T11:13:39.862Z"
+    },
+    {
+      "target_id": "seg_006226",
+      "task_id": "literal_gloss",
+      "value": "思考",
+      "updated_at": "2026-05-08T11:13:43.590Z"
+    },
+    {
+      "target_id": "grp_722467_57",
+      "task_id": "literal_gloss",
+      "value": "前往百货店",
+      "updated_at": "2026-05-08T11:14:13.599Z"
+    },
+    {
+      "target_id": "seg_006229",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:14:18.883Z"
+    },
+    {
+      "target_id": "seg_006230",
+      "task_id": "literal_gloss",
+      "value": "四处寻找",
+      "updated_at": "2026-05-08T11:14:25.334Z"
+    },
+    {
+      "target_id": "grp_714642_75",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:14:29.560Z"
+    },
+    {
+      "target_id": "grp_724325_1",
+      "task_id": "literal_gloss",
+      "value": "看到了",
+      "updated_at": "2026-05-08T11:14:33.985Z"
+    },
+    {
+      "target_id": "grp_726576_21",
+      "task_id": "literal_gloss",
+      "value": "相机",
+      "updated_at": "2026-05-08T11:14:38.715Z"
+    },
+    {
+      "target_id": "grp_729697_78",
+      "task_id": "literal_gloss",
+      "value": "等于比较多的钱",
+      "updated_at": "2026-05-08T11:14:46.898Z"
+    },
+    {
+      "target_id": "grp_732839_2",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:14:50.816Z"
+    },
+    {
+      "target_id": "seg_006248",
+      "task_id": "literal_gloss",
+      "value": "拒绝",
+      "updated_at": "2026-05-08T11:14:55.503Z"
+    },
+    {
+      "target_id": "grp_736451_80",
+      "task_id": "literal_gloss",
+      "value": "平板手机等于",
+      "updated_at": "2026-05-08T11:15:03.897Z"
+    },
+    {
+      "target_id": "seg_006253",
+      "task_id": "literal_gloss",
+      "value": "比较多的钱",
+      "updated_at": "2026-05-08T11:15:14.462Z"
+    },
+    {
+      "target_id": "grp_740576_75",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:15:18.325Z"
+    },
+    {
+      "target_id": "seg_006260",
+      "task_id": "literal_gloss",
+      "value": "拒绝",
+      "updated_at": "2026-05-08T11:15:22.181Z"
+    },
+    {
+      "target_id": "grp_743017_94",
+      "task_id": "literal_gloss",
+      "value": "滑板车等于",
+      "updated_at": "2026-05-08T11:15:28.831Z"
+    },
+    {
+      "target_id": "grp_751586_51",
+      "task_id": "literal_gloss",
+      "value": "很多的钱",
+      "updated_at": "2026-05-08T11:15:36.193Z"
+    },
+    {
+      "target_id": "seg_006273",
+      "task_id": "literal_gloss",
+      "value": "拒绝",
+      "updated_at": "2026-05-08T11:15:40.914Z"
+    },
+    {
+      "target_id": "grp_753456_39",
+      "task_id": "literal_gloss",
+      "value": "游戏机等于",
+      "updated_at": "2026-05-08T11:15:47.294Z"
+    },
+    {
+      "target_id": "seg_006278",
+      "task_id": "literal_gloss",
+      "value": "较少的钱",
+      "updated_at": "2026-05-08T11:15:56.065Z"
+    },
+    {
+      "target_id": "grp_762393_32",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:15:59.772Z"
+    },
+    {
+      "target_id": "seg_006285",
+      "task_id": "literal_gloss",
+      "value": "赞同",
+      "updated_at": "2026-05-08T11:16:04.631Z"
+    },
+    {
+      "target_id": "seg_006286",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T11:16:08.088Z"
+    },
+    {
+      "target_id": "seg_006287",
+      "task_id": "literal_gloss",
+      "value": "开心",
+      "updated_at": "2026-05-08T11:16:11.778Z"
+    },
+    {
+      "target_id": "seg_006288",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T11:16:15.101Z"
+    },
+    {
+      "target_id": "seg_006291",
+      "task_id": "literal_gloss",
+      "value": "想到",
+      "updated_at": "2026-05-08T11:16:22.698Z"
+    },
+    {
+      "target_id": "seg_006292",
+      "task_id": "literal_gloss",
+      "value": "男生",
+      "updated_at": "2026-05-08T11:16:26.251Z"
+    },
+    {
+      "target_id": "grp_767203_85",
+      "task_id": "literal_gloss",
+      "value": "喜欢",
+      "updated_at": "2026-05-08T11:16:29.652Z"
+    },
+    {
+      "target_id": "seg_006296",
+      "task_id": "literal_gloss",
+      "value": "游戏机",
+      "updated_at": "2026-05-08T11:16:33.385Z"
+    },
+    {
+      "target_id": "seg_006297",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-05-08T11:16:36.896Z"
+    },
+    {
+      "target_id": "grp_769961_33",
+      "task_id": "literal_gloss",
+      "value": "走到",
+      "updated_at": "2026-05-08T11:16:40.985Z"
+    },
+    {
+      "target_id": "seg_006300",
+      "task_id": "literal_gloss",
+      "value": "柜台",
+      "updated_at": "2026-05-08T11:16:45.663Z"
+    },
+    {
+      "target_id": "seg_006301",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:16:49.144Z"
+    },
+    {
+      "target_id": "seg_006303",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:16:52.469Z"
+    },
+    {
+      "target_id": "seg_006302",
+      "task_id": "literal_gloss",
+      "value": "刷卡",
+      "updated_at": "2026-05-08T11:16:55.976Z"
+    },
+    {
+      "target_id": "grp_773006_98",
+      "task_id": "literal_gloss",
+      "value": "柜员拿游戏机",
+      "updated_at": "2026-05-08T11:17:11.670Z"
+    },
+    {
+      "target_id": "grp_774266_40",
+      "task_id": "literal_gloss",
+      "value": "递给我",
+      "updated_at": "2026-05-08T11:17:14.970Z"
+    },
+    {
+      "target_id": "seg_006310",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T11:17:19.661Z"
+    },
+    {
+      "target_id": "grp_777802_44",
+      "task_id": "literal_gloss",
+      "value": "离开百货店",
+      "updated_at": "2026-05-08T11:17:25.190Z"
+    },
+    {
+      "target_id": "seg_006314",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:17:28.836Z"
+    },
+    {
+      "target_id": "grp_780797_2",
+      "task_id": "literal_gloss",
+      "value": "看",
+      "updated_at": "2026-05-08T11:17:32.114Z"
+    },
+    {
+      "target_id": "seg_006318",
+      "task_id": "literal_gloss",
+      "value": "时间",
+      "updated_at": "2026-05-08T11:17:35.532Z"
+    },
+    {
+      "target_id": "seg_006319",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:17:38.645Z"
+    },
+    {
+      "target_id": "grp_782280_79",
+      "task_id": "literal_gloss",
+      "value": "走",
+      "updated_at": "2026-05-08T11:17:42.945Z"
+    },
+    {
+      "target_id": "seg_006322",
+      "task_id": "literal_gloss",
+      "value": "建筑",
+      "updated_at": "2026-05-08T11:17:48.436Z"
+    },
+    {
+      "target_id": "seg_006326",
+      "task_id": "literal_gloss",
+      "value": "拿卡",
+      "updated_at": "2026-05-08T11:17:57.948Z"
+    },
+    {
+      "target_id": "seg_006327",
+      "task_id": "literal_gloss",
+      "value": "刷卡",
+      "updated_at": "2026-05-08T11:18:01.745Z"
+    },
+    {
+      "target_id": "seg_006328",
+      "task_id": "literal_gloss",
+      "value": "通过",
+      "updated_at": "2026-05-08T11:18:06.837Z"
+    },
+    {
+      "target_id": "grp_092658_18",
+      "task_id": "literal_gloss",
+      "value": "走向",
+      "updated_at": "2026-05-08T11:19:05.708Z"
+    },
+    {
+      "target_id": "grp_093926_84",
+      "task_id": "literal_gloss",
+      "value": "楼梯",
+      "updated_at": "2026-05-08T11:19:17.183Z"
+    },
+    {
+      "target_id": "seg_006333",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:19:24.009Z"
+    },
+    {
+      "target_id": "grp_096103_99",
+      "task_id": "literal_gloss",
+      "value": "搬货",
+      "updated_at": "2026-05-08T11:19:28.955Z"
+    },
+    {
+      "target_id": "grp_097433_24",
+      "task_id": "literal_gloss",
+      "value": "走向",
+      "updated_at": "2026-05-08T11:19:34.338Z"
+    },
+    {
+      "target_id": "grp_100848_65",
+      "task_id": "literal_gloss",
+      "value": "按电梯",
+      "updated_at": "2026-05-08T11:19:39.009Z"
+    },
+    {
+      "target_id": "seg_006343",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:19:45.185Z"
+    },
+    {
+      "target_id": "grp_102314_51",
+      "task_id": "literal_gloss",
+      "value": "电梯运行",
+      "updated_at": "2026-05-08T11:20:46.958Z"
+    },
+    {
+      "target_id": "seg_006352",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:21:01.802Z"
+    },
+    {
+      "target_id": "grp_270101_87",
+      "task_id": "literal_gloss",
+      "value": "电梯快递标识，表示惊讶",
+      "updated_at": "2026-05-08T11:21:37.294Z"
+    },
+    {
+      "target_id": "grp_109554_74",
+      "task_id": "literal_gloss",
+      "value": "按电梯",
+      "updated_at": "2026-05-08T11:21:42.828Z"
+    },
+    {
+      "target_id": "seg_006358",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:21:46.763Z"
+    },
+    {
+      "target_id": "grp_112029_94",
+      "task_id": "literal_gloss",
+      "value": "一楼向上",
+      "updated_at": "2026-05-08T11:21:53.987Z"
+    },
+    {
+      "target_id": "grp_113648_88",
+      "task_id": "literal_gloss",
+      "value": "二楼向上",
+      "updated_at": "2026-05-08T11:21:58.522Z"
+    },
+    {
+      "target_id": "grp_115134_74",
+      "task_id": "literal_gloss",
+      "value": "省略号",
+      "updated_at": "2026-05-08T11:22:01.709Z"
+    },
+    {
+      "target_id": "grp_116760_17",
+      "task_id": "literal_gloss",
+      "value": "到89楼",
+      "updated_at": "2026-05-08T11:22:08.626Z"
+    },
+    {
+      "target_id": "seg_006370",
+      "task_id": "literal_gloss",
+      "value": "响铃",
+      "updated_at": "2026-05-08T11:22:18.252Z"
+    },
+    {
+      "target_id": "seg_006371",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T11:22:21.564Z"
+    },
+    {
+      "target_id": "grp_120577_17",
+      "task_id": "literal_gloss",
+      "value": "出电梯",
+      "updated_at": "2026-05-08T11:22:25.910Z"
+    },
+    {
+      "target_id": "grp_123325_86",
+      "task_id": "literal_gloss",
+      "value": "转弯走",
+      "updated_at": "2026-05-08T11:23:23.379Z"
+    },
+    {
+      "target_id": "grp_124599_34",
+      "task_id": "literal_gloss",
+      "value": "直走",
+      "updated_at": "2026-05-08T11:23:26.972Z"
+    },
+    {
+      "target_id": "grp_125744_44",
+      "task_id": "literal_gloss",
+      "value": "换道走",
+      "updated_at": "2026-05-08T11:23:33.243Z"
+    },
+    {
+      "target_id": "grp_127670_29",
+      "task_id": "literal_gloss",
+      "value": "换道走",
+      "updated_at": "2026-05-08T11:23:37.436Z"
+    },
+    {
+      "target_id": "grp_130415_15",
+      "task_id": "literal_gloss",
+      "value": "拿卡",
+      "updated_at": "2026-05-08T11:23:59.813Z"
+    },
+    {
+      "target_id": "grp_132593_24",
+      "task_id": "literal_gloss",
+      "value": "碰到锁上",
+      "updated_at": "2026-05-08T11:23:52.932Z"
+    },
+    {
+      "target_id": "grp_133788_97",
+      "task_id": "literal_gloss",
+      "value": "开门",
+      "updated_at": "2026-05-08T11:24:03.457Z"
+    },
+    {
+      "target_id": "grp_135720_64",
+      "task_id": "literal_gloss",
+      "value": "走到",
+      "updated_at": "2026-05-08T11:24:07.263Z"
+    },
+    {
+      "target_id": "seg_006395",
+      "task_id": "literal_gloss",
+      "value": "书桌",
+      "updated_at": "2026-05-08T11:24:10.961Z"
+    },
+    {
+      "target_id": "seg_006396",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-05-08T11:24:14.693Z"
+    },
+    {
+      "target_id": "seg_006397",
+      "task_id": "literal_gloss",
+      "value": "坐下",
+      "updated_at": "2026-05-08T11:24:18.012Z"
+    },
+    {
+      "target_id": "seg_006398",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-05-08T11:24:21.246Z"
+    }
+  ]
+}

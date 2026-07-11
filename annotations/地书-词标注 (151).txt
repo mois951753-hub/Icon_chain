@@ -1,0 +1,2058 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "47_R",
+    "pageEndKey": "48_R"
+  },
+  "groups": [
+    {
+      "id": "grp_531930_17",
+      "level": 1,
+      "children": [
+        "seg_010404",
+        "seg_010405"
+      ],
+      "leaf_start": 10404,
+      "leaf_end": 10405
+    },
+    {
+      "id": "grp_535773_38",
+      "level": 1,
+      "children": [
+        "seg_010407",
+        "seg_010408"
+      ],
+      "leaf_start": 10407,
+      "leaf_end": 10408
+    },
+    {
+      "id": "grp_555873_84",
+      "level": 1,
+      "children": [
+        "seg_010411",
+        "seg_010412",
+        "seg_010413"
+      ],
+      "leaf_start": 10411,
+      "leaf_end": 10413
+    },
+    {
+      "id": "grp_563139_23",
+      "level": 1,
+      "children": [
+        "seg_010423",
+        "seg_010424"
+      ],
+      "leaf_start": 10423,
+      "leaf_end": 10424
+    },
+    {
+      "id": "grp_565041_41",
+      "level": 1,
+      "children": [
+        "seg_010426",
+        "seg_010427",
+        "seg_010428"
+      ],
+      "leaf_start": 10426,
+      "leaf_end": 10428
+    },
+    {
+      "id": "grp_574314_60",
+      "level": 1,
+      "children": [
+        "seg_010436",
+        "seg_010437"
+      ],
+      "leaf_start": 10436,
+      "leaf_end": 10437
+    },
+    {
+      "id": "grp_577005_73",
+      "level": 1,
+      "children": [
+        "seg_010409",
+        "seg_010410"
+      ],
+      "leaf_start": 10409,
+      "leaf_end": 10410
+    },
+    {
+      "id": "grp_593673_36",
+      "level": 1,
+      "children": [
+        "seg_010447",
+        "seg_010448"
+      ],
+      "leaf_start": 10447,
+      "leaf_end": 10448
+    },
+    {
+      "id": "grp_611498_78",
+      "level": 1,
+      "children": [
+        "seg_010456",
+        "seg_010457"
+      ],
+      "leaf_start": 10456,
+      "leaf_end": 10457
+    },
+    {
+      "id": "grp_612649_21",
+      "level": 1,
+      "children": [
+        "seg_010458",
+        "seg_010459"
+      ],
+      "leaf_start": 10458,
+      "leaf_end": 10459
+    },
+    {
+      "id": "grp_616569_93",
+      "level": 1,
+      "children": [
+        "seg_010463",
+        "seg_010464"
+      ],
+      "leaf_start": 10463,
+      "leaf_end": 10464
+    },
+    {
+      "id": "grp_617891_25",
+      "level": 1,
+      "children": [
+        "seg_010465",
+        "seg_010466"
+      ],
+      "leaf_start": 10465,
+      "leaf_end": 10466
+    },
+    {
+      "id": "grp_624241_2",
+      "level": 1,
+      "children": [
+        "seg_010473",
+        "seg_010474"
+      ],
+      "leaf_start": 10473,
+      "leaf_end": 10474
+    },
+    {
+      "id": "grp_625289_73",
+      "level": 1,
+      "children": [
+        "seg_010475",
+        "seg_010476"
+      ],
+      "leaf_start": 10475,
+      "leaf_end": 10476
+    },
+    {
+      "id": "grp_631266_66",
+      "level": 1,
+      "children": [
+        "seg_010477",
+        "seg_010478",
+        "seg_010479"
+      ],
+      "leaf_start": 10477,
+      "leaf_end": 10479
+    },
+    {
+      "id": "grp_635389_42",
+      "level": 1,
+      "children": [
+        "seg_010484",
+        "seg_010485",
+        "seg_010486"
+      ],
+      "leaf_start": 10484,
+      "leaf_end": 10486
+    },
+    {
+      "id": "grp_638252_22",
+      "level": 1,
+      "children": [
+        "seg_010491",
+        "seg_010492"
+      ],
+      "leaf_start": 10491,
+      "leaf_end": 10492
+    },
+    {
+      "id": "grp_640737_11",
+      "level": 1,
+      "children": [
+        "seg_010494",
+        "seg_010495"
+      ],
+      "leaf_start": 10494,
+      "leaf_end": 10495
+    },
+    {
+      "id": "grp_647137_98",
+      "level": 1,
+      "children": [
+        "seg_010496",
+        "seg_010497"
+      ],
+      "leaf_start": 10496,
+      "leaf_end": 10497
+    },
+    {
+      "id": "grp_668180_88",
+      "level": 1,
+      "children": [
+        "seg_010510",
+        "seg_010511",
+        "seg_010512",
+        "seg_010513",
+        "seg_010514",
+        "seg_010515"
+      ],
+      "leaf_start": 10510,
+      "leaf_end": 10515
+    },
+    {
+      "id": "grp_672861_84",
+      "level": 1,
+      "children": [
+        "seg_010516",
+        "seg_010517"
+      ],
+      "leaf_start": 10516,
+      "leaf_end": 10517
+    },
+    {
+      "id": "grp_675089_42",
+      "level": 1,
+      "children": [
+        "seg_010519",
+        "seg_010520"
+      ],
+      "leaf_start": 10519,
+      "leaf_end": 10520
+    },
+    {
+      "id": "grp_683425_41",
+      "level": 1,
+      "children": [
+        "seg_010498",
+        "seg_010499",
+        "seg_010500",
+        "seg_010501",
+        "seg_010502",
+        "seg_010503"
+      ],
+      "leaf_start": 10498,
+      "leaf_end": 10503
+    },
+    {
+      "id": "grp_691333_64",
+      "level": 1,
+      "children": [
+        "seg_010533",
+        "seg_010534"
+      ],
+      "leaf_start": 10533,
+      "leaf_end": 10534
+    },
+    {
+      "id": "grp_693153_16",
+      "level": 1,
+      "children": [
+        "seg_010536",
+        "seg_010537",
+        "seg_010538",
+        "seg_010539",
+        "seg_010540",
+        "seg_010541"
+      ],
+      "leaf_start": 10536,
+      "leaf_end": 10541
+    },
+    {
+      "id": "grp_698051_97",
+      "level": 1,
+      "children": [
+        "seg_010527",
+        "seg_010528",
+        "seg_010529"
+      ],
+      "leaf_start": 10527,
+      "leaf_end": 10529
+    },
+    {
+      "id": "grp_706214_76",
+      "level": 1,
+      "children": [
+        "seg_010531",
+        "seg_010532"
+      ],
+      "leaf_start": 10531,
+      "leaf_end": 10532
+    },
+    {
+      "id": "grp_711169_52",
+      "level": 1,
+      "children": [
+        "seg_010523",
+        "seg_010524",
+        "seg_010525"
+      ],
+      "leaf_start": 10523,
+      "leaf_end": 10525
+    },
+    {
+      "id": "grp_720241_12",
+      "level": 1,
+      "children": [
+        "seg_010551",
+        "seg_010552"
+      ],
+      "leaf_start": 10551,
+      "leaf_end": 10552
+    },
+    {
+      "id": "grp_728252_64",
+      "level": 1,
+      "children": [
+        "seg_010546",
+        "seg_010547",
+        "seg_010548"
+      ],
+      "leaf_start": 10546,
+      "leaf_end": 10548
+    },
+    {
+      "id": "grp_732618_29",
+      "level": 1,
+      "children": [
+        "seg_010563",
+        "seg_010564"
+      ],
+      "leaf_start": 10563,
+      "leaf_end": 10564
+    },
+    {
+      "id": "grp_734528_98",
+      "level": 1,
+      "children": [
+        "seg_010572",
+        "seg_010573"
+      ],
+      "leaf_start": 10572,
+      "leaf_end": 10573
+    },
+    {
+      "id": "grp_739405_28",
+      "level": 1,
+      "children": [
+        "seg_010567",
+        "seg_010568"
+      ],
+      "leaf_start": 10567,
+      "leaf_end": 10568
+    },
+    {
+      "id": "grp_740573_77",
+      "level": 1,
+      "children": [
+        "seg_010569",
+        "seg_010570"
+      ],
+      "leaf_start": 10569,
+      "leaf_end": 10570
+    },
+    {
+      "id": "grp_752597_58",
+      "level": 1,
+      "children": [
+        "seg_010578",
+        "seg_010579",
+        "seg_010580"
+      ],
+      "leaf_start": 10578,
+      "leaf_end": 10580
+    },
+    {
+      "id": "grp_755625_25",
+      "level": 1,
+      "children": [
+        "seg_010576",
+        "seg_010577"
+      ],
+      "leaf_start": 10576,
+      "leaf_end": 10577
+    },
+    {
+      "id": "grp_763093_33",
+      "level": 1,
+      "children": [
+        "seg_010583",
+        "seg_010584",
+        "seg_010585"
+      ],
+      "leaf_start": 10583,
+      "leaf_end": 10585
+    },
+    {
+      "id": "grp_776278_90",
+      "level": 1,
+      "children": [
+        "seg_010596",
+        "seg_010597",
+        "seg_010598",
+        "seg_010599"
+      ],
+      "leaf_start": 10596,
+      "leaf_end": 10599
+    },
+    {
+      "id": "grp_777433_99",
+      "level": 1,
+      "children": [
+        "seg_010600",
+        "seg_010601"
+      ],
+      "leaf_start": 10600,
+      "leaf_end": 10601
+    },
+    {
+      "id": "grp_779762_47",
+      "level": 1,
+      "children": [
+        "seg_010606",
+        "seg_010607"
+      ],
+      "leaf_start": 10606,
+      "leaf_end": 10607
+    },
+    {
+      "id": "grp_782758_52",
+      "level": 1,
+      "children": [
+        "seg_010609",
+        "seg_010610",
+        "seg_010611",
+        "seg_010612",
+        "seg_010613"
+      ],
+      "leaf_start": 10609,
+      "leaf_end": 10613
+    },
+    {
+      "id": "grp_785353_20",
+      "level": 1,
+      "children": [
+        "seg_010614",
+        "seg_010615"
+      ],
+      "leaf_start": 10614,
+      "leaf_end": 10615
+    },
+    {
+      "id": "grp_786549_84",
+      "level": 1,
+      "children": [
+        "seg_010616",
+        "seg_010617"
+      ],
+      "leaf_start": 10616,
+      "leaf_end": 10617
+    },
+    {
+      "id": "grp_790081_10",
+      "level": 1,
+      "children": [
+        "seg_010621",
+        "seg_010622"
+      ],
+      "leaf_start": 10621,
+      "leaf_end": 10622
+    },
+    {
+      "id": "grp_791664_4",
+      "level": 1,
+      "children": [
+        "seg_010623",
+        "seg_010624"
+      ],
+      "leaf_start": 10623,
+      "leaf_end": 10624
+    },
+    {
+      "id": "grp_794099_62",
+      "level": 1,
+      "children": [
+        "seg_010625",
+        "seg_010626",
+        "seg_010627"
+      ],
+      "leaf_start": 10625,
+      "leaf_end": 10627
+    },
+    {
+      "id": "grp_797065_41",
+      "level": 1,
+      "children": [
+        "seg_010633",
+        "seg_010634"
+      ],
+      "leaf_start": 10633,
+      "leaf_end": 10634
+    },
+    {
+      "id": "grp_799901_48",
+      "level": 1,
+      "children": [
+        "seg_010635",
+        "seg_010636",
+        "seg_010637"
+      ],
+      "leaf_start": 10635,
+      "leaf_end": 10637
+    },
+    {
+      "id": "grp_803283_34",
+      "level": 1,
+      "children": [
+        "seg_010639",
+        "seg_010640",
+        "seg_010641",
+        "seg_010642"
+      ],
+      "leaf_start": 10639,
+      "leaf_end": 10642
+    },
+    {
+      "id": "grp_806302_13",
+      "level": 1,
+      "children": [
+        "seg_010644",
+        "seg_010645"
+      ],
+      "leaf_start": 10644,
+      "leaf_end": 10645
+    },
+    {
+      "id": "grp_809013_88",
+      "level": 1,
+      "children": [
+        "seg_010650",
+        "seg_010651"
+      ],
+      "leaf_start": 10650,
+      "leaf_end": 10651
+    },
+    {
+      "id": "grp_817870_29",
+      "level": 1,
+      "children": [
+        "seg_010653",
+        "seg_010654",
+        "seg_010655",
+        "seg_010656"
+      ],
+      "leaf_start": 10653,
+      "leaf_end": 10656
+    },
+    {
+      "id": "grp_819407_99",
+      "level": 1,
+      "children": [
+        "seg_010658",
+        "seg_010659"
+      ],
+      "leaf_start": 10658,
+      "leaf_end": 10659
+    },
+    {
+      "id": "grp_821522_2",
+      "level": 1,
+      "children": [
+        "seg_010664",
+        "seg_010665"
+      ],
+      "leaf_start": 10664,
+      "leaf_end": 10665
+    },
+    {
+      "id": "grp_825318_73",
+      "level": 1,
+      "children": [
+        "seg_010669",
+        "seg_010670"
+      ],
+      "leaf_start": 10669,
+      "leaf_end": 10670
+    },
+    {
+      "id": "grp_826337_70",
+      "level": 1,
+      "children": [
+        "seg_010671",
+        "seg_010672"
+      ],
+      "leaf_start": 10671,
+      "leaf_end": 10672
+    },
+    {
+      "id": "grp_829574_42",
+      "level": 1,
+      "children": [
+        "seg_010677",
+        "seg_010678",
+        "seg_010679",
+        "seg_010680",
+        "seg_010681",
+        "seg_010682"
+      ],
+      "leaf_start": 10677,
+      "leaf_end": 10682
+    },
+    {
+      "id": "grp_004374_65",
+      "level": 1,
+      "children": [
+        "seg_010415",
+        "seg_010416",
+        "seg_010417",
+        "seg_010418",
+        "seg_010419",
+        "seg_010420",
+        "seg_010421"
+      ],
+      "leaf_start": 10415,
+      "leaf_end": 10421
+    },
+    {
+      "id": "grp_006782_25",
+      "level": 1,
+      "children": [
+        "seg_010429",
+        "seg_010430",
+        "seg_010431",
+        "seg_010432"
+      ],
+      "leaf_start": 10429,
+      "leaf_end": 10432
+    },
+    {
+      "id": "grp_056616_22",
+      "level": 1,
+      "children": [
+        "seg_010433",
+        "seg_010434",
+        "seg_010435"
+      ],
+      "leaf_start": 10433,
+      "leaf_end": 10435
+    },
+    {
+      "id": "grp_103815_6",
+      "level": 1,
+      "children": [
+        "seg_010440",
+        "seg_010441",
+        "seg_010442",
+        "seg_010443"
+      ],
+      "leaf_start": 10440,
+      "leaf_end": 10443
+    },
+    {
+      "id": "grp_118558_65",
+      "level": 1,
+      "children": [
+        "seg_010444",
+        "seg_010445",
+        "seg_010446"
+      ],
+      "leaf_start": 10444,
+      "leaf_end": 10446
+    },
+    {
+      "id": "grp_173526_20",
+      "level": 1,
+      "children": [
+        "seg_010450",
+        "seg_010451",
+        "seg_010452",
+        "seg_010453",
+        "seg_010454",
+        "seg_010455"
+      ],
+      "leaf_start": 10450,
+      "leaf_end": 10455
+    },
+    {
+      "id": "grp_307570_61",
+      "level": 1,
+      "children": [
+        "seg_010480",
+        "seg_010481",
+        "seg_010482",
+        "seg_010483"
+      ],
+      "leaf_start": 10480,
+      "leaf_end": 10483
+    },
+    {
+      "id": "grp_333066_27",
+      "level": 1,
+      "children": [
+        "seg_010504",
+        "seg_010505"
+      ],
+      "leaf_start": 10504,
+      "leaf_end": 10505
+    },
+    {
+      "id": "grp_338722_35",
+      "level": 1,
+      "children": [
+        "seg_010487",
+        "seg_010488"
+      ],
+      "leaf_start": 10487,
+      "leaf_end": 10488
+    },
+    {
+      "id": "grp_596423_72",
+      "level": 1,
+      "children": [
+        "seg_010553",
+        "seg_010554",
+        "seg_010555",
+        "seg_010556"
+      ],
+      "leaf_start": 10553,
+      "leaf_end": 10556
+    },
+    {
+      "id": "grp_616612_1",
+      "level": 1,
+      "children": [
+        "seg_010604",
+        "seg_010605"
+      ],
+      "leaf_start": 10604,
+      "leaf_end": 10605
+    },
+    {
+      "id": "grp_626139_3",
+      "level": 1,
+      "children": [
+        "seg_010561",
+        "seg_010562"
+      ],
+      "leaf_start": 10561,
+      "leaf_end": 10562
+    },
+    {
+      "id": "grp_644915_99",
+      "level": 1,
+      "children": [
+        "seg_010565",
+        "seg_010566"
+      ],
+      "leaf_start": 10565,
+      "leaf_end": 10566
+    },
+    {
+      "id": "grp_736230_20",
+      "level": 1,
+      "children": [
+        "seg_010587",
+        "seg_010588"
+      ],
+      "leaf_start": 10587,
+      "leaf_end": 10588
+    },
+    {
+      "id": "grp_738674_39",
+      "level": 1,
+      "children": [
+        "seg_010592",
+        "seg_010593"
+      ],
+      "leaf_start": 10592,
+      "leaf_end": 10593
+    },
+    {
+      "id": "grp_901626_68",
+      "level": 1,
+      "children": [
+        "seg_010631",
+        "seg_010632"
+      ],
+      "leaf_start": 10631,
+      "leaf_end": 10632
+    },
+    {
+      "id": "grp_903146_5",
+      "level": 1,
+      "children": [
+        "seg_010648",
+        "seg_010649"
+      ],
+      "leaf_start": 10648,
+      "leaf_end": 10649
+    },
+    {
+      "id": "grp_905018_7",
+      "level": 1,
+      "children": [
+        "seg_010662",
+        "seg_010663"
+      ],
+      "leaf_start": 10662,
+      "leaf_end": 10663
+    },
+    {
+      "id": "grp_019227_26",
+      "level": 1,
+      "children": [
+        "seg_010666",
+        "seg_010667"
+      ],
+      "leaf_start": 10666,
+      "leaf_end": 10667
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_010400",
+      "task_id": "pragmatic_meaning",
+      "value": "十一点了",
+      "updated_at": "2026-04-28T13:10:54.959Z"
+    },
+    {
+      "target_id": "seg_010403",
+      "task_id": "pragmatic_meaning",
+      "value": "晚上",
+      "updated_at": "2026-04-28T13:11:01.857Z"
+    },
+    {
+      "target_id": "grp_531930_17",
+      "task_id": "pragmatic_meaning",
+      "value": "一个人在大马路上",
+      "updated_at": "2026-04-28T13:11:12.549Z"
+    },
+    {
+      "target_id": "seg_010406",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:11:17.981Z"
+    },
+    {
+      "target_id": "grp_535773_38",
+      "task_id": "pragmatic_meaning",
+      "value": "打了辆车",
+      "updated_at": "2026-04-28T13:11:43.793Z"
+    },
+    {
+      "target_id": "grp_555873_84",
+      "task_id": "pragmatic_meaning",
+      "value": "坐上车说了家的地址",
+      "updated_at": "2026-04-28T13:11:58.304Z"
+    },
+    {
+      "target_id": "grp_577005_73",
+      "task_id": "pragmatic_meaning",
+      "value": "打表灯亮了",
+      "updated_at": "2026-04-28T13:13:09.476Z"
+    },
+    {
+      "target_id": "grp_561659_2",
+      "task_id": "pragmatic_meaning",
+      "value": "从东到西",
+      "updated_at": "2026-04-28T13:13:17.374Z"
+    },
+    {
+      "target_id": "grp_004374_65",
+      "task_id": "pragmatic_meaning",
+      "value": "从东到西",
+      "updated_at": "2026-04-28T13:13:37.593Z"
+    },
+    {
+      "target_id": "seg_010422",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:13:45.871Z"
+    },
+    {
+      "target_id": "grp_563139_23",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人困了",
+      "updated_at": "2026-04-28T13:13:52.828Z"
+    },
+    {
+      "target_id": "seg_010425",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:13:56.977Z"
+    },
+    {
+      "target_id": "grp_565041_41",
+      "task_id": "pragmatic_meaning",
+      "value": "眼睛闭上了",
+      "updated_at": "2026-04-28T13:14:03.915Z"
+    },
+    {
+      "target_id": "grp_006782_25",
+      "task_id": "pragmatic_meaning",
+      "value": "过了一会",
+      "updated_at": "2026-04-28T13:14:09.817Z"
+    },
+    {
+      "target_id": "grp_056616_22",
+      "task_id": "pragmatic_meaning",
+      "value": "红绿灯变了！",
+      "updated_at": "2026-04-28T13:14:26.778Z"
+    },
+    {
+      "target_id": "grp_574314_60",
+      "task_id": "pragmatic_meaning",
+      "value": "红灯亮了！",
+      "updated_at": "2026-04-28T13:14:42.337Z"
+    },
+    {
+      "target_id": "seg_010438",
+      "task_id": "pragmatic_meaning",
+      "value": "这辆出租车追尾了",
+      "updated_at": "2026-04-28T13:14:55.396Z"
+    },
+    {
+      "target_id": "seg_010439",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:14:59.608Z"
+    },
+    {
+      "target_id": "grp_103815_6",
+      "task_id": "pragmatic_meaning",
+      "value": "直接惊醒了",
+      "updated_at": "2026-04-28T13:15:12.172Z"
+    },
+    {
+      "target_id": "grp_118558_65",
+      "task_id": "pragmatic_meaning",
+      "value": "吓呆了",
+      "updated_at": "2026-04-28T13:15:26.373Z"
+    },
+    {
+      "target_id": "grp_593673_36",
+      "task_id": "pragmatic_meaning",
+      "value": "出租车在马路上",
+      "updated_at": "2026-04-28T13:15:37.128Z"
+    },
+    {
+      "target_id": "seg_010449",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人坐在车里",
+      "updated_at": "2026-04-28T13:15:45.262Z"
+    },
+    {
+      "target_id": "grp_173526_20",
+      "task_id": "pragmatic_meaning",
+      "value": "看着外面",
+      "updated_at": "2026-04-28T13:16:24.186Z"
+    },
+    {
+      "target_id": "grp_611498_78",
+      "task_id": "pragmatic_meaning",
+      "value": "司机从车中走出",
+      "updated_at": "2026-04-28T13:16:39.504Z"
+    },
+    {
+      "target_id": "grp_612649_21",
+      "task_id": "pragmatic_meaning",
+      "value": "对方司机也从车中走出",
+      "updated_at": "2026-04-28T13:16:50.842Z"
+    },
+    {
+      "target_id": "seg_010460",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:16:54.890Z"
+    },
+    {
+      "target_id": "grp_616569_93",
+      "task_id": "pragmatic_meaning",
+      "value": "司机指着对方",
+      "updated_at": "2026-04-28T13:17:14.626Z"
+    },
+    {
+      "target_id": "grp_617891_25",
+      "task_id": "pragmatic_meaning",
+      "value": "对方司机也指着司机",
+      "updated_at": "2026-04-28T13:17:28.982Z"
+    },
+    {
+      "target_id": "seg_010467",
+      "task_id": "pragmatic_meaning",
+      "value": "后括号",
+      "updated_at": "2026-04-28T13:17:34.431Z"
+    },
+    {
+      "target_id": "seg_010468",
+      "task_id": "pragmatic_meaning",
+      "value": "句号",
+      "updated_at": "2026-04-28T13:17:38.136Z"
+    },
+    {
+      "target_id": "seg_010469",
+      "task_id": "pragmatic_meaning",
+      "value": "没有意义",
+      "updated_at": "2026-04-28T13:17:41.707Z"
+    },
+    {
+      "target_id": "seg_010471",
+      "task_id": "pragmatic_meaning",
+      "value": "对方司机",
+      "updated_at": "2026-04-28T13:17:48.080Z"
+    },
+    {
+      "target_id": "seg_010472",
+      "task_id": "pragmatic_meaning",
+      "value": "喊",
+      "updated_at": "2026-04-28T13:18:03.608Z"
+    },
+    {
+      "target_id": "grp_624241_2",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:17:58.178Z"
+    },
+    {
+      "target_id": "grp_625289_73",
+      "task_id": "pragmatic_meaning",
+      "value": "破口大骂",
+      "updated_at": "2026-04-28T13:18:11.515Z"
+    },
+    {
+      "target_id": "grp_631266_66",
+      "task_id": "pragmatic_meaning",
+      "value": "指着司机说眼睛瞎啊",
+      "updated_at": "2026-04-28T13:18:21.706Z"
+    },
+    {
+      "target_id": "grp_307570_61",
+      "task_id": "pragmatic_meaning",
+      "value": "看不到",
+      "updated_at": "2026-04-28T13:18:34.455Z"
+    },
+    {
+      "target_id": "grp_635389_42",
+      "task_id": "pragmatic_meaning",
+      "value": "红绿灯变了",
+      "updated_at": "2026-04-28T13:18:47.091Z"
+    },
+    {
+      "target_id": "grp_338722_35",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:19:02.670Z"
+    },
+    {
+      "target_id": "grp_638252_22",
+      "task_id": "pragmatic_meaning",
+      "value": "司机回应",
+      "updated_at": "2026-04-28T13:19:14.275Z"
+    },
+    {
+      "target_id": "seg_010493",
+      "task_id": "pragmatic_meaning",
+      "value": "说",
+      "updated_at": "2026-04-28T13:19:17.967Z"
+    },
+    {
+      "target_id": "grp_640737_11",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:19:22.535Z"
+    },
+    {
+      "target_id": "grp_647137_98",
+      "task_id": "pragmatic_meaning",
+      "value": "惊讶",
+      "updated_at": "2026-04-28T13:19:37.231Z"
+    },
+    {
+      "target_id": "grp_683425_41",
+      "task_id": "pragmatic_meaning",
+      "value": "指着对方司机说看不懂红绿灯?",
+      "updated_at": "2026-04-28T13:20:05.136Z"
+    },
+    {
+      "target_id": "grp_333066_27",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:20:12.875Z"
+    },
+    {
+      "target_id": "seg_010508",
+      "task_id": "pragmatic_meaning",
+      "value": "鄙视对方",
+      "updated_at": "2026-04-28T13:20:20.197Z"
+    },
+    {
+      "target_id": "seg_010509",
+      "task_id": "pragmatic_meaning",
+      "value": "鄙视对方",
+      "updated_at": "2026-04-28T13:20:24.794Z"
+    },
+    {
+      "target_id": "grp_668180_88",
+      "task_id": "pragmatic_meaning",
+      "value": "过了好一会",
+      "updated_at": "2026-04-28T13:20:37.917Z"
+    },
+    {
+      "target_id": "grp_672861_84",
+      "task_id": "pragmatic_meaning",
+      "value": "警车到了",
+      "updated_at": "2026-04-28T13:20:42.972Z"
+    },
+    {
+      "target_id": "seg_010518",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:20:46.711Z"
+    },
+    {
+      "target_id": "grp_675089_42",
+      "task_id": "pragmatic_meaning",
+      "value": "警示灯亮了",
+      "updated_at": "2026-04-28T13:20:58.322Z"
+    },
+    {
+      "target_id": "grp_711169_52",
+      "task_id": "pragmatic_meaning",
+      "value": "警察说不要鄙视对方",
+      "updated_at": "2026-04-28T13:21:09.070Z"
+    },
+    {
+      "target_id": "seg_010526",
+      "task_id": "pragmatic_meaning",
+      "value": "面向",
+      "updated_at": "2026-04-28T13:21:24.835Z"
+    },
+    {
+      "target_id": "grp_698051_97",
+      "task_id": "pragmatic_meaning",
+      "value": "三个人",
+      "updated_at": "2026-04-28T13:21:29.673Z"
+    },
+    {
+      "target_id": "seg_010530",
+      "task_id": "pragmatic_meaning",
+      "value": "前括号",
+      "updated_at": "2026-04-28T13:21:36.070Z"
+    },
+    {
+      "target_id": "grp_706214_76",
+      "task_id": "pragmatic_meaning",
+      "value": "身份证件呢？",
+      "updated_at": "2026-04-28T13:21:44.698Z"
+    },
+    {
+      "target_id": "grp_691333_64",
+      "task_id": "pragmatic_meaning",
+      "value": "驾驶证呢？",
+      "updated_at": "2026-04-28T13:21:51.519Z"
+    },
+    {
+      "target_id": "seg_010535",
+      "task_id": "pragmatic_meaning",
+      "value": "后括号",
+      "updated_at": "2026-04-28T13:21:56.201Z"
+    },
+    {
+      "target_id": "grp_693153_16",
+      "task_id": "pragmatic_meaning",
+      "value": "过了一会",
+      "updated_at": "2026-04-28T13:22:01.322Z"
+    },
+    {
+      "target_id": "seg_010544",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人想到",
+      "updated_at": "2026-04-28T13:22:26.707Z"
+    },
+    {
+      "target_id": "seg_010545",
+      "task_id": "pragmatic_meaning",
+      "value": "前括号",
+      "updated_at": "2026-04-28T13:22:22.453Z"
+    },
+    {
+      "target_id": "grp_728252_64",
+      "task_id": "pragmatic_meaning",
+      "value": "不能鄙视",
+      "updated_at": "2026-04-28T13:22:39.157Z"
+    },
+    {
+      "target_id": "seg_010549",
+      "task_id": "pragmatic_meaning",
+      "value": "反括号",
+      "updated_at": "2026-04-28T13:22:48.957Z"
+    },
+    {
+      "target_id": "seg_010550",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:22:57.005Z"
+    },
+    {
+      "target_id": "grp_720241_12",
+      "task_id": "pragmatic_meaning",
+      "value": "警察睁眼看着",
+      "updated_at": "2026-04-28T13:23:09.791Z"
+    },
+    {
+      "target_id": "grp_596423_72",
+      "task_id": "pragmatic_meaning",
+      "value": "死死盯着",
+      "updated_at": "2026-04-28T13:23:22.916Z"
+    },
+    {
+      "target_id": "seg_010557",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人",
+      "updated_at": "2026-04-28T13:23:26.621Z"
+    },
+    {
+      "target_id": "seg_010558",
+      "task_id": "pragmatic_meaning",
+      "value": "句号",
+      "updated_at": "2026-04-28T13:23:30.249Z"
+    },
+    {
+      "target_id": "grp_626139_3",
+      "task_id": "pragmatic_meaning",
+      "value": "警察说",
+      "updated_at": "2026-04-28T13:23:53.963Z"
+    },
+    {
+      "target_id": "grp_732618_29",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:23:58.086Z"
+    },
+    {
+      "target_id": "grp_644915_99",
+      "task_id": "pragmatic_meaning",
+      "value": "你的证件",
+      "updated_at": "2026-04-28T13:24:20.234Z"
+    },
+    {
+      "target_id": "grp_739405_28",
+      "task_id": "pragmatic_meaning",
+      "value": "身份证",
+      "updated_at": "2026-04-28T13:24:24.525Z"
+    },
+    {
+      "target_id": "grp_740573_77",
+      "task_id": "pragmatic_meaning",
+      "value": "驾驶证",
+      "updated_at": "2026-04-28T13:24:29.174Z"
+    },
+    {
+      "target_id": "seg_010571",
+      "task_id": "pragmatic_meaning",
+      "value": "括号",
+      "updated_at": "2026-04-28T13:24:33.347Z"
+    },
+    {
+      "target_id": "grp_734528_98",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:24:37.298Z"
+    },
+    {
+      "target_id": "grp_755625_25",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人尴尬流汗",
+      "updated_at": "2026-04-28T13:24:57.556Z"
+    },
+    {
+      "target_id": "grp_752597_58",
+      "task_id": "pragmatic_meaning",
+      "value": "出示身份证给警察",
+      "updated_at": "2026-04-28T13:25:08.328Z"
+    },
+    {
+      "target_id": "seg_010581",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:25:13.109Z"
+    },
+    {
+      "target_id": "grp_763093_33",
+      "task_id": "pragmatic_meaning",
+      "value": "一会儿",
+      "updated_at": "2026-04-28T13:25:20.733Z"
+    },
+    {
+      "target_id": "seg_010582",
+      "task_id": "pragmatic_meaning",
+      "value": "警察",
+      "updated_at": "2026-04-28T13:25:25.408Z"
+    },
+    {
+      "target_id": "seg_010586",
+      "task_id": "pragmatic_meaning",
+      "value": "拿笔记下",
+      "updated_at": "2026-04-28T13:25:32.098Z"
+    },
+    {
+      "target_id": "grp_736230_20",
+      "task_id": "pragmatic_meaning",
+      "value": "身份证号",
+      "updated_at": "2026-04-28T13:25:44.321Z"
+    },
+    {
+      "target_id": "seg_010591",
+      "task_id": "pragmatic_meaning",
+      "value": "和",
+      "updated_at": "2026-04-28T13:25:48.888Z"
+    },
+    {
+      "target_id": "grp_738674_39",
+      "task_id": "pragmatic_meaning",
+      "value": "电话号",
+      "updated_at": "2026-04-28T13:25:54.744Z"
+    },
+    {
+      "target_id": "seg_010594",
+      "task_id": "pragmatic_meaning",
+      "value": "括号",
+      "updated_at": "2026-04-28T13:26:36.842Z"
+    },
+    {
+      "target_id": "seg_010595",
+      "task_id": "pragmatic_meaning",
+      "value": "句号",
+      "updated_at": "2026-04-28T13:26:40.409Z"
+    },
+    {
+      "target_id": "grp_776278_90",
+      "task_id": "pragmatic_meaning",
+      "value": "问到了酒味",
+      "updated_at": "2026-04-28T13:26:49.739Z"
+    },
+    {
+      "target_id": "grp_777433_99",
+      "task_id": "pragmatic_meaning",
+      "value": "震惊了警察",
+      "updated_at": "2026-04-28T13:26:55.217Z"
+    },
+    {
+      "target_id": "grp_616612_1",
+      "task_id": "pragmatic_meaning",
+      "value": "警察说",
+      "updated_at": "2026-04-28T13:26:59.586Z"
+    },
+    {
+      "target_id": "grp_779762_47",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:27:03.990Z"
+    },
+    {
+      "target_id": "seg_010608",
+      "task_id": "pragmatic_meaning",
+      "value": "指着对方",
+      "updated_at": "2026-04-28T13:27:09.105Z"
+    },
+    {
+      "target_id": "grp_782758_52",
+      "task_id": "pragmatic_meaning",
+      "value": "你喝酒了吗？",
+      "updated_at": "2026-04-28T13:27:20.202Z"
+    },
+    {
+      "target_id": "grp_785353_20",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:27:24.084Z"
+    },
+    {
+      "target_id": "grp_786549_84",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人大汗淋漓",
+      "updated_at": "2026-04-28T13:27:30.612Z"
+    },
+    {
+      "target_id": "seg_010618",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:27:33.945Z"
+    },
+    {
+      "target_id": "grp_790081_10",
+      "task_id": "pragmatic_meaning",
+      "value": "警察拿出执法仪器",
+      "updated_at": "2026-04-28T13:27:47.661Z"
+    },
+    {
+      "target_id": "grp_791664_4",
+      "task_id": "pragmatic_meaning",
+      "value": "哈了一口气",
+      "updated_at": "2026-04-28T13:27:53.544Z"
+    },
+    {
+      "target_id": "grp_794099_62",
+      "task_id": "pragmatic_meaning",
+      "value": "看到仪表盘指针动了",
+      "updated_at": "2026-04-28T13:28:07.995Z"
+    },
+    {
+      "target_id": "grp_901626_68",
+      "task_id": "pragmatic_meaning",
+      "value": "这个人说",
+      "updated_at": "2026-04-28T13:28:35.589Z"
+    },
+    {
+      "target_id": "grp_797065_41",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:28:39.415Z"
+    },
+    {
+      "target_id": "grp_799901_48",
+      "task_id": "pragmatic_meaning",
+      "value": "我不是司机",
+      "updated_at": "2026-04-28T13:29:01.771Z"
+    },
+    {
+      "target_id": "seg_010638",
+      "task_id": "pragmatic_meaning",
+      "value": "逗号",
+      "updated_at": "2026-04-28T13:29:06.942Z"
+    },
+    {
+      "target_id": "grp_803283_34",
+      "task_id": "pragmatic_meaning",
+      "value": "我是坐在车里的乘客",
+      "updated_at": "2026-04-28T13:29:25.091Z"
+    },
+    {
+      "target_id": "seg_010643",
+      "task_id": "pragmatic_meaning",
+      "value": "句号",
+      "updated_at": "2026-04-28T13:29:21.709Z"
+    },
+    {
+      "target_id": "grp_806302_13",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:29:28.790Z"
+    },
+    {
+      "target_id": "grp_903146_5",
+      "task_id": "pragmatic_meaning",
+      "value": "警察说",
+      "updated_at": "2026-04-28T13:29:33.239Z"
+    },
+    {
+      "target_id": "grp_809013_88",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:29:40.708Z"
+    },
+    {
+      "target_id": "seg_010652",
+      "task_id": "pragmatic_meaning",
+      "value": "指着它说",
+      "updated_at": "2026-04-28T13:29:46.257Z"
+    },
+    {
+      "target_id": "grp_817870_29",
+      "task_id": "pragmatic_meaning",
+      "value": "你可以走了",
+      "updated_at": "2026-04-28T13:29:52.111Z"
+    },
+    {
+      "target_id": "seg_010657",
+      "task_id": "pragmatic_meaning",
+      "value": "句号",
+      "updated_at": "2026-04-28T13:29:56.071Z"
+    },
+    {
+      "target_id": "grp_819407_99",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:29:59.846Z"
+    },
+    {
+      "target_id": "grp_905018_7",
+      "task_id": "pragmatic_meaning",
+      "value": "警察说",
+      "updated_at": "2026-04-28T13:30:04.111Z"
+    },
+    {
+      "target_id": "grp_821522_2",
+      "task_id": "pragmatic_meaning",
+      "value": "前引号",
+      "updated_at": "2026-04-28T13:30:08.147Z"
+    },
+    {
+      "target_id": "grp_019227_26",
+      "task_id": "pragmatic_meaning",
+      "value": "指着司机",
+      "updated_at": "2026-04-28T13:30:23.326Z"
+    },
+    {
+      "target_id": "seg_010668",
+      "task_id": "pragmatic_meaning",
+      "value": "括号",
+      "updated_at": "2026-04-28T13:30:28.262Z"
+    },
+    {
+      "target_id": "grp_825318_73",
+      "task_id": "pragmatic_meaning",
+      "value": "身份证呢",
+      "updated_at": "2026-04-28T13:30:33.126Z"
+    },
+    {
+      "target_id": "grp_826337_70",
+      "task_id": "pragmatic_meaning",
+      "value": "驾驶证呢",
+      "updated_at": "2026-04-28T13:30:38.591Z"
+    },
+    {
+      "target_id": "seg_010673",
+      "task_id": "pragmatic_meaning",
+      "value": "括号",
+      "updated_at": "2026-04-28T13:30:42.262Z"
+    },
+    {
+      "target_id": "seg_010674",
+      "task_id": "pragmatic_meaning",
+      "value": "后引号",
+      "updated_at": "2026-04-28T13:30:49.425Z"
+    },
+    {
+      "target_id": "grp_829574_42",
+      "task_id": "pragmatic_meaning",
+      "value": "过了一阵",
+      "updated_at": "2026-04-28T13:31:00.663Z"
+    }
+  ]
+}

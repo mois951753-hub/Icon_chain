@@ -1,0 +1,1574 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "45_R",
+    "pageEndKey": "47_L"
+  },
+  "groups": [
+    {
+      "id": "grp_182281_76",
+      "level": 1,
+      "children": [
+        "seg_009976",
+        "seg_009977",
+        "seg_009978"
+      ],
+      "leaf_start": 9976,
+      "leaf_end": 9978
+    },
+    {
+      "id": "grp_185738_15",
+      "level": 1,
+      "children": [
+        "seg_009987",
+        "seg_009988",
+        "seg_009989"
+      ],
+      "leaf_start": 9987,
+      "leaf_end": 9989
+    },
+    {
+      "id": "grp_196595_51",
+      "level": 1,
+      "children": [
+        "seg_009993",
+        "seg_009994",
+        "seg_009995",
+        "seg_009996",
+        "seg_009997",
+        "seg_009998",
+        "seg_009999",
+        "seg_010000"
+      ],
+      "leaf_start": 9993,
+      "leaf_end": 10000
+    },
+    {
+      "id": "grp_200161_93",
+      "level": 1,
+      "children": [
+        "seg_010004",
+        "seg_010005",
+        "seg_010006",
+        "seg_010007",
+        "seg_010008",
+        "seg_010009",
+        "seg_010010",
+        "seg_010011",
+        "seg_010012"
+      ],
+      "leaf_start": 10004,
+      "leaf_end": 10012
+    },
+    {
+      "id": "grp_203311_96",
+      "level": 1,
+      "children": [
+        "seg_010014",
+        "seg_010015",
+        "seg_010016",
+        "seg_010017",
+        "seg_010018",
+        "seg_010019",
+        "seg_010020"
+      ],
+      "leaf_start": 10014,
+      "leaf_end": 10020
+    },
+    {
+      "id": "grp_208134_4",
+      "level": 1,
+      "children": [
+        "seg_010024",
+        "seg_010025",
+        "seg_010026",
+        "seg_010027",
+        "seg_010028",
+        "seg_010029",
+        "seg_010030",
+        "seg_010031",
+        "seg_010032",
+        "seg_010033"
+      ],
+      "leaf_start": 10024,
+      "leaf_end": 10033
+    },
+    {
+      "id": "grp_211376_83",
+      "level": 1,
+      "children": [
+        "seg_010039",
+        "seg_010040",
+        "seg_010041",
+        "seg_010042",
+        "seg_010043",
+        "seg_010044",
+        "seg_010045",
+        "seg_010046",
+        "seg_010047",
+        "seg_010048",
+        "seg_010049",
+        "seg_010050",
+        "seg_010051",
+        "seg_010052"
+      ],
+      "leaf_start": 10039,
+      "leaf_end": 10052
+    },
+    {
+      "id": "grp_220538_37",
+      "level": 1,
+      "children": [
+        "seg_010055",
+        "seg_010056",
+        "seg_010057",
+        "seg_010058",
+        "seg_010059",
+        "seg_010060",
+        "seg_010061"
+      ],
+      "leaf_start": 10055,
+      "leaf_end": 10061
+    },
+    {
+      "id": "grp_225613_79",
+      "level": 1,
+      "children": [
+        "seg_010064",
+        "seg_010065",
+        "seg_010066",
+        "seg_010067",
+        "seg_010068",
+        "seg_010069",
+        "seg_010070",
+        "seg_010071",
+        "seg_010072",
+        "seg_010073",
+        "seg_010074",
+        "seg_010075",
+        "seg_010076",
+        "seg_010077",
+        "seg_010078",
+        "seg_010079",
+        "seg_010080",
+        "seg_010081",
+        "seg_010082",
+        "seg_010083",
+        "seg_010084",
+        "seg_010085"
+      ],
+      "leaf_start": 10064,
+      "leaf_end": 10085
+    },
+    {
+      "id": "grp_230973_70",
+      "level": 1,
+      "children": [
+        "seg_010088",
+        "seg_010089",
+        "seg_010090",
+        "seg_010091",
+        "seg_010092",
+        "seg_010093",
+        "seg_010094",
+        "seg_010095",
+        "seg_010096",
+        "seg_010097",
+        "seg_010098",
+        "seg_010099",
+        "seg_010100",
+        "seg_010101",
+        "seg_010102",
+        "seg_010103",
+        "seg_010104"
+      ],
+      "leaf_start": 10088,
+      "leaf_end": 10104
+    },
+    {
+      "id": "grp_234305_69",
+      "level": 1,
+      "children": [
+        "seg_010107",
+        "seg_010108",
+        "seg_010109",
+        "seg_010110",
+        "seg_010111"
+      ],
+      "leaf_start": 10107,
+      "leaf_end": 10111
+    },
+    {
+      "id": "grp_237684_28",
+      "level": 1,
+      "children": [
+        "seg_010115",
+        "seg_010116",
+        "seg_010117",
+        "seg_010118",
+        "seg_010119",
+        "seg_010120",
+        "seg_010121",
+        "seg_010122",
+        "seg_010123",
+        "seg_010124"
+      ],
+      "leaf_start": 10115,
+      "leaf_end": 10124
+    },
+    {
+      "id": "grp_240436_6",
+      "level": 1,
+      "children": [
+        "seg_010127",
+        "seg_010128",
+        "seg_010129",
+        "seg_010130",
+        "seg_010131",
+        "seg_010132",
+        "seg_010133"
+      ],
+      "leaf_start": 10127,
+      "leaf_end": 10133
+    },
+    {
+      "id": "grp_245269_42",
+      "level": 1,
+      "children": [
+        "seg_010137",
+        "seg_010138",
+        "seg_010139",
+        "seg_010140",
+        "seg_010141",
+        "seg_010142",
+        "seg_010143",
+        "seg_010144",
+        "seg_010145",
+        "seg_010146",
+        "seg_010147",
+        "seg_010148",
+        "seg_010149",
+        "seg_010150",
+        "seg_010151",
+        "seg_010152",
+        "seg_010153",
+        "seg_010154",
+        "seg_010155",
+        "seg_010156",
+        "seg_010157",
+        "seg_010158",
+        "seg_010159",
+        "seg_010160",
+        "seg_010161",
+        "seg_010162",
+        "seg_010163"
+      ],
+      "leaf_start": 10137,
+      "leaf_end": 10163
+    },
+    {
+      "id": "grp_248484_67",
+      "level": 1,
+      "children": [
+        "seg_010166",
+        "seg_010167",
+        "seg_010168",
+        "seg_010169",
+        "seg_010170",
+        "seg_010171",
+        "seg_010172",
+        "seg_010173",
+        "seg_010174",
+        "seg_010175",
+        "seg_010176",
+        "seg_010177",
+        "seg_010178",
+        "seg_010179",
+        "seg_010180",
+        "seg_010181",
+        "seg_010182",
+        "seg_010183",
+        "seg_010184",
+        "seg_010185",
+        "seg_010186"
+      ],
+      "leaf_start": 10166,
+      "leaf_end": 10186
+    },
+    {
+      "id": "grp_253142_51",
+      "level": 1,
+      "children": [
+        "seg_010189",
+        "seg_010190",
+        "seg_010191",
+        "seg_010192",
+        "seg_010193",
+        "seg_010194",
+        "seg_010195",
+        "seg_010196",
+        "seg_010197",
+        "seg_010198",
+        "seg_010199"
+      ],
+      "leaf_start": 10189,
+      "leaf_end": 10199
+    },
+    {
+      "id": "grp_261739_63",
+      "level": 1,
+      "children": [
+        "seg_010203",
+        "seg_010204",
+        "seg_010205"
+      ],
+      "leaf_start": 10203,
+      "leaf_end": 10205
+    },
+    {
+      "id": "grp_266107_17",
+      "level": 1,
+      "children": [
+        "seg_010207",
+        "seg_010208",
+        "seg_010209",
+        "seg_010210",
+        "seg_010211",
+        "seg_010212",
+        "seg_010213",
+        "seg_010214"
+      ],
+      "leaf_start": 10207,
+      "leaf_end": 10214
+    },
+    {
+      "id": "grp_269099_10",
+      "level": 1,
+      "children": [
+        "seg_010220",
+        "seg_010221",
+        "seg_010222"
+      ],
+      "leaf_start": 10220,
+      "leaf_end": 10222
+    },
+    {
+      "id": "grp_272119_50",
+      "level": 1,
+      "children": [
+        "seg_010224",
+        "seg_010225",
+        "seg_010226"
+      ],
+      "leaf_start": 10224,
+      "leaf_end": 10226
+    },
+    {
+      "id": "grp_275511_71",
+      "level": 1,
+      "children": [
+        "seg_010228",
+        "seg_010229",
+        "seg_010230",
+        "seg_010231"
+      ],
+      "leaf_start": 10228,
+      "leaf_end": 10231
+    },
+    {
+      "id": "grp_290420_64",
+      "level": 1,
+      "children": [
+        "seg_010236",
+        "seg_010237",
+        "seg_010238",
+        "seg_010239",
+        "seg_010240",
+        "seg_010241",
+        "seg_010242",
+        "seg_010243"
+      ],
+      "leaf_start": 10236,
+      "leaf_end": 10243
+    },
+    {
+      "id": "grp_298147_63",
+      "level": 1,
+      "children": [
+        "seg_010245",
+        "seg_010246"
+      ],
+      "leaf_start": 10245,
+      "leaf_end": 10246
+    },
+    {
+      "id": "grp_308158_1",
+      "level": 1,
+      "children": [
+        "seg_010250",
+        "seg_010251"
+      ],
+      "leaf_start": 10250,
+      "leaf_end": 10251
+    },
+    {
+      "id": "grp_310970_46",
+      "level": 1,
+      "children": [
+        "seg_010253",
+        "seg_010254",
+        "seg_010255"
+      ],
+      "leaf_start": 10253,
+      "leaf_end": 10255
+    },
+    {
+      "id": "grp_312516_4",
+      "level": 1,
+      "children": [
+        "seg_010257",
+        "seg_010258",
+        "seg_010259",
+        "seg_010260"
+      ],
+      "leaf_start": 10257,
+      "leaf_end": 10260
+    },
+    {
+      "id": "grp_315445_17",
+      "level": 1,
+      "children": [
+        "seg_010263",
+        "seg_010264",
+        "seg_010265"
+      ],
+      "leaf_start": 10263,
+      "leaf_end": 10265
+    },
+    {
+      "id": "grp_321903_49",
+      "level": 1,
+      "children": [
+        "seg_010267",
+        "seg_010268",
+        "seg_010269",
+        "seg_010270",
+        "seg_010271",
+        "seg_010272",
+        "seg_010273"
+      ],
+      "leaf_start": 10267,
+      "leaf_end": 10273
+    },
+    {
+      "id": "grp_324323_91",
+      "level": 1,
+      "children": [
+        "seg_010275",
+        "seg_010276",
+        "seg_010277",
+        "seg_010278",
+        "seg_010279"
+      ],
+      "leaf_start": 10275,
+      "leaf_end": 10279
+    },
+    {
+      "id": "grp_328972_37",
+      "level": 1,
+      "children": [
+        "seg_010282",
+        "seg_010283",
+        "seg_010284",
+        "seg_010285",
+        "seg_010286",
+        "seg_010287",
+        "seg_010288"
+      ],
+      "leaf_start": 10282,
+      "leaf_end": 10288
+    },
+    {
+      "id": "grp_331790_80",
+      "level": 1,
+      "children": [
+        "seg_010291",
+        "seg_010292",
+        "seg_010293",
+        "seg_010294",
+        "seg_010295",
+        "seg_010296",
+        "seg_010297"
+      ],
+      "leaf_start": 10291,
+      "leaf_end": 10297
+    },
+    {
+      "id": "grp_333672_72",
+      "level": 1,
+      "children": [
+        "seg_010299",
+        "seg_010300",
+        "seg_010301",
+        "seg_010302"
+      ],
+      "leaf_start": 10299,
+      "leaf_end": 10302
+    },
+    {
+      "id": "grp_335308_87",
+      "level": 1,
+      "children": [
+        "seg_010303",
+        "seg_010304",
+        "seg_010305",
+        "seg_010306"
+      ],
+      "leaf_start": 10303,
+      "leaf_end": 10306
+    },
+    {
+      "id": "grp_342630_48",
+      "level": 1,
+      "children": [
+        "seg_010310",
+        "seg_010311",
+        "seg_010312",
+        "seg_010313",
+        "seg_010314",
+        "seg_010315"
+      ],
+      "leaf_start": 10310,
+      "leaf_end": 10315
+    },
+    {
+      "id": "grp_345329_69",
+      "level": 1,
+      "children": [
+        "seg_010316",
+        "seg_010317",
+        "seg_010318"
+      ],
+      "leaf_start": 10316,
+      "leaf_end": 10318
+    },
+    {
+      "id": "grp_347279_37",
+      "level": 1,
+      "children": [
+        "seg_010319",
+        "seg_010320",
+        "seg_010321"
+      ],
+      "leaf_start": 10319,
+      "leaf_end": 10321
+    },
+    {
+      "id": "grp_351705_53",
+      "level": 1,
+      "children": [
+        "seg_010325",
+        "seg_010326",
+        "seg_010327"
+      ],
+      "leaf_start": 10325,
+      "leaf_end": 10327
+    },
+    {
+      "id": "grp_356950_7",
+      "level": 1,
+      "children": [
+        "seg_010329",
+        "seg_010330",
+        "seg_010331",
+        "seg_010332",
+        "seg_010333",
+        "seg_010334",
+        "seg_010335",
+        "seg_010336",
+        "seg_010337",
+        "seg_010338"
+      ],
+      "leaf_start": 10329,
+      "leaf_end": 10338
+    },
+    {
+      "id": "grp_360966_78",
+      "level": 1,
+      "children": [
+        "seg_010342",
+        "seg_010343",
+        "seg_010344",
+        "seg_010345",
+        "seg_010346",
+        "seg_010347",
+        "seg_010348",
+        "seg_010349"
+      ],
+      "leaf_start": 10342,
+      "leaf_end": 10349
+    },
+    {
+      "id": "grp_363722_2",
+      "level": 1,
+      "children": [
+        "seg_010351",
+        "seg_010352",
+        "seg_010353",
+        "seg_010354",
+        "seg_010355",
+        "seg_010356",
+        "seg_010357",
+        "seg_010358",
+        "seg_010359"
+      ],
+      "leaf_start": 10351,
+      "leaf_end": 10359
+    },
+    {
+      "id": "grp_369073_48",
+      "level": 1,
+      "children": [
+        "seg_010363",
+        "seg_010364",
+        "seg_010365",
+        "seg_010366",
+        "seg_010367",
+        "seg_010368",
+        "seg_010369",
+        "seg_010370",
+        "seg_010371",
+        "seg_010372"
+      ],
+      "leaf_start": 10363,
+      "leaf_end": 10372
+    },
+    {
+      "id": "grp_371186_0",
+      "level": 1,
+      "children": [
+        "seg_010374",
+        "seg_010375",
+        "seg_010376",
+        "seg_010377",
+        "seg_010378",
+        "seg_010379"
+      ],
+      "leaf_start": 10374,
+      "leaf_end": 10379
+    },
+    {
+      "id": "grp_375050_81",
+      "level": 1,
+      "children": [
+        "seg_010382",
+        "seg_010383"
+      ],
+      "leaf_start": 10382,
+      "leaf_end": 10383
+    },
+    {
+      "id": "grp_377746_55",
+      "level": 1,
+      "children": [
+        "seg_010385",
+        "seg_010386",
+        "seg_010387",
+        "seg_010388",
+        "seg_010389"
+      ],
+      "leaf_start": 10385,
+      "leaf_end": 10389
+    },
+    {
+      "id": "grp_384132_93",
+      "level": 1,
+      "children": [
+        "seg_010390",
+        "seg_010391",
+        "seg_010392",
+        "seg_010393",
+        "seg_010394",
+        "seg_010395",
+        "seg_010396"
+      ],
+      "leaf_start": 10390,
+      "leaf_end": 10396
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "grp_182281_76",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:13:18.250Z"
+    },
+    {
+      "target_id": "grp_185738_15",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-05-03T07:13:21.460Z"
+    },
+    {
+      "target_id": "grp_196595_51",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:13:29.559Z"
+    },
+    {
+      "target_id": "grp_200161_93",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-05-03T07:13:41.813Z"
+    },
+    {
+      "target_id": "grp_203311_96",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-05-03T07:13:46.316Z"
+    },
+    {
+      "target_id": "grp_208134_4",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-05-03T07:13:50.332Z"
+    },
+    {
+      "target_id": "grp_211376_83",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:06.262Z"
+    },
+    {
+      "target_id": "grp_220538_37",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:14:08.423Z"
+    },
+    {
+      "target_id": "grp_225613_79",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like",
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:15.170Z"
+    },
+    {
+      "target_id": "grp_230973_70",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:21.765Z"
+    },
+    {
+      "target_id": "grp_234305_69",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:24.623Z"
+    },
+    {
+      "target_id": "grp_237684_28",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:27.179Z"
+    },
+    {
+      "target_id": "grp_240436_6",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:29.241Z"
+    },
+    {
+      "target_id": "grp_245269_42",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:31.336Z"
+    },
+    {
+      "target_id": "grp_248484_67",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:34.032Z"
+    },
+    {
+      "target_id": "grp_253142_51",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:42.789Z"
+    },
+    {
+      "target_id": "grp_266107_17",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:14:55.270Z"
+    },
+    {
+      "target_id": "grp_261739_63",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-05-03T07:15:01.694Z"
+    },
+    {
+      "target_id": "grp_269099_10",
+      "task_id": "pos_like_category",
+      "value": [
+        "副词性 / Degree-like"
+      ],
+      "updated_at": "2026-05-03T07:15:06.534Z"
+    },
+    {
+      "target_id": "grp_272119_50",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:08.575Z"
+    },
+    {
+      "target_id": "grp_275511_71",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:10.452Z"
+    },
+    {
+      "target_id": "grp_290420_64",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:15:22.687Z"
+    },
+    {
+      "target_id": "grp_298147_63",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:37.832Z"
+    },
+    {
+      "target_id": "grp_308158_1",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:39.623Z"
+    },
+    {
+      "target_id": "grp_310970_46",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:41.133Z"
+    },
+    {
+      "target_id": "grp_312516_4",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:15:45.609Z"
+    },
+    {
+      "target_id": "grp_315445_17",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-05-03T07:17:56.677Z"
+    },
+    {
+      "target_id": "grp_321903_49",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:18:00.636Z"
+    },
+    {
+      "target_id": "grp_324323_91",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:18:02.630Z"
+    },
+    {
+      "target_id": "grp_328972_37",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-05-03T07:18:06.518Z"
+    },
+    {
+      "target_id": "grp_331790_80",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:18:09.827Z"
+    },
+    {
+      "target_id": "grp_333672_72",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:18:12.486Z"
+    },
+    {
+      "target_id": "grp_335308_87",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:18:18.132Z"
+    },
+    {
+      "target_id": "grp_342630_48",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:18:19.997Z"
+    },
+    {
+      "target_id": "grp_345329_69",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-05-03T07:18:26.970Z"
+    },
+    {
+      "target_id": "grp_347279_37",
+      "task_id": "pos_like_category",
+      "value": [
+        "名词性 / Entity-like"
+      ],
+      "updated_at": "2026-05-03T07:18:52.800Z"
+    },
+    {
+      "target_id": "grp_351705_53",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:18:56.172Z"
+    },
+    {
+      "target_id": "grp_356950_7",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:18:59.156Z"
+    },
+    {
+      "target_id": "grp_360966_78",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:19:02.907Z"
+    },
+    {
+      "target_id": "grp_363722_2",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:19:04.890Z"
+    },
+    {
+      "target_id": "grp_369073_48",
+      "task_id": "pos_like_category",
+      "value": [
+        "整句/整体表达 / Clause-like Unit"
+      ],
+      "updated_at": "2026-05-03T07:19:08.431Z"
+    },
+    {
+      "target_id": "grp_371186_0",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:19:10.500Z"
+    },
+    {
+      "target_id": "grp_377746_55",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:19:14.575Z"
+    },
+    {
+      "target_id": "grp_375050_81",
+      "task_id": "pos_like_category",
+      "value": [
+        "形容词性 / State-like"
+      ],
+      "updated_at": "2026-05-03T07:19:16.736Z"
+    },
+    {
+      "target_id": "grp_384132_93",
+      "task_id": "pos_like_category",
+      "value": [
+        "动词性 / Action-like"
+      ],
+      "updated_at": "2026-05-03T07:19:19.231Z"
+    }
+  ]
+}

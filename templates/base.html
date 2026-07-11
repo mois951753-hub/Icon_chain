@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}图标地书接龙游戏{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="logo">📖</span>
+                <span>图标地书接龙</span>
+            </div>
+            <div class="nav-links">
+                {% if session.username %}
+                    <span>👤 {{ session.username }}</span>
+                    <a href="{{ url_for('game_home') }}">🎮 接龙大厅</a>
+                    <a href="{{ url_for('logout') }}">🚪 退出登录</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">登录</a>
+                    <a href="{{ url_for('register') }}">注册</a>
+                {% endif %}
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+        
+        <footer class="footer">
+            <p>图标地书 · 自然语言处理课程作业</p>
+        </footer>
+    </div>
+</body>
+</html>

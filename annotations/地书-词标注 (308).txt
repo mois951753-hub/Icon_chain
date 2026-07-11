@@ -1,0 +1,2445 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "14_R",
+    "pageEndKey": "15_R"
+  },
+  "groups": [
+    {
+      "id": "grp_701865_18",
+      "level": 1,
+      "children": [
+        "seg_003464",
+        "seg_003465",
+        "seg_003466",
+        "seg_003467",
+        "seg_003468"
+      ],
+      "leaf_start": 3464,
+      "leaf_end": 3468
+    },
+    {
+      "id": "grp_716142_8",
+      "level": 1,
+      "children": [
+        "seg_003474",
+        "seg_003475",
+        "seg_003476",
+        "seg_003477"
+      ],
+      "leaf_start": 3474,
+      "leaf_end": 3477
+    },
+    {
+      "id": "grp_732671_25",
+      "level": 1,
+      "children": [
+        "seg_003498",
+        "seg_003499"
+      ],
+      "leaf_start": 3498,
+      "leaf_end": 3499
+    },
+    {
+      "id": "grp_736103_41",
+      "level": 1,
+      "children": [
+        "seg_003501",
+        "seg_003502",
+        "seg_003503",
+        "seg_003504",
+        "seg_003505",
+        "seg_003506",
+        "seg_003507",
+        "seg_003508"
+      ],
+      "leaf_start": 3501,
+      "leaf_end": 3508
+    },
+    {
+      "id": "grp_740943_85",
+      "level": 1,
+      "children": [
+        "seg_003513",
+        "seg_003514",
+        "seg_003515"
+      ],
+      "leaf_start": 3513,
+      "leaf_end": 3515
+    },
+    {
+      "id": "grp_742772_49",
+      "level": 1,
+      "children": [
+        "seg_003521",
+        "seg_003522"
+      ],
+      "leaf_start": 3521,
+      "leaf_end": 3522
+    },
+    {
+      "id": "grp_777548_0",
+      "level": 1,
+      "children": [
+        "seg_003554",
+        "seg_003555",
+        "seg_003556"
+      ],
+      "leaf_start": 3554,
+      "leaf_end": 3556
+    },
+    {
+      "id": "grp_781040_73",
+      "level": 1,
+      "children": [
+        "seg_003558",
+        "seg_003559",
+        "seg_003560",
+        "seg_003561",
+        "seg_003562",
+        "seg_003563",
+        "seg_003564",
+        "seg_003565",
+        "seg_003566",
+        "seg_003567"
+      ],
+      "leaf_start": 3558,
+      "leaf_end": 3567
+    },
+    {
+      "id": "grp_854560_89",
+      "level": 1,
+      "children": [
+        "seg_003685",
+        "seg_003686",
+        "seg_003687",
+        "seg_003688",
+        "seg_003689",
+        "seg_003690",
+        "seg_003691",
+        "seg_003692",
+        "seg_003693",
+        "seg_003694",
+        "seg_003695",
+        "seg_003696",
+        "seg_003697",
+        "seg_003698"
+      ],
+      "leaf_start": 3685,
+      "leaf_end": 3698
+    },
+    {
+      "id": "grp_868645_16",
+      "level": 1,
+      "children": [
+        "seg_003714",
+        "seg_003715",
+        "seg_003716",
+        "seg_003717",
+        "seg_003718",
+        "seg_003719",
+        "seg_003720",
+        "seg_003721",
+        "seg_003722",
+        "seg_003723",
+        "seg_003724",
+        "seg_003725",
+        "seg_003726"
+      ],
+      "leaf_start": 3714,
+      "leaf_end": 3726
+    },
+    {
+      "id": "grp_885242_97",
+      "level": 1,
+      "children": [
+        "seg_003747",
+        "seg_003748",
+        "seg_003749",
+        "seg_003750",
+        "seg_003751",
+        "seg_003752",
+        "seg_003753",
+        "seg_003754",
+        "seg_003755"
+      ],
+      "leaf_start": 3747,
+      "leaf_end": 3755
+    },
+    {
+      "id": "grp_894006_94",
+      "level": 1,
+      "children": [
+        "seg_003765",
+        "seg_003766",
+        "seg_003767",
+        "seg_003768",
+        "seg_003769",
+        "seg_003770",
+        "seg_003771",
+        "seg_003772",
+        "seg_003773",
+        "seg_003774",
+        "seg_003775",
+        "seg_003776"
+      ],
+      "leaf_start": 3765,
+      "leaf_end": 3776
+    },
+    {
+      "id": "grp_902474_8",
+      "level": 1,
+      "children": [
+        "seg_003780",
+        "seg_003781",
+        "seg_003782",
+        "seg_003783",
+        "seg_003784",
+        "seg_003785",
+        "seg_003786",
+        "seg_003787",
+        "seg_003788",
+        "seg_003789",
+        "seg_003790",
+        "seg_003791",
+        "seg_003792",
+        "seg_003793",
+        "seg_003794",
+        "seg_003795",
+        "seg_003796",
+        "seg_003797",
+        "seg_003798",
+        "seg_003799",
+        "seg_003800",
+        "seg_003801",
+        "seg_003802",
+        "seg_003803",
+        "seg_003804",
+        "seg_003805",
+        "seg_003806"
+      ],
+      "leaf_start": 3780,
+      "leaf_end": 3806
+    },
+    {
+      "id": "grp_904214_59",
+      "level": 1,
+      "children": [
+        "seg_003809",
+        "seg_003810"
+      ],
+      "leaf_start": 3809,
+      "leaf_end": 3810
+    },
+    {
+      "id": "grp_912334_31",
+      "level": 1,
+      "children": [
+        "seg_003813",
+        "seg_003814",
+        "seg_003815",
+        "seg_003816",
+        "seg_003817",
+        "seg_003818",
+        "seg_003819",
+        "seg_003820",
+        "seg_003821"
+      ],
+      "leaf_start": 3813,
+      "leaf_end": 3821
+    },
+    {
+      "id": "grp_915695_57",
+      "level": 1,
+      "children": [
+        "seg_003824",
+        "seg_003825",
+        "seg_003826",
+        "seg_003827",
+        "seg_003828",
+        "seg_003829",
+        "seg_003830",
+        "seg_003831",
+        "seg_003832",
+        "seg_003833",
+        "seg_003834"
+      ],
+      "leaf_start": 3824,
+      "leaf_end": 3834
+    },
+    {
+      "id": "grp_598156_25",
+      "level": 1,
+      "children": [
+        "seg_003570",
+        "seg_003571",
+        "seg_003572",
+        "seg_003573",
+        "seg_003574",
+        "seg_003575",
+        "seg_003576",
+        "seg_003577",
+        "seg_003578",
+        "seg_003579",
+        "seg_003580",
+        "seg_003581",
+        "seg_003582",
+        "seg_003583"
+      ],
+      "leaf_start": 3570,
+      "leaf_end": 3583
+    },
+    {
+      "id": "grp_603525_64",
+      "level": 1,
+      "children": [
+        "seg_003586",
+        "seg_003587",
+        "seg_003588",
+        "seg_003589",
+        "seg_003590",
+        "seg_003591",
+        "seg_003592",
+        "seg_003593",
+        "seg_003594",
+        "seg_003595",
+        "seg_003596",
+        "seg_003597",
+        "seg_003598",
+        "seg_003599"
+      ],
+      "leaf_start": 3586,
+      "leaf_end": 3599
+    },
+    {
+      "id": "grp_610301_26",
+      "level": 1,
+      "children": [
+        "seg_003628",
+        "seg_003629",
+        "seg_003630",
+        "seg_003631",
+        "seg_003632",
+        "seg_003633",
+        "seg_003634",
+        "seg_003635",
+        "seg_003636",
+        "seg_003637",
+        "seg_003638",
+        "seg_003639"
+      ],
+      "leaf_start": 3628,
+      "leaf_end": 3639
+    },
+    {
+      "id": "grp_616937_67",
+      "level": 1,
+      "children": [
+        "seg_003652",
+        "seg_003653",
+        "seg_003654",
+        "seg_003655",
+        "seg_003656",
+        "seg_003657",
+        "seg_003658",
+        "seg_003659",
+        "seg_003660",
+        "seg_003661"
+      ],
+      "leaf_start": 3652,
+      "leaf_end": 3661
+    },
+    {
+      "id": "grp_620428_50",
+      "level": 1,
+      "children": [
+        "seg_003642",
+        "seg_003643",
+        "seg_003644",
+        "seg_003645",
+        "seg_003646",
+        "seg_003647",
+        "seg_003648",
+        "seg_003649"
+      ],
+      "leaf_start": 3642,
+      "leaf_end": 3649
+    },
+    {
+      "id": "grp_623974_38",
+      "level": 1,
+      "children": [
+        "seg_003664",
+        "seg_003665",
+        "seg_003666",
+        "seg_003667",
+        "seg_003668",
+        "seg_003669",
+        "seg_003670",
+        "seg_003671"
+      ],
+      "leaf_start": 3664,
+      "leaf_end": 3671
+    },
+    {
+      "id": "grp_628046_22",
+      "level": 1,
+      "children": [
+        "seg_003674",
+        "seg_003675",
+        "seg_003676",
+        "seg_003677",
+        "seg_003678",
+        "seg_003679",
+        "seg_003680",
+        "seg_003681",
+        "seg_003682"
+      ],
+      "leaf_start": 3674,
+      "leaf_end": 3682
+    },
+    {
+      "id": "grp_638078_84",
+      "level": 1,
+      "children": [
+        "seg_003701",
+        "seg_003702",
+        "seg_003703",
+        "seg_003704",
+        "seg_003705",
+        "seg_003706",
+        "seg_003707",
+        "seg_003708",
+        "seg_003709",
+        "seg_003710",
+        "seg_003711"
+      ],
+      "leaf_start": 3701,
+      "leaf_end": 3711
+    },
+    {
+      "id": "grp_645654_35",
+      "level": 1,
+      "children": [
+        "seg_003729",
+        "seg_003730",
+        "seg_003731",
+        "seg_003732",
+        "seg_003733",
+        "seg_003734",
+        "seg_003735",
+        "seg_003736",
+        "seg_003737",
+        "seg_003738",
+        "seg_003739",
+        "seg_003740",
+        "seg_003741",
+        "seg_003742",
+        "seg_003743",
+        "seg_003744"
+      ],
+      "leaf_start": 3729,
+      "leaf_end": 3744
+    },
+    {
+      "id": "grp_653607_23",
+      "level": 1,
+      "children": [
+        "seg_003602",
+        "seg_003603",
+        "seg_003604",
+        "seg_003605",
+        "seg_003606",
+        "seg_003607",
+        "seg_003608",
+        "seg_003609",
+        "seg_003610",
+        "seg_003611"
+      ],
+      "leaf_start": 3602,
+      "leaf_end": 3611
+    },
+    {
+      "id": "grp_656851_4",
+      "level": 1,
+      "children": [
+        "seg_003614",
+        "seg_003615",
+        "seg_003616",
+        "seg_003617",
+        "seg_003618",
+        "seg_003619",
+        "seg_003620",
+        "seg_003621",
+        "seg_003622",
+        "seg_003623",
+        "seg_003624",
+        "seg_003625"
+      ],
+      "leaf_start": 3614,
+      "leaf_end": 3625
+    },
+    {
+      "id": "grp_662880_84",
+      "level": 1,
+      "children": [
+        "seg_003541",
+        "seg_003542",
+        "seg_003543",
+        "seg_003544",
+        "seg_003545",
+        "seg_003546",
+        "seg_003547",
+        "seg_003548",
+        "seg_003549",
+        "seg_003550",
+        "seg_003551"
+      ],
+      "leaf_start": 3541,
+      "leaf_end": 3551
+    },
+    {
+      "id": "grp_669181_16",
+      "level": 1,
+      "children": [
+        "seg_003528",
+        "seg_003529",
+        "seg_003530",
+        "seg_003531",
+        "seg_003532",
+        "seg_003533",
+        "seg_003534",
+        "seg_003535",
+        "seg_003536",
+        "seg_003537",
+        "seg_003538"
+      ],
+      "leaf_start": 3528,
+      "leaf_end": 3538
+    },
+    {
+      "id": "grp_161114_86",
+      "level": 1,
+      "children": [
+        "seg_003481",
+        "seg_003482",
+        "seg_003483"
+      ],
+      "leaf_start": 3481,
+      "leaf_end": 3483
+    },
+    {
+      "id": "grp_162602_50",
+      "level": 1,
+      "children": [
+        "seg_003484",
+        "seg_003485"
+      ],
+      "leaf_start": 3484,
+      "leaf_end": 3485
+    },
+    {
+      "id": "grp_164198_62",
+      "level": 1,
+      "children": [
+        "seg_003487",
+        "seg_003488",
+        "seg_003489"
+      ],
+      "leaf_start": 3487,
+      "leaf_end": 3489
+    },
+    {
+      "id": "grp_165902_22",
+      "level": 1,
+      "children": [
+        "seg_003491",
+        "seg_003492",
+        "seg_003493",
+        "seg_003494"
+      ],
+      "leaf_start": 3491,
+      "leaf_end": 3494
+    },
+    {
+      "id": "grp_193524_53",
+      "level": 1,
+      "children": [
+        "seg_003758",
+        "seg_003759",
+        "seg_003760"
+      ],
+      "leaf_start": 3758,
+      "leaf_end": 3760
+    },
+    {
+      "id": "grp_194968_34",
+      "level": 1,
+      "children": [
+        "seg_003761",
+        "seg_003762",
+        "seg_003763"
+      ],
+      "leaf_start": 3761,
+      "leaf_end": 3763
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_003464",
+      "task_id": "literal_gloss",
+      "value": "空",
+      "updated_at": "2026-04-30T16:29:58.066Z"
+    },
+    {
+      "target_id": "seg_003465",
+      "task_id": "literal_gloss",
+      "value": "人眼看",
+      "updated_at": "2026-04-30T16:30:05.969Z"
+    },
+    {
+      "target_id": "seg_003466",
+      "task_id": "literal_gloss",
+      "value": "朝向",
+      "updated_at": "2026-04-30T16:30:18.369Z"
+    },
+    {
+      "target_id": "seg_003467",
+      "task_id": "literal_gloss",
+      "value": "箭头",
+      "updated_at": "2026-04-30T16:30:21.708Z"
+    },
+    {
+      "target_id": "seg_003468",
+      "task_id": "literal_gloss",
+      "value": "钟表",
+      "updated_at": "2026-04-30T16:30:26.565Z"
+    },
+    {
+      "target_id": "grp_701865_18",
+      "task_id": "free_translation",
+      "value": "看时间",
+      "updated_at": "2026-04-30T16:35:52.539Z"
+    },
+    {
+      "target_id": "grp_716142_8",
+      "task_id": "free_translation",
+      "value": "关闭电脑",
+      "updated_at": "2026-04-30T16:35:59.823Z"
+    },
+    {
+      "target_id": "grp_723370_43",
+      "task_id": "free_translation",
+      "value": "下楼",
+      "updated_at": "2026-04-30T16:36:03.019Z"
+    },
+    {
+      "target_id": "grp_969858_52",
+      "task_id": "free_translation",
+      "value": "下楼喝咖啡",
+      "updated_at": "2026-04-30T16:36:15.962Z"
+    },
+    {
+      "target_id": "grp_727499_99",
+      "task_id": "free_translation",
+      "value": "开到",
+      "updated_at": "2026-04-30T16:36:22.575Z"
+    },
+    {
+      "target_id": "grp_732671_25",
+      "task_id": "free_translation",
+      "value": "去喝咖啡",
+      "updated_at": "2026-05-01T01:58:11.866Z"
+    },
+    {
+      "target_id": "grp_736103_41",
+      "task_id": "free_translation",
+      "value": "下雨转多云转下雨",
+      "updated_at": "2026-05-01T01:58:28.403Z"
+    },
+    {
+      "target_id": "grp_740943_85",
+      "task_id": "free_translation",
+      "value": "人和人聊天",
+      "updated_at": "2026-05-01T01:58:36.455Z"
+    },
+    {
+      "target_id": "grp_742772_49",
+      "task_id": "free_translation",
+      "value": "一脸忧愁",
+      "updated_at": "2026-05-01T01:58:44.294Z"
+    },
+    {
+      "target_id": "grp_669181_16",
+      "task_id": "free_translation",
+      "value": "人饿了 去喝杯咖啡吃个面包",
+      "updated_at": "2026-05-01T01:58:58.341Z"
+    },
+    {
+      "target_id": "grp_662880_84",
+      "task_id": "free_translation",
+      "value": "人喝咖啡吃苹果很开心",
+      "updated_at": "2026-05-01T01:59:20.765Z"
+    },
+    {
+      "target_id": "grp_777548_0",
+      "task_id": "free_translation",
+      "value": "两个人交谈",
+      "updated_at": "2026-05-01T01:59:29.115Z"
+    },
+    {
+      "target_id": "grp_781040_73",
+      "task_id": "free_translation",
+      "value": "谈论的内容",
+      "updated_at": "2026-05-01T01:59:35.126Z"
+    },
+    {
+      "target_id": "grp_598156_25",
+      "task_id": "free_translation",
+      "value": "和咖啡的时候想到开心的是",
+      "updated_at": "2026-05-01T01:59:52.763Z"
+    },
+    {
+      "target_id": "grp_603525_64",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候想到了滑铲进球",
+      "updated_at": "2026-05-01T02:00:03.922Z"
+    },
+    {
+      "target_id": "grp_653607_23",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候想到了找房子",
+      "updated_at": "2026-05-01T02:00:13.703Z"
+    },
+    {
+      "target_id": "grp_656851_4",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候想到了通过互联网搜索发现房价下降",
+      "updated_at": "2026-05-01T02:00:34.387Z"
+    },
+    {
+      "target_id": "grp_610301_26",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候看到油价上涨",
+      "updated_at": "2026-05-01T02:00:48.078Z"
+    },
+    {
+      "target_id": "grp_620428_50",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候看到价格持续升高",
+      "updated_at": "2026-05-01T02:00:59.406Z"
+    },
+    {
+      "target_id": "grp_616937_67",
+      "task_id": "free_translation",
+      "value": "想到开丰田车的时候加油会耗很多钱很生气",
+      "updated_at": "2026-05-01T02:01:23.698Z"
+    },
+    {
+      "target_id": "grp_623974_38",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候想到价格波动",
+      "updated_at": "2026-05-01T02:01:32.470Z"
+    },
+    {
+      "target_id": "grp_628046_22",
+      "task_id": "free_translation",
+      "value": "喝咖啡的时候想到交易价格波动上升",
+      "updated_at": "2026-05-01T02:01:50.114Z"
+    },
+    {
+      "target_id": "grp_854560_89",
+      "task_id": "free_translation",
+      "value": "两个人聊天",
+      "updated_at": "2026-05-01T02:01:58.383Z"
+    },
+    {
+      "target_id": "grp_638078_84",
+      "task_id": "free_translation",
+      "value": "两个人打完招呼一个下楼一个上楼",
+      "updated_at": "2026-05-01T02:02:08.044Z"
+    },
+    {
+      "target_id": "grp_868645_16",
+      "task_id": "free_translation",
+      "value": "到时间了，上楼，继续走拐弯继续走拐弯",
+      "updated_at": "2026-05-01T02:02:42.372Z"
+    },
+    {
+      "target_id": "grp_645654_35",
+      "task_id": "free_translation",
+      "value": "人想上厕所",
+      "updated_at": "2026-05-01T02:03:10.083Z"
+    },
+    {
+      "target_id": "grp_885242_97",
+      "task_id": "free_translation",
+      "value": "人在上厕所",
+      "updated_at": "2026-05-01T02:03:17.375Z"
+    },
+    {
+      "target_id": "grp_891882_13",
+      "task_id": "free_translation",
+      "value": "从厕所出来唱歌",
+      "updated_at": "2026-05-01T02:03:27.952Z"
+    },
+    {
+      "target_id": "grp_894006_94",
+      "task_id": "free_translation",
+      "value": "男人看到女人",
+      "updated_at": "2026-05-01T02:03:40.290Z"
+    },
+    {
+      "target_id": "grp_902474_8",
+      "task_id": "free_translation",
+      "value": "看到女人以后想入非非",
+      "updated_at": "2026-05-01T02:04:05.292Z"
+    },
+    {
+      "target_id": "grp_904214_59",
+      "task_id": "free_translation",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:04:08.608Z"
+    },
+    {
+      "target_id": "grp_912334_31",
+      "task_id": "free_translation",
+      "value": "到点了，要丢垃圾",
+      "updated_at": "2026-05-01T02:04:22.880Z"
+    },
+    {
+      "target_id": "grp_915695_57",
+      "task_id": "free_translation",
+      "value": "丢完垃圾回去工作",
+      "updated_at": "2026-05-01T02:04:30.901Z"
+    },
+    {
+      "target_id": "seg_003465",
+      "task_id": "pragmatic_meaning",
+      "value": "人",
+      "updated_at": "2026-05-01T02:06:40.324Z"
+    },
+    {
+      "target_id": "seg_003467",
+      "task_id": "pragmatic_meaning",
+      "value": "看",
+      "updated_at": "2026-05-01T02:06:47.268Z"
+    },
+    {
+      "target_id": "grp_003297_54",
+      "task_id": "free_translation",
+      "value": "人下楼去和咖啡看到朋友打招呼",
+      "updated_at": "2026-05-01T02:07:16.821Z"
+    },
+    {
+      "target_id": "seg_003465",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:07:31.217Z"
+    },
+    {
+      "target_id": "seg_003468",
+      "task_id": "free_translation",
+      "value": "世界",
+      "updated_at": "2026-05-01T02:07:33.794Z"
+    },
+    {
+      "target_id": "seg_003470",
+      "task_id": "free_translation",
+      "value": "下班",
+      "updated_at": "2026-05-01T02:07:38.241Z"
+    },
+    {
+      "target_id": "seg_003472",
+      "task_id": "free_translation",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:07:41.276Z"
+    },
+    {
+      "target_id": "seg_003474",
+      "task_id": "free_translation",
+      "value": "手",
+      "updated_at": "2026-05-01T02:07:45.218Z"
+    },
+    {
+      "target_id": "seg_003475",
+      "task_id": "free_translation",
+      "value": "关",
+      "updated_at": "2026-05-01T02:07:47.564Z"
+    },
+    {
+      "target_id": "seg_003477",
+      "task_id": "free_translation",
+      "value": "电脑",
+      "updated_at": "2026-05-01T02:07:53.350Z"
+    },
+    {
+      "target_id": "seg_003481",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:07:56.206Z"
+    },
+    {
+      "target_id": "seg_003482",
+      "task_id": "free_translation",
+      "value": "下楼",
+      "updated_at": "2026-05-01T02:07:58.593Z"
+    },
+    {
+      "target_id": "seg_003483",
+      "task_id": "free_translation",
+      "value": "走路",
+      "updated_at": "2026-05-01T02:08:01.518Z"
+    },
+    {
+      "target_id": "seg_003485",
+      "task_id": "free_translation",
+      "value": "咖啡",
+      "updated_at": "2026-05-01T02:08:05.144Z"
+    },
+    {
+      "target_id": "seg_003484",
+      "task_id": "free_translation",
+      "value": "去",
+      "updated_at": "2026-05-01T02:08:07.860Z"
+    },
+    {
+      "target_id": "seg_003487",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:08:10.473Z"
+    },
+    {
+      "target_id": "seg_003467",
+      "task_id": "free_translation",
+      "value": "看",
+      "updated_at": "2026-05-01T02:08:14.067Z"
+    },
+    {
+      "target_id": "seg_003488",
+      "task_id": "free_translation",
+      "value": "看",
+      "updated_at": "2026-05-01T02:08:16.799Z"
+    },
+    {
+      "target_id": "seg_003489",
+      "task_id": "free_translation",
+      "value": "朋友",
+      "updated_at": "2026-05-01T02:08:23.183Z"
+    },
+    {
+      "target_id": "seg_003491",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:08:26.854Z"
+    },
+    {
+      "target_id": "seg_003492",
+      "task_id": "free_translation",
+      "value": "打招呼",
+      "updated_at": "2026-05-01T02:08:30.439Z"
+    },
+    {
+      "target_id": "seg_003493",
+      "task_id": "free_translation",
+      "value": "打招呼",
+      "updated_at": "2026-05-01T02:08:33.908Z"
+    },
+    {
+      "target_id": "seg_003494",
+      "task_id": "free_translation",
+      "value": "朋友",
+      "updated_at": "2026-05-01T02:08:37.079Z"
+    },
+    {
+      "target_id": "seg_003498",
+      "task_id": "free_translation",
+      "value": "人去",
+      "updated_at": "2026-05-01T02:08:40.705Z"
+    },
+    {
+      "target_id": "seg_003499",
+      "task_id": "free_translation",
+      "value": "喝咖啡",
+      "updated_at": "2026-05-01T02:08:48.585Z"
+    },
+    {
+      "target_id": "seg_003501",
+      "task_id": "free_translation",
+      "value": "下雨",
+      "updated_at": "2026-05-01T02:08:52.345Z"
+    },
+    {
+      "target_id": "seg_003502",
+      "task_id": "free_translation",
+      "value": "到",
+      "updated_at": "2026-05-01T02:08:56.316Z"
+    },
+    {
+      "target_id": "seg_003503",
+      "task_id": "free_translation",
+      "value": "多云",
+      "updated_at": "2026-05-01T02:09:13.942Z"
+    },
+    {
+      "target_id": "seg_003504",
+      "task_id": "free_translation",
+      "value": "到",
+      "updated_at": "2026-05-01T02:09:16.594Z"
+    },
+    {
+      "target_id": "seg_003505",
+      "task_id": "free_translation",
+      "value": "下雨",
+      "updated_at": "2026-05-01T02:09:19.387Z"
+    },
+    {
+      "target_id": "seg_003513",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:09:23.264Z"
+    },
+    {
+      "target_id": "seg_003514",
+      "task_id": "free_translation",
+      "value": "聊天",
+      "updated_at": "2026-05-01T02:09:25.618Z"
+    },
+    {
+      "target_id": "seg_003515",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:09:28.250Z"
+    },
+    {
+      "target_id": "seg_003521",
+      "task_id": "free_translation",
+      "value": "忧愁",
+      "updated_at": "2026-05-01T02:09:36.387Z"
+    },
+    {
+      "target_id": "seg_003522",
+      "task_id": "free_translation",
+      "value": "不开心",
+      "updated_at": "2026-05-01T02:09:40.347Z"
+    },
+    {
+      "target_id": "seg_003528",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:09:44.577Z"
+    },
+    {
+      "target_id": "seg_003529",
+      "task_id": "free_translation",
+      "value": "饿了",
+      "updated_at": "2026-05-01T02:09:48.370Z"
+    },
+    {
+      "target_id": "seg_003533",
+      "task_id": "free_translation",
+      "value": "咖啡",
+      "updated_at": "2026-05-01T02:09:51.171Z"
+    },
+    {
+      "target_id": "seg_003534",
+      "task_id": "free_translation",
+      "value": "和",
+      "updated_at": "2026-05-01T02:09:53.583Z"
+    },
+    {
+      "target_id": "seg_003535",
+      "task_id": "free_translation",
+      "value": "面包",
+      "updated_at": "2026-05-01T02:09:56.431Z"
+    },
+    {
+      "target_id": "seg_003541",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:09:59.380Z"
+    },
+    {
+      "target_id": "seg_003542",
+      "task_id": "free_translation",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:10:02.460Z"
+    },
+    {
+      "target_id": "seg_003546",
+      "task_id": "free_translation",
+      "value": "茶",
+      "updated_at": "2026-05-01T02:10:06.017Z"
+    },
+    {
+      "target_id": "seg_003547",
+      "task_id": "free_translation",
+      "value": "和",
+      "updated_at": "2026-05-01T02:10:08.642Z"
+    },
+    {
+      "target_id": "seg_003548",
+      "task_id": "free_translation",
+      "value": "苹果",
+      "updated_at": "2026-05-01T02:10:11.992Z"
+    },
+    {
+      "target_id": "seg_003554",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:10:14.875Z"
+    },
+    {
+      "target_id": "seg_003555",
+      "task_id": "free_translation",
+      "value": "聊天",
+      "updated_at": "2026-05-01T02:10:17.625Z"
+    },
+    {
+      "target_id": "seg_003556",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:10:20.334Z"
+    },
+    {
+      "target_id": "seg_003570",
+      "task_id": "free_translation",
+      "value": "茶",
+      "updated_at": "2026-05-01T02:10:23.815Z"
+    },
+    {
+      "target_id": "seg_003574",
+      "task_id": "free_translation",
+      "value": "手锤",
+      "updated_at": "2026-05-01T02:10:43.499Z"
+    },
+    {
+      "target_id": "seg_003576",
+      "task_id": "free_translation",
+      "value": "球",
+      "updated_at": "2026-05-01T02:10:47.322Z"
+    },
+    {
+      "target_id": "seg_003578",
+      "task_id": "free_translation",
+      "value": "球",
+      "updated_at": "2026-05-01T02:10:51.178Z"
+    },
+    {
+      "target_id": "seg_003583",
+      "task_id": "free_translation",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:10:53.283Z"
+    },
+    {
+      "target_id": "seg_003586",
+      "task_id": "free_translation",
+      "value": "咖啡",
+      "updated_at": "2026-05-01T02:10:55.974Z"
+    },
+    {
+      "target_id": "seg_003590",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:05.547Z"
+    },
+    {
+      "target_id": "seg_003591",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:07.522Z"
+    },
+    {
+      "target_id": "seg_003592",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:08.600Z"
+    },
+    {
+      "target_id": "seg_003593",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:09.717Z"
+    },
+    {
+      "target_id": "seg_003594",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:11.159Z"
+    },
+    {
+      "target_id": "seg_003595",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:12.517Z"
+    },
+    {
+      "target_id": "seg_003596",
+      "task_id": "free_translation",
+      "value": "滑铲踢球",
+      "updated_at": "2026-05-01T02:11:14.403Z"
+    },
+    {
+      "target_id": "seg_003602",
+      "task_id": "free_translation",
+      "value": "茶",
+      "updated_at": "2026-05-01T02:11:41.015Z"
+    },
+    {
+      "target_id": "seg_003606",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:11:20.878Z"
+    },
+    {
+      "target_id": "seg_003607",
+      "task_id": "free_translation",
+      "value": "找",
+      "updated_at": "2026-05-01T02:11:26.519Z"
+    },
+    {
+      "target_id": "seg_003608",
+      "task_id": "free_translation",
+      "value": "房子",
+      "updated_at": "2026-05-01T02:11:28.492Z"
+    },
+    {
+      "target_id": "seg_003614",
+      "task_id": "free_translation",
+      "value": "咖啡",
+      "updated_at": "2026-05-01T02:11:31.136Z"
+    },
+    {
+      "target_id": "seg_003618",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:11:43.538Z"
+    },
+    {
+      "target_id": "seg_003621",
+      "task_id": "free_translation",
+      "value": "网络",
+      "updated_at": "2026-05-01T02:11:49.050Z"
+    },
+    {
+      "target_id": "seg_003623",
+      "task_id": "free_translation",
+      "value": "房子",
+      "updated_at": "2026-05-01T02:11:51.274Z"
+    },
+    {
+      "target_id": "seg_003624",
+      "task_id": "free_translation",
+      "value": "价格下降",
+      "updated_at": "2026-05-01T02:11:59.289Z"
+    },
+    {
+      "target_id": "seg_003628",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:12:02.116Z"
+    },
+    {
+      "target_id": "seg_003631",
+      "task_id": "free_translation",
+      "value": "网络",
+      "updated_at": "2026-05-01T02:12:04.453Z"
+    },
+    {
+      "target_id": "seg_003633",
+      "task_id": "free_translation",
+      "value": "加油",
+      "updated_at": "2026-05-01T02:12:07.518Z"
+    },
+    {
+      "target_id": "seg_003634",
+      "task_id": "free_translation",
+      "value": "价格上升",
+      "updated_at": "2026-05-01T02:12:14.994Z"
+    },
+    {
+      "target_id": "seg_003642",
+      "task_id": "free_translation",
+      "value": "茶",
+      "updated_at": "2026-05-01T02:12:20.753Z"
+    },
+    {
+      "target_id": "seg_003646",
+      "task_id": "free_translation",
+      "value": "价格上升",
+      "updated_at": "2026-05-01T02:12:25.460Z"
+    },
+    {
+      "target_id": "seg_003652",
+      "task_id": "free_translation",
+      "value": "人想象",
+      "updated_at": "2026-05-01T02:12:35.386Z"
+    },
+    {
+      "target_id": "seg_003654",
+      "task_id": "free_translation",
+      "value": "丰田",
+      "updated_at": "2026-05-01T02:12:39.004Z"
+    },
+    {
+      "target_id": "seg_003655",
+      "task_id": "free_translation",
+      "value": "汽车",
+      "updated_at": "2026-05-01T02:12:44.537Z"
+    },
+    {
+      "target_id": "seg_003656",
+      "task_id": "free_translation",
+      "value": "加油",
+      "updated_at": "2026-05-01T02:12:48.141Z"
+    },
+    {
+      "target_id": "seg_003657",
+      "task_id": "free_translation",
+      "value": "加油",
+      "updated_at": "2026-05-01T02:12:51.009Z"
+    },
+    {
+      "target_id": "seg_003658",
+      "task_id": "free_translation",
+      "value": "钱",
+      "updated_at": "2026-05-01T02:12:54.106Z"
+    },
+    {
+      "target_id": "seg_003661",
+      "task_id": "free_translation",
+      "value": "生气",
+      "updated_at": "2026-05-01T02:12:57.370Z"
+    },
+    {
+      "target_id": "seg_003664",
+      "task_id": "free_translation",
+      "value": "咖啡",
+      "updated_at": "2026-05-01T02:13:02.664Z"
+    },
+    {
+      "target_id": "seg_003668",
+      "task_id": "free_translation",
+      "value": "价格波动",
+      "updated_at": "2026-05-01T02:13:08.357Z"
+    },
+    {
+      "target_id": "seg_003674",
+      "task_id": "free_translation",
+      "value": "茶",
+      "updated_at": "2026-05-01T02:13:11.046Z"
+    },
+    {
+      "target_id": "seg_003678",
+      "task_id": "free_translation",
+      "value": "交易",
+      "updated_at": "2026-05-01T02:13:13.493Z"
+    },
+    {
+      "target_id": "seg_003679",
+      "task_id": "free_translation",
+      "value": "上升",
+      "updated_at": "2026-05-01T02:13:17.784Z"
+    },
+    {
+      "target_id": "seg_003685",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:19.868Z"
+    },
+    {
+      "target_id": "seg_003686",
+      "task_id": "free_translation",
+      "value": "聊人",
+      "updated_at": "2026-05-01T02:13:23.358Z"
+    },
+    {
+      "target_id": "seg_003687",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:26.707Z"
+    },
+    {
+      "target_id": "seg_003701",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:28.916Z"
+    },
+    {
+      "target_id": "seg_003702",
+      "task_id": "free_translation",
+      "value": "打招呼",
+      "updated_at": "2026-05-01T02:13:32.799Z"
+    },
+    {
+      "target_id": "seg_003703",
+      "task_id": "free_translation",
+      "value": "打招呼",
+      "updated_at": "2026-05-01T02:13:36.082Z"
+    },
+    {
+      "target_id": "seg_003704",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:38.170Z"
+    },
+    {
+      "target_id": "seg_003706",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:40.186Z"
+    },
+    {
+      "target_id": "seg_003707",
+      "task_id": "free_translation",
+      "value": "下楼",
+      "updated_at": "2026-05-01T02:13:42.672Z"
+    },
+    {
+      "target_id": "seg_003709",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:44.771Z"
+    },
+    {
+      "target_id": "seg_003710",
+      "task_id": "free_translation",
+      "value": "上楼",
+      "updated_at": "2026-05-01T02:13:47.624Z"
+    },
+    {
+      "target_id": "seg_003714",
+      "task_id": "free_translation",
+      "value": "时间",
+      "updated_at": "2026-05-01T02:13:50.628Z"
+    },
+    {
+      "target_id": "seg_003716",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:52.468Z"
+    },
+    {
+      "target_id": "seg_003717",
+      "task_id": "free_translation",
+      "value": "上楼",
+      "updated_at": "2026-05-01T02:13:55.301Z"
+    },
+    {
+      "target_id": "seg_003719",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:13:57.226Z"
+    },
+    {
+      "target_id": "seg_003720",
+      "task_id": "free_translation",
+      "value": "前进",
+      "updated_at": "2026-05-01T02:13:59.771Z"
+    },
+    {
+      "target_id": "seg_003721",
+      "task_id": "free_translation",
+      "value": "拐弯",
+      "updated_at": "2026-05-01T02:14:03.205Z"
+    },
+    {
+      "target_id": "seg_003722",
+      "task_id": "free_translation",
+      "value": "前进",
+      "updated_at": "2026-05-01T02:14:05.704Z"
+    },
+    {
+      "target_id": "seg_003723",
+      "task_id": "free_translation",
+      "value": "拐弯",
+      "updated_at": "2026-05-01T02:14:08.523Z"
+    },
+    {
+      "target_id": "seg_003730",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:13.311Z"
+    },
+    {
+      "target_id": "seg_003731",
+      "task_id": "free_translation",
+      "value": "人想",
+      "updated_at": "2026-05-01T02:14:18.238Z"
+    },
+    {
+      "target_id": "seg_003732",
+      "task_id": "free_translation",
+      "value": "去",
+      "updated_at": "2026-05-01T02:14:20.595Z"
+    },
+    {
+      "target_id": "seg_003733",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:22.919Z"
+    },
+    {
+      "target_id": "seg_003735",
+      "task_id": "free_translation",
+      "value": "看到",
+      "updated_at": "2026-05-01T02:14:25.930Z"
+    },
+    {
+      "target_id": "seg_003740",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:29.189Z"
+    },
+    {
+      "target_id": "seg_003742",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:14:31.521Z"
+    },
+    {
+      "target_id": "seg_003743",
+      "task_id": "free_translation",
+      "value": "七",
+      "updated_at": "2026-05-01T02:14:34.280Z"
+    },
+    {
+      "target_id": "seg_003744",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:38.035Z"
+    },
+    {
+      "target_id": "seg_003747",
+      "task_id": "free_translation",
+      "value": "去",
+      "updated_at": "2026-05-01T02:14:41.349Z"
+    },
+    {
+      "target_id": "seg_003748",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:14:44.120Z"
+    },
+    {
+      "target_id": "seg_003752",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:46.660Z"
+    },
+    {
+      "target_id": "seg_003758",
+      "task_id": "free_translation",
+      "value": "厕所",
+      "updated_at": "2026-05-01T02:14:49.844Z"
+    },
+    {
+      "target_id": "seg_003759",
+      "task_id": "free_translation",
+      "value": "出来",
+      "updated_at": "2026-05-01T02:14:53.032Z"
+    },
+    {
+      "target_id": "seg_003760",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:14:55.804Z"
+    },
+    {
+      "target_id": "seg_003761",
+      "task_id": "free_translation",
+      "value": "吹口哨",
+      "updated_at": "2026-05-01T02:14:59.218Z"
+    },
+    {
+      "target_id": "seg_003762",
+      "task_id": "free_translation",
+      "value": "歌",
+      "updated_at": "2026-05-01T02:15:02.395Z"
+    },
+    {
+      "target_id": "seg_003763",
+      "task_id": "free_translation",
+      "value": "歌",
+      "updated_at": "2026-05-01T02:15:04.113Z"
+    },
+    {
+      "target_id": "seg_003765",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:15:06.113Z"
+    },
+    {
+      "target_id": "seg_003776",
+      "task_id": "free_translation",
+      "value": "女人",
+      "updated_at": "2026-05-01T02:15:09.160Z"
+    },
+    {
+      "target_id": "seg_003780",
+      "task_id": "free_translation",
+      "value": "女人",
+      "updated_at": "2026-05-01T02:15:12.251Z"
+    },
+    {
+      "target_id": "seg_003785",
+      "task_id": "free_translation",
+      "value": "看到",
+      "updated_at": "2026-05-01T02:15:15.465Z"
+    },
+    {
+      "target_id": "seg_003796",
+      "task_id": "free_translation",
+      "value": "想",
+      "updated_at": "2026-05-01T02:15:18.446Z"
+    },
+    {
+      "target_id": "seg_003797",
+      "task_id": "free_translation",
+      "value": "女人",
+      "updated_at": "2026-05-01T02:15:21.436Z"
+    },
+    {
+      "target_id": "seg_003798",
+      "task_id": "free_translation",
+      "value": "女人",
+      "updated_at": "2026-05-01T02:15:24.872Z"
+    },
+    {
+      "target_id": "seg_003799",
+      "task_id": "free_translation",
+      "value": "女人",
+      "updated_at": "2026-05-01T02:15:27.793Z"
+    },
+    {
+      "target_id": "seg_003809",
+      "task_id": "free_translation",
+      "value": "笑",
+      "updated_at": "2026-05-01T02:15:32.105Z"
+    },
+    {
+      "target_id": "seg_003813",
+      "task_id": "free_translation",
+      "value": "时间",
+      "updated_at": "2026-05-01T02:15:34.969Z"
+    },
+    {
+      "target_id": "seg_003815",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:15:37.238Z"
+    },
+    {
+      "target_id": "seg_003816",
+      "task_id": "free_translation",
+      "value": "去",
+      "updated_at": "2026-05-01T02:15:40.400Z"
+    },
+    {
+      "target_id": "seg_003817",
+      "task_id": "free_translation",
+      "value": "撒了",
+      "updated_at": "2026-05-01T02:15:52.590Z"
+    },
+    {
+      "target_id": "seg_003819",
+      "task_id": "free_translation",
+      "value": "想",
+      "updated_at": "2026-05-01T02:15:56.038Z"
+    },
+    {
+      "target_id": "seg_003820",
+      "task_id": "free_translation",
+      "value": "丢垃圾",
+      "updated_at": "2026-05-01T02:16:00.488Z"
+    },
+    {
+      "target_id": "seg_003824",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:16:04.891Z"
+    },
+    {
+      "target_id": "seg_003826",
+      "task_id": "free_translation",
+      "value": "写",
+      "updated_at": "2026-05-01T02:16:07.032Z"
+    },
+    {
+      "target_id": "seg_003828",
+      "task_id": "free_translation",
+      "value": "丢垃圾",
+      "updated_at": "2026-05-01T02:16:09.803Z"
+    },
+    {
+      "target_id": "seg_003830",
+      "task_id": "free_translation",
+      "value": "人",
+      "updated_at": "2026-05-01T02:16:11.894Z"
+    },
+    {
+      "target_id": "seg_003831",
+      "task_id": "free_translation",
+      "value": "去",
+      "updated_at": "2026-05-01T02:16:14.533Z"
+    },
+    {
+      "target_id": "seg_003832",
+      "task_id": "free_translation",
+      "value": "上班",
+      "updated_at": "2026-05-01T02:16:16.861Z"
+    },
+    {
+      "target_id": "seg_003834",
+      "task_id": "free_translation",
+      "value": "坐下",
+      "updated_at": "2026-05-01T02:16:23.765Z"
+    },
+    {
+      "target_id": "seg_003470",
+      "task_id": "pragmatic_meaning",
+      "value": "下班了",
+      "updated_at": "2026-05-01T02:36:46.108Z"
+    },
+    {
+      "target_id": "grp_716142_8",
+      "task_id": "pragmatic_meaning",
+      "value": "关电脑",
+      "updated_at": "2026-05-01T02:36:51.234Z"
+    },
+    {
+      "target_id": "grp_701865_18",
+      "task_id": "pragmatic_meaning",
+      "value": "人看时间",
+      "updated_at": "2026-05-01T02:36:56.590Z"
+    },
+    {
+      "target_id": "seg_003472",
+      "task_id": "pragmatic_meaning",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:36:59.735Z"
+    },
+    {
+      "target_id": "grp_003297_54",
+      "task_id": "pragmatic_meaning",
+      "value": "人下楼走去喝咖啡，看到朋友，打招呼",
+      "updated_at": "2026-05-01T02:37:18.990Z"
+    },
+    {
+      "target_id": "grp_161114_86",
+      "task_id": "pragmatic_meaning",
+      "value": "人下楼",
+      "updated_at": "2026-05-01T02:40:14.990Z"
+    },
+    {
+      "target_id": "grp_162602_50",
+      "task_id": "pragmatic_meaning",
+      "value": "喝咖啡",
+      "updated_at": "2026-05-01T02:40:55.437Z"
+    },
+    {
+      "target_id": "grp_164198_62",
+      "task_id": "pragmatic_meaning",
+      "value": "人看到朋友",
+      "updated_at": "2026-05-01T02:41:02.682Z"
+    },
+    {
+      "target_id": "grp_165902_22",
+      "task_id": "pragmatic_meaning",
+      "value": "互相打招呼",
+      "updated_at": "2026-05-01T02:41:08.024Z"
+    },
+    {
+      "target_id": "grp_732671_25",
+      "task_id": "pragmatic_meaning",
+      "value": "人去和咖啡",
+      "updated_at": "2026-05-01T02:41:15.520Z"
+    },
+    {
+      "target_id": "grp_736103_41",
+      "task_id": "pragmatic_meaning",
+      "value": "天气变换",
+      "updated_at": "2026-05-01T02:41:25.777Z"
+    },
+    {
+      "target_id": "grp_740943_85",
+      "task_id": "pragmatic_meaning",
+      "value": "互相聊天",
+      "updated_at": "2026-05-01T02:41:33.089Z"
+    },
+    {
+      "target_id": "seg_003516",
+      "task_id": "pragmatic_meaning",
+      "value": "说",
+      "updated_at": "2026-05-01T02:41:37.097Z"
+    },
+    {
+      "target_id": "grp_742772_49",
+      "task_id": "pragmatic_meaning",
+      "value": "难过不开心",
+      "updated_at": "2026-05-01T02:41:43.990Z"
+    },
+    {
+      "target_id": "grp_669181_16",
+      "task_id": "pragmatic_meaning",
+      "value": "人想要喝咖啡吃面包",
+      "updated_at": "2026-05-01T02:41:54.379Z"
+    },
+    {
+      "target_id": "grp_662880_84",
+      "task_id": "pragmatic_meaning",
+      "value": "人想要喝茶吃面包",
+      "updated_at": "2026-05-01T02:42:00.900Z"
+    },
+    {
+      "target_id": "grp_777548_0",
+      "task_id": "pragmatic_meaning",
+      "value": "交谈",
+      "updated_at": "2026-05-01T02:42:03.989Z"
+    },
+    {
+      "target_id": "grp_781040_73",
+      "task_id": "pragmatic_meaning",
+      "value": "说话内容",
+      "updated_at": "2026-05-01T02:42:09.871Z"
+    },
+    {
+      "target_id": "grp_598156_25",
+      "task_id": "pragmatic_meaning",
+      "value": "和茶时开心",
+      "updated_at": "2026-05-01T02:42:18.059Z"
+    },
+    {
+      "target_id": "grp_603525_64",
+      "task_id": "pragmatic_meaning",
+      "value": "喝咖啡时想到铲球",
+      "updated_at": "2026-05-01T02:42:27.990Z"
+    },
+    {
+      "target_id": "grp_653607_23",
+      "task_id": "pragmatic_meaning",
+      "value": "喝咖啡是想到找房子",
+      "updated_at": "2026-05-01T02:42:38.532Z"
+    },
+    {
+      "target_id": "grp_656851_4",
+      "task_id": "pragmatic_meaning",
+      "value": "喝咖啡时通过互联网看到房价下降",
+      "updated_at": "2026-05-01T02:42:57.317Z"
+    },
+    {
+      "target_id": "grp_610301_26",
+      "task_id": "pragmatic_meaning",
+      "value": "人想到油价上涨",
+      "updated_at": "2026-05-01T02:43:09.077Z"
+    },
+    {
+      "target_id": "grp_620428_50",
+      "task_id": "pragmatic_meaning",
+      "value": "茶价格上升",
+      "updated_at": "2026-05-01T02:43:15.386Z"
+    },
+    {
+      "target_id": "grp_616937_67",
+      "task_id": "pragmatic_meaning",
+      "value": "人想到结构花钱很多生气",
+      "updated_at": "2026-05-01T02:43:24.579Z"
+    },
+    {
+      "target_id": "grp_623974_38",
+      "task_id": "pragmatic_meaning",
+      "value": "咖啡价格波动",
+      "updated_at": "2026-05-01T02:43:31.224Z"
+    },
+    {
+      "target_id": "grp_628046_22",
+      "task_id": "pragmatic_meaning",
+      "value": "茶交易价格上升",
+      "updated_at": "2026-05-01T02:43:37.686Z"
+    },
+    {
+      "target_id": "grp_854560_89",
+      "task_id": "pragmatic_meaning",
+      "value": "人和人交谈",
+      "updated_at": "2026-05-01T02:43:49.222Z"
+    },
+    {
+      "target_id": "grp_638078_84",
+      "task_id": "pragmatic_meaning",
+      "value": "挥手分别",
+      "updated_at": "2026-05-01T02:43:57.156Z"
+    },
+    {
+      "target_id": "grp_868645_16",
+      "task_id": "pragmatic_meaning",
+      "value": "到点了上楼",
+      "updated_at": "2026-05-01T02:44:03.754Z"
+    },
+    {
+      "target_id": "grp_645654_35",
+      "task_id": "pragmatic_meaning",
+      "value": "上厕所",
+      "updated_at": "2026-05-01T02:44:09.350Z"
+    },
+    {
+      "target_id": "grp_885242_97",
+      "task_id": "pragmatic_meaning",
+      "value": "上厕所",
+      "updated_at": "2026-05-01T02:44:12.552Z"
+    },
+    {
+      "target_id": "grp_193524_53",
+      "task_id": "pragmatic_meaning",
+      "value": "从厕所出来",
+      "updated_at": "2026-05-01T02:44:16.844Z"
+    },
+    {
+      "target_id": "grp_194968_34",
+      "task_id": "pragmatic_meaning",
+      "value": "吹口哨",
+      "updated_at": "2026-05-01T02:44:20.323Z"
+    },
+    {
+      "target_id": "grp_894006_94",
+      "task_id": "pragmatic_meaning",
+      "value": "看到女人",
+      "updated_at": "2026-05-01T02:44:25.394Z"
+    },
+    {
+      "target_id": "grp_902474_8",
+      "task_id": "pragmatic_meaning",
+      "value": "想入非非",
+      "updated_at": "2026-05-01T02:44:30.532Z"
+    },
+    {
+      "target_id": "grp_904214_59",
+      "task_id": "pragmatic_meaning",
+      "value": "开心",
+      "updated_at": "2026-05-01T02:44:32.716Z"
+    },
+    {
+      "target_id": "grp_912334_31",
+      "task_id": "pragmatic_meaning",
+      "value": "到点了扔垃圾",
+      "updated_at": "2026-05-01T02:44:41.635Z"
+    },
+    {
+      "target_id": "grp_915695_57",
+      "task_id": "pragmatic_meaning",
+      "value": "扔完垃圾回去上班",
+      "updated_at": "2026-05-01T02:44:56.228Z"
+    }
+  ]
+}

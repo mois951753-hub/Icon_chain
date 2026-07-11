@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}接龙大厅{% endblock %}
+
+{% block content %}
+<div class="game-container">
+    <h1>🎮 图标地书接龙大厅</h1>
+    
+    <div class="user-welcome">
+        <p>欢迎回来，<strong>{{ username }}</strong>！</p>
+        {% if user_info %}
+        <div class="user-stats">
+            <p>📊 游戏统计：</p>
+            <ul>
+                <li>总游戏次数：{{ user_info.game_stats.total_games }}</li>
+                <li>最长接龙：{{ user_info.game_stats.longest_chain }} 个图标</li>
+                <li>注册时间：{{ user_info.created_at }}</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="game-options">
+        <h2>选择游戏模式</h2>
+        <div class="mode-buttons">
+            <button class="mode-btn" onclick="startGame(10)">🎲 新手练习 (10回合)</button>
+            <button class="mode-btn" onclick="startGame(20)">⚡ 标准模式 (20回合)</button>
+            <button class="mode-btn" onclick="startGame(40)">🏆 挑战模式 (40回合)</button>
+        </div>
+    </div>
+    
+    <div class="game-rules">
+        <h3>📜 游戏规则</h3>
+        <ul>
+            <li>系统会给你一个起始图标（图片）</li>
+            <li>你需要从4个候选项中选择一个合适的图标继续故事</li>
+            <li>每个图标都有自己的含义，你可以根据逻辑或想象力进行接龙</li>
+            <li>完成所有回合后，可以观看你的故事动画回放</li>
+            <li>💡 提示：点击"翻译模式"可以查看图标的常见含义</li>
+            <li>🖼️ 游戏使用真实图片，数量超过12000张</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+function startGame(rounds) {
+    fetch('/api/game/start', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ total_rounds: rounds })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.session_id) {
+            window.location.href = `/game?session_id=${data.session_id}`;
+        } else {
+            alert(data.error || '创建游戏失败');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('出错了，请重试');
+    });
+}
+</script>
+
+<style>
+.game-rules {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #e8f4f8;
+    border-radius: 15px;
+}
+
+.game-rules h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.game-rules ul {
+    padding-left: 1.5rem;
+}
+
+.game-rules li {
+    margin: 0.5rem 0;
+    color: #34495e;
+}
+
+.user-stats {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+</style>
+{% endblock %}

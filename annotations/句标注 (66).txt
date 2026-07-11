@@ -1,0 +1,3067 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "40_R",
+    "pageEndKey": "41_R"
+  },
+  "groups": [
+    {
+      "id": "grp_135919_71",
+      "level": 1,
+      "children": [
+        "seg_009167",
+        "seg_009168",
+        "seg_009169"
+      ],
+      "leaf_start": 9167,
+      "leaf_end": 9169
+    },
+    {
+      "id": "grp_160029_29",
+      "level": 1,
+      "children": [
+        "seg_009185",
+        "seg_009186",
+        "seg_009187",
+        "seg_009188",
+        "seg_009189",
+        "seg_009190",
+        "seg_009191"
+      ],
+      "leaf_start": 9185,
+      "leaf_end": 9191
+    },
+    {
+      "id": "grp_164091_23",
+      "level": 1,
+      "children": [
+        "seg_009192",
+        "seg_009193",
+        "seg_009194"
+      ],
+      "leaf_start": 9192,
+      "leaf_end": 9194
+    },
+    {
+      "id": "grp_166567_61",
+      "level": 1,
+      "children": [
+        "seg_009195",
+        "seg_009196",
+        "seg_009197"
+      ],
+      "leaf_start": 9195,
+      "leaf_end": 9197
+    },
+    {
+      "id": "grp_178334_88",
+      "level": 1,
+      "children": [
+        "seg_009198",
+        "seg_009199"
+      ],
+      "leaf_start": 9198,
+      "leaf_end": 9199
+    },
+    {
+      "id": "grp_187430_51",
+      "level": 1,
+      "children": [
+        "seg_009200",
+        "seg_009201",
+        "seg_009202",
+        "seg_009203",
+        "seg_009204",
+        "seg_009205",
+        "seg_009206",
+        "seg_009207"
+      ],
+      "leaf_start": 9200,
+      "leaf_end": 9207
+    },
+    {
+      "id": "grp_197000_7",
+      "level": 1,
+      "children": [
+        "seg_009171",
+        "seg_009172"
+      ],
+      "leaf_start": 9171,
+      "leaf_end": 9172
+    },
+    {
+      "id": "grp_198875_57",
+      "level": 1,
+      "children": [
+        "seg_009173",
+        "seg_009174"
+      ],
+      "leaf_start": 9173,
+      "leaf_end": 9174
+    },
+    {
+      "id": "grp_209056_46",
+      "level": 1,
+      "children": [
+        "seg_009175",
+        "seg_009176"
+      ],
+      "leaf_start": 9175,
+      "leaf_end": 9176
+    },
+    {
+      "id": "grp_212927_57",
+      "level": 1,
+      "children": [
+        "seg_009177",
+        "seg_009178"
+      ],
+      "leaf_start": 9177,
+      "leaf_end": 9178
+    },
+    {
+      "id": "grp_216065_87",
+      "level": 1,
+      "children": [
+        "seg_009179",
+        "seg_009180",
+        "seg_009181",
+        "seg_009182",
+        "seg_009183",
+        "seg_009184"
+      ],
+      "leaf_start": 9179,
+      "leaf_end": 9184
+    },
+    {
+      "id": "grp_227608_17",
+      "level": 1,
+      "children": [
+        "seg_009208",
+        "seg_009209",
+        "seg_009210"
+      ],
+      "leaf_start": 9208,
+      "leaf_end": 9210
+    },
+    {
+      "id": "grp_236060_6",
+      "level": 1,
+      "children": [
+        "seg_009211",
+        "seg_009212",
+        "seg_009213",
+        "seg_009214",
+        "seg_009215",
+        "seg_009216",
+        "seg_009217",
+        "seg_009218",
+        "seg_009219",
+        "seg_009220",
+        "seg_009221",
+        "seg_009222"
+      ],
+      "leaf_start": 9211,
+      "leaf_end": 9222
+    },
+    {
+      "id": "grp_256498_22",
+      "level": 1,
+      "children": [
+        "seg_009501",
+        "seg_009502",
+        "seg_009503"
+      ],
+      "leaf_start": 9501,
+      "leaf_end": 9503
+    },
+    {
+      "id": "grp_260606_19",
+      "level": 1,
+      "children": [
+        "seg_009504",
+        "seg_009505",
+        "seg_009506",
+        "seg_009507",
+        "seg_009508",
+        "seg_009509"
+      ],
+      "leaf_start": 9504,
+      "leaf_end": 9509
+    },
+    {
+      "id": "grp_273521_55",
+      "level": 1,
+      "children": [
+        "seg_009223",
+        "seg_009224",
+        "seg_009225",
+        "seg_009226",
+        "seg_009227",
+        "seg_009228",
+        "seg_009229"
+      ],
+      "leaf_start": 9223,
+      "leaf_end": 9229
+    },
+    {
+      "id": "grp_277845_30",
+      "level": 1,
+      "children": [
+        "seg_009230",
+        "seg_009231",
+        "seg_009232",
+        "seg_009233",
+        "seg_009234"
+      ],
+      "leaf_start": 9230,
+      "leaf_end": 9234
+    },
+    {
+      "id": "grp_284049_54",
+      "level": 1,
+      "children": [
+        "seg_009235",
+        "seg_009236",
+        "seg_009237",
+        "seg_009238",
+        "seg_009239"
+      ],
+      "leaf_start": 9235,
+      "leaf_end": 9239
+    },
+    {
+      "id": "grp_308870_41",
+      "level": 1,
+      "children": [
+        "seg_009240",
+        "seg_009241",
+        "seg_009242",
+        "seg_009243"
+      ],
+      "leaf_start": 9240,
+      "leaf_end": 9243
+    },
+    {
+      "id": "grp_321098_88",
+      "level": 1,
+      "children": [
+        "seg_009244",
+        "seg_009245"
+      ],
+      "leaf_start": 9244,
+      "leaf_end": 9245
+    },
+    {
+      "id": "grp_338906_0",
+      "level": 1,
+      "children": [
+        "seg_009246",
+        "seg_009247",
+        "seg_009248"
+      ],
+      "leaf_start": 9246,
+      "leaf_end": 9248
+    },
+    {
+      "id": "grp_341224_86",
+      "level": 1,
+      "children": [
+        "seg_009249",
+        "seg_009250",
+        "seg_009251",
+        "seg_009252"
+      ],
+      "leaf_start": 9249,
+      "leaf_end": 9252
+    },
+    {
+      "id": "grp_347487_97",
+      "level": 1,
+      "children": [
+        "seg_009254",
+        "seg_009255",
+        "seg_009256",
+        "seg_009257"
+      ],
+      "leaf_start": 9254,
+      "leaf_end": 9257
+    },
+    {
+      "id": "grp_351891_59",
+      "level": 1,
+      "children": [
+        "seg_009258",
+        "seg_009259",
+        "seg_009260",
+        "seg_009261",
+        "seg_009262",
+        "seg_009263",
+        "seg_009264"
+      ],
+      "leaf_start": 9258,
+      "leaf_end": 9264
+    },
+    {
+      "id": "grp_363537_14",
+      "level": 1,
+      "children": [
+        "seg_009265",
+        "seg_009266",
+        "seg_009267",
+        "seg_009268",
+        "seg_009269",
+        "seg_009270"
+      ],
+      "leaf_start": 9265,
+      "leaf_end": 9270
+    },
+    {
+      "id": "grp_376789_26",
+      "level": 1,
+      "children": [
+        "seg_009271",
+        "seg_009272",
+        "seg_009273",
+        "seg_009274"
+      ],
+      "leaf_start": 9271,
+      "leaf_end": 9274
+    },
+    {
+      "id": "grp_381818_86",
+      "level": 1,
+      "children": [
+        "seg_009275",
+        "seg_009276",
+        "seg_009277",
+        "seg_009278",
+        "seg_009279"
+      ],
+      "leaf_start": 9275,
+      "leaf_end": 9279
+    },
+    {
+      "id": "grp_388364_49",
+      "level": 1,
+      "children": [
+        "seg_009280",
+        "seg_009281",
+        "seg_009282"
+      ],
+      "leaf_start": 9280,
+      "leaf_end": 9282
+    },
+    {
+      "id": "grp_394280_33",
+      "level": 1,
+      "children": [
+        "seg_009283",
+        "seg_009284",
+        "seg_009285",
+        "seg_009286",
+        "seg_009287",
+        "seg_009288"
+      ],
+      "leaf_start": 9283,
+      "leaf_end": 9288
+    },
+    {
+      "id": "grp_399591_7",
+      "level": 1,
+      "children": [
+        "seg_009289",
+        "seg_009290",
+        "seg_009291"
+      ],
+      "leaf_start": 9289,
+      "leaf_end": 9291
+    },
+    {
+      "id": "grp_408986_21",
+      "level": 1,
+      "children": [
+        "seg_009292",
+        "seg_009293",
+        "seg_009294",
+        "seg_009295",
+        "seg_009296"
+      ],
+      "leaf_start": 9292,
+      "leaf_end": 9296
+    },
+    {
+      "id": "grp_190521_47",
+      "level": 1,
+      "children": [
+        "seg_009297",
+        "seg_009298",
+        "seg_009299",
+        "seg_009300",
+        "seg_009301",
+        "seg_009302"
+      ],
+      "leaf_start": 9297,
+      "leaf_end": 9302
+    },
+    {
+      "id": "grp_194189_68",
+      "level": 1,
+      "children": [
+        "seg_009303",
+        "seg_009304",
+        "seg_009305",
+        "seg_009306",
+        "seg_009307",
+        "seg_009308"
+      ],
+      "leaf_start": 9303,
+      "leaf_end": 9308
+    },
+    {
+      "id": "grp_433047_28",
+      "level": 1,
+      "children": [
+        "seg_009309",
+        "seg_009310",
+        "seg_009311",
+        "seg_009312",
+        "seg_009313"
+      ],
+      "leaf_start": 9309,
+      "leaf_end": 9313
+    },
+    {
+      "id": "grp_453945_81",
+      "level": 1,
+      "children": [
+        "seg_009314",
+        "seg_009315",
+        "seg_009316",
+        "seg_009317",
+        "seg_009318"
+      ],
+      "leaf_start": 9314,
+      "leaf_end": 9318
+    },
+    {
+      "id": "grp_466264_11",
+      "level": 1,
+      "children": [
+        "seg_009319",
+        "seg_009320",
+        "seg_009321",
+        "seg_009322"
+      ],
+      "leaf_start": 9319,
+      "leaf_end": 9322
+    },
+    {
+      "id": "grp_612518_41",
+      "level": 1,
+      "children": [
+        "seg_009323",
+        "seg_009324",
+        "seg_009325",
+        "seg_009326",
+        "seg_009327"
+      ],
+      "leaf_start": 9323,
+      "leaf_end": 9327
+    },
+    {
+      "id": "grp_618726_36",
+      "level": 1,
+      "children": [
+        "seg_009328",
+        "seg_009329",
+        "seg_009330",
+        "seg_009331"
+      ],
+      "leaf_start": 9328,
+      "leaf_end": 9331
+    },
+    {
+      "id": "grp_666775_83",
+      "level": 1,
+      "children": [
+        "seg_009332",
+        "seg_009333",
+        "seg_009334",
+        "seg_009335",
+        "seg_009336",
+        "seg_009337",
+        "seg_009338",
+        "seg_009339"
+      ],
+      "leaf_start": 9332,
+      "leaf_end": 9339
+    },
+    {
+      "id": "grp_690677_55",
+      "level": 1,
+      "children": [
+        "seg_009340",
+        "seg_009341",
+        "seg_009342",
+        "seg_009343",
+        "seg_009344"
+      ],
+      "leaf_start": 9340,
+      "leaf_end": 9344
+    },
+    {
+      "id": "grp_694056_71",
+      "level": 1,
+      "children": [
+        "seg_009345",
+        "seg_009346",
+        "seg_009347"
+      ],
+      "leaf_start": 9345,
+      "leaf_end": 9347
+    },
+    {
+      "id": "grp_698132_66",
+      "level": 1,
+      "children": [
+        "seg_009348",
+        "seg_009349",
+        "seg_009350",
+        "seg_009351",
+        "seg_009352",
+        "seg_009353",
+        "seg_009354",
+        "seg_009355",
+        "seg_009356",
+        "seg_009357"
+      ],
+      "leaf_start": 9348,
+      "leaf_end": 9357
+    },
+    {
+      "id": "grp_734784_99",
+      "level": 1,
+      "children": [
+        "seg_009358",
+        "seg_009359",
+        "seg_009360",
+        "seg_009361"
+      ],
+      "leaf_start": 9358,
+      "leaf_end": 9361
+    },
+    {
+      "id": "grp_737550_60",
+      "level": 1,
+      "children": [
+        "seg_009362",
+        "seg_009363",
+        "seg_009364",
+        "seg_009365",
+        "seg_009366",
+        "seg_009367"
+      ],
+      "leaf_start": 9362,
+      "leaf_end": 9367
+    },
+    {
+      "id": "grp_741027_37",
+      "level": 1,
+      "children": [
+        "seg_009368",
+        "seg_009369",
+        "seg_009370"
+      ],
+      "leaf_start": 9368,
+      "leaf_end": 9370
+    },
+    {
+      "id": "grp_746407_80",
+      "level": 1,
+      "children": [
+        "seg_009371",
+        "seg_009372",
+        "seg_009373",
+        "seg_009374",
+        "seg_009375",
+        "seg_009376"
+      ],
+      "leaf_start": 9371,
+      "leaf_end": 9376
+    },
+    {
+      "id": "grp_753153_79",
+      "level": 1,
+      "children": [
+        "seg_009377",
+        "seg_009378",
+        "seg_009379"
+      ],
+      "leaf_start": 9377,
+      "leaf_end": 9379
+    },
+    {
+      "id": "grp_755691_86",
+      "level": 1,
+      "children": [
+        "seg_009380",
+        "seg_009381",
+        "seg_009382",
+        "seg_009383",
+        "seg_009384",
+        "seg_009385",
+        "seg_009386",
+        "seg_009387"
+      ],
+      "leaf_start": 9380,
+      "leaf_end": 9387
+    },
+    {
+      "id": "grp_994741_59",
+      "level": 1,
+      "children": [
+        "seg_009487",
+        "seg_009488",
+        "seg_009489"
+      ],
+      "leaf_start": 9487,
+      "leaf_end": 9489
+    },
+    {
+      "id": "grp_997981_98",
+      "level": 1,
+      "children": [
+        "seg_009490",
+        "seg_009491",
+        "seg_009492",
+        "seg_009493",
+        "seg_009494",
+        "seg_009495"
+      ],
+      "leaf_start": 9490,
+      "leaf_end": 9495
+    },
+    {
+      "id": "grp_999838_9",
+      "level": 1,
+      "children": [
+        "seg_009496",
+        "seg_009497",
+        "seg_009498",
+        "seg_009499",
+        "seg_009500"
+      ],
+      "leaf_start": 9496,
+      "leaf_end": 9500
+    },
+    {
+      "id": "grp_086946_45",
+      "level": 1,
+      "children": [
+        "seg_009440",
+        "seg_009441",
+        "seg_009442"
+      ],
+      "leaf_start": 9440,
+      "leaf_end": 9442
+    },
+    {
+      "id": "grp_090502_83",
+      "level": 1,
+      "children": [
+        "seg_009443",
+        "seg_009444",
+        "seg_009445",
+        "seg_009446",
+        "seg_009447",
+        "seg_009448"
+      ],
+      "leaf_start": 9443,
+      "leaf_end": 9448
+    },
+    {
+      "id": "grp_092876_37",
+      "level": 1,
+      "children": [
+        "seg_009449",
+        "seg_009450",
+        "seg_009451",
+        "seg_009452",
+        "seg_009453"
+      ],
+      "leaf_start": 9449,
+      "leaf_end": 9453
+    },
+    {
+      "id": "grp_151178_4",
+      "level": 1,
+      "children": [
+        "seg_009474",
+        "seg_009475",
+        "seg_009476",
+        "seg_009477"
+      ],
+      "leaf_start": 9474,
+      "leaf_end": 9477
+    },
+    {
+      "id": "grp_155910_92",
+      "level": 1,
+      "children": [
+        "seg_009478",
+        "seg_009479",
+        "seg_009480",
+        "seg_009481"
+      ],
+      "leaf_start": 9478,
+      "leaf_end": 9481
+    },
+    {
+      "id": "grp_163515_68",
+      "level": 1,
+      "children": [
+        "seg_009482",
+        "seg_009483",
+        "seg_009484",
+        "seg_009485",
+        "seg_009486"
+      ],
+      "leaf_start": 9482,
+      "leaf_end": 9486
+    },
+    {
+      "id": "grp_205336_99",
+      "level": 1,
+      "children": [
+        "seg_009455",
+        "seg_009456"
+      ],
+      "leaf_start": 9455,
+      "leaf_end": 9456
+    },
+    {
+      "id": "grp_207309_54",
+      "level": 1,
+      "children": [
+        "seg_009457",
+        "seg_009458",
+        "seg_009459",
+        "seg_009460"
+      ],
+      "leaf_start": 9457,
+      "leaf_end": 9460
+    },
+    {
+      "id": "grp_231354_46",
+      "level": 1,
+      "children": [
+        "seg_009461",
+        "seg_009462"
+      ],
+      "leaf_start": 9461,
+      "leaf_end": 9462
+    },
+    {
+      "id": "grp_234291_49",
+      "level": 1,
+      "children": [
+        "seg_009463",
+        "seg_009464",
+        "seg_009465"
+      ],
+      "leaf_start": 9463,
+      "leaf_end": 9465
+    },
+    {
+      "id": "grp_237417_58",
+      "level": 1,
+      "children": [
+        "seg_009466",
+        "seg_009467",
+        "seg_009468",
+        "seg_009469",
+        "seg_009470",
+        "seg_009471",
+        "seg_009472",
+        "seg_009473"
+      ],
+      "leaf_start": 9466,
+      "leaf_end": 9473
+    },
+    {
+      "id": "grp_295237_53",
+      "level": 1,
+      "children": [
+        "seg_009416",
+        "seg_009417",
+        "seg_009418",
+        "seg_009419",
+        "seg_009420"
+      ],
+      "leaf_start": 9416,
+      "leaf_end": 9420
+    },
+    {
+      "id": "grp_303806_47",
+      "level": 1,
+      "children": [
+        "seg_009421",
+        "seg_009422"
+      ],
+      "leaf_start": 9421,
+      "leaf_end": 9422
+    },
+    {
+      "id": "grp_308147_1",
+      "level": 1,
+      "children": [
+        "seg_009423",
+        "seg_009424",
+        "seg_009425"
+      ],
+      "leaf_start": 9423,
+      "leaf_end": 9425
+    },
+    {
+      "id": "grp_310269_64",
+      "level": 1,
+      "children": [
+        "seg_009426",
+        "seg_009427",
+        "seg_009428"
+      ],
+      "leaf_start": 9426,
+      "leaf_end": 9428
+    },
+    {
+      "id": "grp_370113_35",
+      "level": 1,
+      "children": [
+        "seg_009429",
+        "seg_009430",
+        "seg_009431",
+        "seg_009432"
+      ],
+      "leaf_start": 9429,
+      "leaf_end": 9432
+    },
+    {
+      "id": "grp_374264_64",
+      "level": 1,
+      "children": [
+        "seg_009433",
+        "seg_009434",
+        "seg_009435",
+        "seg_009436",
+        "seg_009437",
+        "seg_009438",
+        "seg_009439"
+      ],
+      "leaf_start": 9433,
+      "leaf_end": 9439
+    },
+    {
+      "id": "grp_426904_97",
+      "level": 1,
+      "children": [
+        "seg_009388",
+        "seg_009389",
+        "seg_009390"
+      ],
+      "leaf_start": 9388,
+      "leaf_end": 9390
+    },
+    {
+      "id": "grp_430336_31",
+      "level": 1,
+      "children": [
+        "seg_009391",
+        "seg_009392",
+        "seg_009393",
+        "seg_009394",
+        "seg_009395"
+      ],
+      "leaf_start": 9391,
+      "leaf_end": 9395
+    },
+    {
+      "id": "grp_440848_63",
+      "level": 1,
+      "children": [
+        "seg_009396",
+        "seg_009397",
+        "seg_009398",
+        "seg_009399",
+        "seg_009400",
+        "seg_009401",
+        "seg_009402",
+        "seg_009403",
+        "seg_009404",
+        "seg_009405",
+        "seg_009406"
+      ],
+      "leaf_start": 9396,
+      "leaf_end": 9406
+    },
+    {
+      "id": "grp_445532_61",
+      "level": 1,
+      "children": [
+        "seg_009407",
+        "seg_009408",
+        "seg_009409",
+        "seg_009410",
+        "seg_009411",
+        "seg_009412"
+      ],
+      "leaf_start": 9407,
+      "leaf_end": 9412
+    },
+    {
+      "id": "grp_447859_31",
+      "level": 1,
+      "children": [
+        "seg_009413",
+        "seg_009414",
+        "seg_009415"
+      ],
+      "leaf_start": 9413,
+      "leaf_end": 9415
+    },
+    {
+      "id": "grp_757222_46",
+      "level": 2,
+      "children": [
+        "seg_009170",
+        "grp_197000_7",
+        "grp_198875_57",
+        "grp_209056_46",
+        "grp_212927_57",
+        "grp_216065_87"
+      ],
+      "leaf_start": 9170,
+      "leaf_end": 9184
+    },
+    {
+      "id": "grp_846659_65",
+      "level": 2,
+      "children": [
+        "grp_160029_29",
+        "grp_164091_23",
+        "grp_166567_61",
+        "grp_178334_88",
+        "grp_187430_51"
+      ],
+      "leaf_start": 9185,
+      "leaf_end": 9207
+    },
+    {
+      "id": "grp_855827_55",
+      "level": 2,
+      "children": [
+        "grp_227608_17",
+        "grp_236060_6"
+      ],
+      "leaf_start": 9208,
+      "leaf_end": 9222
+    },
+    {
+      "id": "grp_862103_71",
+      "level": 2,
+      "children": [
+        "grp_273521_55",
+        "grp_277845_30",
+        "seg_009235",
+        "seg_009236",
+        "seg_009237",
+        "seg_009238"
+      ],
+      "leaf_start": 9223,
+      "leaf_end": 9238
+    },
+    {
+      "id": "grp_866290_17",
+      "level": 2,
+      "children": [
+        "grp_308870_41",
+        "grp_321098_88",
+        "grp_338906_0",
+        "grp_341224_86",
+        "seg_009253"
+      ],
+      "leaf_start": 9240,
+      "leaf_end": 9253
+    },
+    {
+      "id": "grp_869845_44",
+      "level": 2,
+      "children": [
+        "grp_347487_97",
+        "grp_351891_59",
+        "grp_363537_14"
+      ],
+      "leaf_start": 9254,
+      "leaf_end": 9270
+    },
+    {
+      "id": "grp_873511_78",
+      "level": 2,
+      "children": [
+        "grp_376789_26",
+        "grp_381818_86"
+      ],
+      "leaf_start": 9271,
+      "leaf_end": 9279
+    },
+    {
+      "id": "grp_878125_71",
+      "level": 2,
+      "children": [
+        "grp_388364_49",
+        "grp_394280_33",
+        "grp_399591_7",
+        "grp_408986_21"
+      ],
+      "leaf_start": 9280,
+      "leaf_end": 9296
+    },
+    {
+      "id": "grp_881981_75",
+      "level": 2,
+      "children": [
+        "grp_190521_47",
+        "grp_194189_68"
+      ],
+      "leaf_start": 9297,
+      "leaf_end": 9308
+    },
+    {
+      "id": "grp_884841_77",
+      "level": 2,
+      "children": [
+        "grp_433047_28",
+        "grp_453945_81",
+        "grp_466264_11"
+      ],
+      "leaf_start": 9309,
+      "leaf_end": 9322
+    },
+    {
+      "id": "grp_888069_65",
+      "level": 2,
+      "children": [
+        "grp_612518_41",
+        "grp_618726_36",
+        "grp_666775_83"
+      ],
+      "leaf_start": 9323,
+      "leaf_end": 9339
+    },
+    {
+      "id": "grp_891860_67",
+      "level": 2,
+      "children": [
+        "grp_690677_55",
+        "grp_694056_71",
+        "grp_698132_66"
+      ],
+      "leaf_start": 9340,
+      "leaf_end": 9357
+    },
+    {
+      "id": "grp_894883_65",
+      "level": 2,
+      "children": [
+        "grp_734784_99",
+        "grp_737550_60",
+        "grp_741027_37",
+        "grp_746407_80",
+        "grp_753153_79",
+        "grp_755691_86"
+      ],
+      "leaf_start": 9358,
+      "leaf_end": 9387
+    },
+    {
+      "id": "grp_899964_35",
+      "level": 2,
+      "children": [
+        "grp_426904_97",
+        "grp_430336_31",
+        "grp_440848_63",
+        "grp_445532_61",
+        "grp_447859_31"
+      ],
+      "leaf_start": 9388,
+      "leaf_end": 9415
+    },
+    {
+      "id": "grp_903449_79",
+      "level": 2,
+      "children": [
+        "grp_295237_53",
+        "grp_303806_47",
+        "grp_308147_1",
+        "grp_310269_64"
+      ],
+      "leaf_start": 9416,
+      "leaf_end": 9428
+    },
+    {
+      "id": "grp_906615_39",
+      "level": 2,
+      "children": [
+        "grp_370113_35",
+        "grp_374264_64"
+      ],
+      "leaf_start": 9429,
+      "leaf_end": 9439
+    },
+    {
+      "id": "grp_910334_34",
+      "level": 2,
+      "children": [
+        "grp_086946_45",
+        "grp_090502_83",
+        "grp_092876_37",
+        "seg_009454"
+      ],
+      "leaf_start": 9440,
+      "leaf_end": 9454
+    },
+    {
+      "id": "grp_913947_64",
+      "level": 2,
+      "children": [
+        "grp_205336_99",
+        "grp_207309_54"
+      ],
+      "leaf_start": 9455,
+      "leaf_end": 9460
+    },
+    {
+      "id": "grp_917894_6",
+      "level": 2,
+      "children": [
+        "grp_231354_46",
+        "grp_234291_49",
+        "grp_237417_58"
+      ],
+      "leaf_start": 9461,
+      "leaf_end": 9473
+    },
+    {
+      "id": "grp_922177_91",
+      "level": 2,
+      "children": [
+        "grp_151178_4",
+        "grp_155910_92",
+        "seg_009482",
+        "seg_009483",
+        "seg_009484",
+        "seg_009485"
+      ],
+      "leaf_start": 9474,
+      "leaf_end": 9485
+    },
+    {
+      "id": "grp_925759_85",
+      "level": 2,
+      "children": [
+        "grp_994741_59",
+        "grp_997981_98",
+        "seg_009496",
+        "seg_009497",
+        "seg_009498",
+        "seg_009499"
+      ],
+      "leaf_start": 9487,
+      "leaf_end": 9499
+    },
+    {
+      "id": "grp_928862_81",
+      "level": 2,
+      "children": [
+        "grp_256498_22",
+        "grp_260606_19"
+      ],
+      "leaf_start": 9501,
+      "leaf_end": 9509
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "grp_135919_71",
+      "task_id": "literal_gloss",
+      "value": "时间",
+      "updated_at": "2026-04-27T08:10:40.103Z"
+    },
+    {
+      "target_id": "grp_197000_7",
+      "task_id": "literal_gloss",
+      "value": "走在马路上",
+      "updated_at": "2026-04-27T08:10:50.283Z"
+    },
+    {
+      "target_id": "grp_198875_57",
+      "task_id": "literal_gloss",
+      "value": "爱上一个女孩",
+      "updated_at": "2026-04-27T08:11:02.323Z"
+    },
+    {
+      "target_id": "grp_209056_46",
+      "task_id": "literal_gloss",
+      "value": "聊天后更爱了",
+      "updated_at": "2026-04-27T08:11:13.531Z"
+    },
+    {
+      "target_id": "grp_212927_57",
+      "task_id": "literal_gloss",
+      "value": "女孩和他聊天",
+      "updated_at": "2026-04-27T08:11:38.838Z"
+    },
+    {
+      "target_id": "grp_216065_87",
+      "task_id": "literal_gloss",
+      "value": "后来他俩相爱了",
+      "updated_at": "2026-04-27T08:12:00.121Z"
+    },
+    {
+      "target_id": "grp_160029_29",
+      "task_id": "literal_gloss",
+      "value": "手机一直再震动",
+      "updated_at": "2026-04-27T08:12:18.912Z"
+    },
+    {
+      "target_id": "grp_164091_23",
+      "task_id": "literal_gloss",
+      "value": "过了好久",
+      "updated_at": "2026-04-27T08:12:26.375Z"
+    },
+    {
+      "target_id": "grp_166567_61",
+      "task_id": "literal_gloss",
+      "value": "我感觉很奇怪",
+      "updated_at": "2026-04-27T08:12:34.514Z"
+    },
+    {
+      "target_id": "grp_178334_88",
+      "task_id": "literal_gloss",
+      "value": "把电话挂了",
+      "updated_at": "2026-04-27T08:12:47.624Z"
+    },
+    {
+      "target_id": "grp_187430_51",
+      "task_id": "literal_gloss",
+      "value": "手机还是震动",
+      "updated_at": "2026-04-27T08:12:56.848Z"
+    },
+    {
+      "target_id": "grp_227608_17",
+      "task_id": "literal_gloss",
+      "value": "我说",
+      "updated_at": "2026-04-27T08:13:05.172Z"
+    },
+    {
+      "target_id": "grp_236060_6",
+      "task_id": "literal_gloss",
+      "value": "我的手机一直在震动",
+      "updated_at": "2026-04-27T08:13:17.447Z"
+    },
+    {
+      "target_id": "grp_273521_55",
+      "task_id": "literal_gloss",
+      "value": "我看到手机有新消息",
+      "updated_at": "2026-04-27T08:13:50.704Z"
+    },
+    {
+      "target_id": "grp_277845_30",
+      "task_id": "literal_gloss",
+      "value": "很吃惊有人在医院里",
+      "updated_at": "2026-04-27T08:14:09.101Z"
+    },
+    {
+      "target_id": "grp_284049_54",
+      "task_id": "literal_gloss",
+      "value": "我就打电话和那个人交流",
+      "updated_at": "2026-04-27T08:14:23.834Z"
+    },
+    {
+      "target_id": "grp_308870_41",
+      "task_id": "literal_gloss",
+      "value": "我的体温变得很高",
+      "updated_at": "2026-04-27T08:14:55.196Z"
+    },
+    {
+      "target_id": "grp_321098_88",
+      "task_id": "literal_gloss",
+      "value": "躺到了医院里",
+      "updated_at": "2026-04-27T08:16:13.780Z"
+    },
+    {
+      "target_id": "grp_338906_0",
+      "task_id": "literal_gloss",
+      "value": "吃了一碗面后躺倒医院里",
+      "updated_at": "2026-04-27T08:16:37.008Z"
+    },
+    {
+      "target_id": "grp_341224_86",
+      "task_id": "literal_gloss",
+      "value": "到了医院",
+      "updated_at": "2026-04-27T08:17:14.812Z"
+    },
+    {
+      "target_id": "grp_347487_97",
+      "task_id": "literal_gloss",
+      "value": "我没什么感觉的说",
+      "updated_at": "2026-04-27T08:17:44.347Z"
+    },
+    {
+      "target_id": "grp_351891_59",
+      "task_id": "literal_gloss",
+      "value": "我去了医院",
+      "updated_at": "2026-04-27T08:17:51.771Z"
+    },
+    {
+      "target_id": "grp_363537_14",
+      "task_id": "literal_gloss",
+      "value": "我很高兴的和人聊天",
+      "updated_at": "2026-04-27T08:18:09.480Z"
+    },
+    {
+      "target_id": "grp_376789_26",
+      "task_id": "literal_gloss",
+      "value": "用手机给别人发消息",
+      "updated_at": "2026-04-27T08:18:27.483Z"
+    },
+    {
+      "target_id": "grp_381818_86",
+      "task_id": "literal_gloss",
+      "value": "对吗",
+      "updated_at": "2026-04-27T08:18:32.534Z"
+    },
+    {
+      "target_id": "grp_388364_49",
+      "task_id": "literal_gloss",
+      "value": "我说",
+      "updated_at": "2026-04-27T08:18:38.124Z"
+    },
+    {
+      "target_id": "grp_394280_33",
+      "task_id": "literal_gloss",
+      "value": "喜欢才发消息给别人",
+      "updated_at": "2026-04-27T08:18:57.486Z"
+    },
+    {
+      "target_id": "grp_399591_7",
+      "task_id": "literal_gloss",
+      "value": "收到她发的消息",
+      "updated_at": "2026-04-27T08:19:09.621Z"
+    },
+    {
+      "target_id": "grp_408986_21",
+      "task_id": "literal_gloss",
+      "value": "又高兴又害羞",
+      "updated_at": "2026-04-27T08:19:20.042Z"
+    },
+    {
+      "target_id": "grp_190521_47",
+      "task_id": "literal_gloss",
+      "value": "搞怪挥手",
+      "updated_at": "2026-04-27T08:23:30.112Z"
+    },
+    {
+      "target_id": "grp_194189_68",
+      "task_id": "literal_gloss",
+      "value": "双向奔赴",
+      "updated_at": "2026-04-27T08:23:43.742Z"
+    },
+    {
+      "target_id": "grp_433047_28",
+      "task_id": "literal_gloss",
+      "value": "一看时间来不及了",
+      "updated_at": "2026-04-27T08:27:59.149Z"
+    },
+    {
+      "target_id": "grp_453945_81",
+      "task_id": "literal_gloss",
+      "value": "赶紧跑回家干饭",
+      "updated_at": "2026-04-27T08:28:08.825Z"
+    },
+    {
+      "target_id": "grp_466264_11",
+      "task_id": "literal_gloss",
+      "value": "想了好久吃，西红柿和鸡蛋",
+      "updated_at": "2026-04-27T08:29:01.910Z"
+    },
+    {
+      "target_id": "grp_612518_41",
+      "task_id": "literal_gloss",
+      "value": "到点吃饭",
+      "updated_at": "2026-04-27T08:30:29.589Z"
+    },
+    {
+      "target_id": "grp_618726_36",
+      "task_id": "literal_gloss",
+      "value": "拆个快递，歇会儿",
+      "updated_at": "2026-04-27T08:30:45.695Z"
+    },
+    {
+      "target_id": "grp_666775_83",
+      "task_id": "literal_gloss",
+      "value": "快速出门跑到路上",
+      "updated_at": "2026-04-27T08:31:15.548Z"
+    },
+    {
+      "target_id": "grp_690677_55",
+      "task_id": "literal_gloss",
+      "value": "跑去医院",
+      "updated_at": "2026-04-27T08:31:46.176Z"
+    },
+    {
+      "target_id": "grp_694056_71",
+      "task_id": "literal_gloss",
+      "value": "发现没人",
+      "updated_at": "2026-04-27T08:31:51.764Z"
+    },
+    {
+      "target_id": "grp_698132_66",
+      "task_id": "literal_gloss",
+      "value": "跑去找护士询问",
+      "updated_at": "2026-04-27T08:32:01.895Z"
+    },
+    {
+      "target_id": "grp_734784_99",
+      "task_id": "literal_gloss",
+      "value": "跑去做检查",
+      "updated_at": "2026-04-27T08:32:58.602Z"
+    },
+    {
+      "target_id": "grp_737550_60",
+      "task_id": "literal_gloss",
+      "value": "过了好久",
+      "updated_at": "2026-04-27T08:33:04.876Z"
+    },
+    {
+      "target_id": "grp_746407_80",
+      "task_id": "literal_gloss",
+      "value": "过了好久",
+      "updated_at": "2026-04-27T08:33:10.583Z"
+    },
+    {
+      "target_id": "grp_741027_37",
+      "task_id": "literal_gloss",
+      "value": "跑去吊水",
+      "updated_at": "2026-04-27T08:33:20.530Z"
+    },
+    {
+      "target_id": "grp_753153_79",
+      "task_id": "literal_gloss",
+      "value": "跑去看片子",
+      "updated_at": "2026-04-27T08:33:29.921Z"
+    },
+    {
+      "target_id": "grp_755691_86",
+      "task_id": "literal_gloss",
+      "value": "过了好久一直在跑",
+      "updated_at": "2026-04-27T08:33:46.911Z"
+    },
+    {
+      "target_id": "grp_256498_22",
+      "task_id": "literal_gloss",
+      "value": "跑出医院",
+      "updated_at": "2026-04-27T08:36:11.381Z"
+    },
+    {
+      "target_id": "grp_260606_19",
+      "task_id": "literal_gloss",
+      "value": "一直跑到马路上",
+      "updated_at": "2026-04-27T08:36:22.535Z"
+    },
+    {
+      "target_id": "grp_994741_59",
+      "task_id": "literal_gloss",
+      "value": "我说",
+      "updated_at": "2026-04-27T08:37:01.963Z"
+    },
+    {
+      "target_id": "grp_997981_98",
+      "task_id": "literal_gloss",
+      "value": "躺在床上超级好",
+      "updated_at": "2026-04-27T08:37:19.369Z"
+    },
+    {
+      "target_id": "grp_999838_9",
+      "task_id": "literal_gloss",
+      "value": "再见",
+      "updated_at": "2026-04-27T08:37:32.816Z"
+    },
+    {
+      "target_id": "grp_086946_45",
+      "task_id": "literal_gloss",
+      "value": "我说",
+      "updated_at": "2026-04-27T08:38:20.450Z"
+    },
+    {
+      "target_id": "grp_090502_83",
+      "task_id": "literal_gloss",
+      "value": "体温怎么这么高",
+      "updated_at": "2026-04-27T08:38:33.327Z"
+    },
+    {
+      "target_id": "grp_092876_37",
+      "task_id": "literal_gloss",
+      "value": "要吃点药吗",
+      "updated_at": "2026-04-27T08:38:39.278Z"
+    },
+    {
+      "target_id": "grp_151178_4",
+      "task_id": "literal_gloss",
+      "value": "下班回家，先喝一杯放松",
+      "updated_at": "2026-04-27T08:39:29.150Z"
+    },
+    {
+      "target_id": "grp_155910_92",
+      "task_id": "literal_gloss",
+      "value": "两个人一起喝",
+      "updated_at": "2026-04-27T08:39:41.547Z"
+    },
+    {
+      "target_id": "grp_163515_68",
+      "task_id": "literal_gloss",
+      "value": "治愈一下心灵",
+      "updated_at": "2026-04-27T08:39:53.983Z"
+    },
+    {
+      "target_id": "grp_205336_99",
+      "task_id": "literal_gloss",
+      "value": "躺在床上",
+      "updated_at": "2026-04-27T08:40:17.481Z"
+    },
+    {
+      "target_id": "grp_207309_54",
+      "task_id": "literal_gloss",
+      "value": "快哭了",
+      "updated_at": "2026-04-27T08:40:22.198Z"
+    },
+    {
+      "target_id": "grp_231354_46",
+      "task_id": "literal_gloss",
+      "value": "起床",
+      "updated_at": "2026-04-27T08:40:43.714Z"
+    },
+    {
+      "target_id": "grp_234291_49",
+      "task_id": "literal_gloss",
+      "value": "吃面条",
+      "updated_at": "2026-04-27T08:40:48.813Z"
+    },
+    {
+      "target_id": "grp_237417_58",
+      "task_id": "literal_gloss",
+      "value": "说这个面条很好吃",
+      "updated_at": "2026-04-27T08:41:01.351Z"
+    },
+    {
+      "target_id": "grp_295237_53",
+      "task_id": "literal_gloss",
+      "value": "我去医院",
+      "updated_at": "2026-04-27T08:42:01.487Z"
+    },
+    {
+      "target_id": "grp_303806_47",
+      "task_id": "literal_gloss",
+      "value": "一进病房",
+      "updated_at": "2026-04-27T08:42:13.030Z"
+    },
+    {
+      "target_id": "grp_308147_1",
+      "task_id": "literal_gloss",
+      "value": "护士说要戴口罩",
+      "updated_at": "2026-04-27T08:42:22.463Z"
+    },
+    {
+      "target_id": "grp_310269_64",
+      "task_id": "literal_gloss",
+      "value": "我戴上口罩",
+      "updated_at": "2026-04-27T08:42:31.755Z"
+    },
+    {
+      "target_id": "grp_370113_35",
+      "task_id": "literal_gloss",
+      "value": "睁开眼",
+      "updated_at": "2026-04-27T08:43:04.234Z"
+    },
+    {
+      "target_id": "grp_374264_64",
+      "task_id": "literal_gloss",
+      "value": "想到自己发烧了哭唧唧",
+      "updated_at": "2026-04-27T08:43:13.695Z"
+    },
+    {
+      "target_id": "grp_426904_97",
+      "task_id": "literal_gloss",
+      "value": "下班路上",
+      "updated_at": "2026-04-27T08:44:21.234Z"
+    },
+    {
+      "target_id": "grp_430336_31",
+      "task_id": "literal_gloss",
+      "value": "眼神放空，整个人有点呆滞",
+      "updated_at": "2026-04-27T08:44:26.601Z"
+    },
+    {
+      "target_id": "grp_440848_63",
+      "task_id": "literal_gloss",
+      "value": "想了好久想到一个保安",
+      "updated_at": "2026-04-27T08:45:09.924Z"
+    },
+    {
+      "target_id": "grp_445532_61",
+      "task_id": "literal_gloss",
+      "value": "过了好久",
+      "updated_at": "2026-04-27T08:45:17.779Z"
+    },
+    {
+      "target_id": "grp_447859_31",
+      "task_id": "literal_gloss",
+      "value": "看到一个孕妇走过去了",
+      "updated_at": "2026-04-27T08:45:26.597Z"
+    },
+    {
+      "target_id": "grp_135919_71",
+      "task_id": "free_translation",
+      "value": "时间",
+      "updated_at": "2026-04-27T08:48:43.163Z"
+    },
+    {
+      "target_id": "grp_757222_46",
+      "task_id": "free_translation",
+      "value": "放学路上，我们隔着距离聊天，聊着聊着，心和脚步都慢慢靠向了彼此。",
+      "updated_at": "2026-04-27T08:50:39.349Z"
+    },
+    {
+      "target_id": "grp_846659_65",
+      "task_id": "free_translation",
+      "value": "反复刷手机没消息，等得犯困又疑惑，结果发现是静音了，最后继续刷手机还是没动静。",
+      "updated_at": "2026-04-27T08:53:12.353Z"
+    },
+    {
+      "target_id": "grp_855827_55",
+      "task_id": "free_translation",
+      "value": "我说：有人手机一直在震动。",
+      "updated_at": "2026-04-27T08:54:20.647Z"
+    },
+    {
+      "target_id": "grp_862103_71",
+      "task_id": "free_translation",
+      "value": "刷手机刷到得知朋友住院，震惊之余只能发消息关心一下。",
+      "updated_at": "2026-04-27T08:54:30.678Z"
+    },
+    {
+      "target_id": "grp_866290_17",
+      "task_id": "free_translation",
+      "value": "发烧住院，吃了碗面结果病情加重，直接进了医院大楼。",
+      "updated_at": "2026-04-27T08:55:14.881Z"
+    },
+    {
+      "target_id": "grp_869845_44",
+      "task_id": "free_translation",
+      "value": "我宣布：我要去医院陪你，等我，爱你。",
+      "updated_at": "2026-04-27T08:55:40.948Z"
+    },
+    {
+      "target_id": "grp_873511_78",
+      "task_id": "free_translation",
+      "value": "拿手机一直聊天对吗",
+      "updated_at": "2026-04-27T08:56:30.816Z"
+    },
+    {
+      "target_id": "grp_878125_71",
+      "task_id": "free_translation",
+      "value": "我宣布：我喜欢你，跟我聊天吧，然后转头就看到对方发来的照片，瞬间又惊喜又窃喜。",
+      "updated_at": "2026-04-27T08:56:58.896Z"
+    },
+    {
+      "target_id": "grp_881981_75",
+      "task_id": "free_translation",
+      "value": "搞怪挥手打招呼，双向奔赴向彼此走来。",
+      "updated_at": "2026-04-27T08:57:30.966Z"
+    },
+    {
+      "target_id": "grp_884841_77",
+      "task_id": "free_translation",
+      "value": "眼看时间来不及了，赶紧冲回家吃饭，结果吃撑了犯困，差点睡过头。",
+      "updated_at": "2026-04-27T08:57:54.909Z"
+    },
+    {
+      "target_id": "grp_888069_65",
+      "task_id": "free_translation",
+      "value": "时间到了，吃完外卖就打包带走，然后赶去教室上课。",
+      "updated_at": "2026-04-27T08:58:18.831Z"
+    },
+    {
+      "target_id": "grp_891860_67",
+      "task_id": "free_translation",
+      "value": "我飞奔赶到医院，看着朋友从病床转危为安，我就跑去询问护士。",
+      "updated_at": "2026-04-27T08:59:35.445Z"
+    },
+    {
+      "target_id": "grp_894883_65",
+      "task_id": "free_translation",
+      "value": "从急诊拍片检查，到病房住院观察，再到肺部检查确认，最后康复出院",
+      "updated_at": "2026-04-27T08:59:39.406Z"
+    },
+    {
+      "target_id": "grp_899964_35",
+      "task_id": "free_translation",
+      "value": "眼睛出了问题，去看医生、打针治疗，最终康复。",
+      "updated_at": "2026-04-27T09:00:05.256Z"
+    },
+    {
+      "target_id": "grp_903449_79",
+      "task_id": "free_translation",
+      "value": "我跑去医院，进门之后护士让我戴口罩，我就戴上了口罩。",
+      "updated_at": "2026-04-27T09:01:00.060Z"
+    },
+    {
+      "target_id": "grp_906615_39",
+      "task_id": "free_translation",
+      "value": "看着眼前的输液设备，我忍不住哭了。",
+      "updated_at": "2026-04-27T09:01:09.903Z"
+    },
+    {
+      "target_id": "grp_910334_34",
+      "task_id": "free_translation",
+      "value": "我想，体温升高了，要不要吃点药？",
+      "updated_at": "2026-04-27T09:01:37.084Z"
+    },
+    {
+      "target_id": "grp_913947_64",
+      "task_id": "free_translation",
+      "value": "我躺在床上一直想哭。",
+      "updated_at": "2026-04-27T09:01:54.120Z"
+    },
+    {
+      "target_id": "grp_917894_6",
+      "task_id": "free_translation",
+      "value": "我起床去吃面，说，非常美味的面条。",
+      "updated_at": "2026-04-27T09:02:17.418Z"
+    },
+    {
+      "target_id": "grp_922177_91",
+      "task_id": "free_translation",
+      "value": "我下班回家喝杯啤酒，两个人一起喝酒，感觉心灵得到了治愈。",
+      "updated_at": "2026-04-27T09:03:04.387Z"
+    },
+    {
+      "target_id": "grp_925759_85",
+      "task_id": "free_translation",
+      "value": "我说，我就要睡觉，拜拜。",
+      "updated_at": "2026-04-27T09:03:25.324Z"
+    },
+    {
+      "target_id": "grp_928862_81",
+      "task_id": "free_translation",
+      "value": "我从医院快速跑到大马路上。",
+      "updated_at": "2026-04-27T09:03:49.129Z"
+    },
+    {
+      "target_id": "grp_135919_71",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:04:23.556Z"
+    },
+    {
+      "target_id": "grp_197000_7",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T09:04:46.045Z"
+    },
+    {
+      "target_id": "grp_198875_57",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:04:52.256Z"
+    },
+    {
+      "target_id": "grp_209056_46",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:50:38.485Z"
+    },
+    {
+      "target_id": "seg_009177",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:51:02.930Z"
+    },
+    {
+      "target_id": "seg_009168",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:51:42.004Z"
+    },
+    {
+      "target_id": "seg_009171",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T09:51:21.843Z"
+    },
+    {
+      "target_id": "seg_009172",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:51:24.756Z"
+    },
+    {
+      "target_id": "seg_009173",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:51:29.365Z"
+    },
+    {
+      "target_id": "seg_009174",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:51:45.715Z"
+    },
+    {
+      "target_id": "seg_009175",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:51:53.927Z"
+    },
+    {
+      "target_id": "seg_009176",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:51:58.968Z"
+    },
+    {
+      "target_id": "seg_009178",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:53:05.219Z"
+    },
+    {
+      "target_id": "seg_009179",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:53:16.174Z"
+    },
+    {
+      "target_id": "seg_009180",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:53:35.326Z"
+    },
+    {
+      "target_id": "grp_212927_57",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:54:02.214Z"
+    },
+    {
+      "target_id": "grp_216065_87",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion",
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:54:12.507Z"
+    },
+    {
+      "target_id": "grp_160029_29",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:54:23.308Z"
+    },
+    {
+      "target_id": "grp_164091_23",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:54:26.780Z"
+    },
+    {
+      "target_id": "grp_166567_61",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 人类 / Human",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T09:54:35.041Z"
+    },
+    {
+      "target_id": "grp_178334_88",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T09:54:43.108Z"
+    },
+    {
+      "target_id": "grp_187430_51",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T09:54:49.553Z"
+    },
+    {
+      "target_id": "grp_227608_17",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:54:57.615Z"
+    },
+    {
+      "target_id": "grp_236060_6",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T09:55:05.780Z"
+    },
+    {
+      "target_id": "grp_273521_55",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 社会关系 / Social Relation"
+      ],
+      "updated_at": "2026-04-27T09:55:20.705Z"
+    },
+    {
+      "target_id": "grp_277845_30",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion",
+        "+ 认知 / Cognition",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T09:55:33.935Z"
+    },
+    {
+      "target_id": "grp_284049_54",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T09:55:43.870Z"
+    },
+    {
+      "target_id": "grp_308870_41",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T09:56:05.424Z"
+    },
+    {
+      "target_id": "grp_321098_88",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 空间 / Space",
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:56:15.292Z"
+    },
+    {
+      "target_id": "grp_338906_0",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 生理需求 / Bodily Need",
+        "+ 空间 / Space",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:56:32.852Z"
+    },
+    {
+      "target_id": "grp_341224_86",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 空间 / Space",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:57:58.250Z"
+    },
+    {
+      "target_id": "grp_347487_97",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:58:07.052Z"
+    },
+    {
+      "target_id": "grp_351891_59",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion",
+        "+ 人类 / Human",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T09:58:13.952Z"
+    },
+    {
+      "target_id": "grp_363537_14",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:58:19.613Z"
+    },
+    {
+      "target_id": "grp_376789_26",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:58:29.308Z"
+    },
+    {
+      "target_id": "grp_381818_86",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T09:58:39.141Z"
+    },
+    {
+      "target_id": "grp_388364_49",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:58:49.486Z"
+    },
+    {
+      "target_id": "grp_394280_33",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 运动 / Motion",
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T09:58:58.103Z"
+    },
+    {
+      "target_id": "grp_399591_7",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:59:09.092Z"
+    },
+    {
+      "target_id": "grp_408986_21",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:59:12.951Z"
+    },
+    {
+      "target_id": "grp_190521_47",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:59:21.468Z"
+    },
+    {
+      "target_id": "grp_194189_68",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T09:59:26.980Z"
+    },
+    {
+      "target_id": "grp_433047_28",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 时间 / Time",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T09:59:43.859Z"
+    },
+    {
+      "target_id": "grp_453945_81",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 生理需求 / Bodily Need"
+      ],
+      "updated_at": "2026-04-27T09:59:55.549Z"
+    },
+    {
+      "target_id": "grp_466264_11",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 有生命 / Animate",
+        "+ 人类 / Human",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T10:00:10.337Z"
+    },
+    {
+      "target_id": "grp_612518_41",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time",
+        "+ 人类 / Human",
+        "+ 生理需求 / Bodily Need"
+      ],
+      "updated_at": "2026-04-27T10:00:31.322Z"
+    },
+    {
+      "target_id": "grp_618726_36",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion",
+        "+ 人类 / Human",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T10:00:41.693Z"
+    },
+    {
+      "target_id": "grp_666775_83",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T10:00:51.445Z"
+    },
+    {
+      "target_id": "grp_690677_55",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T10:00:57.104Z"
+    },
+    {
+      "target_id": "grp_694056_71",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T10:01:03.348Z"
+    },
+    {
+      "target_id": "grp_698132_66",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:01:07.510Z"
+    },
+    {
+      "target_id": "grp_734784_99",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:01:25.392Z"
+    },
+    {
+      "target_id": "grp_737550_60",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T10:01:28.024Z"
+    },
+    {
+      "target_id": "grp_741027_37",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T10:01:39.472Z"
+    },
+    {
+      "target_id": "grp_746407_80",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T10:01:43.308Z"
+    },
+    {
+      "target_id": "grp_753153_79",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 空间 / Space",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:01:53.896Z"
+    },
+    {
+      "target_id": "grp_755691_86",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time",
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:02:03.811Z"
+    },
+    {
+      "target_id": "grp_426904_97",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:02:46.952Z"
+    },
+    {
+      "target_id": "grp_430336_31",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T10:02:52.566Z"
+    },
+    {
+      "target_id": "grp_440848_63",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 认知 / Cognition",
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:02.003Z"
+    },
+    {
+      "target_id": "grp_445532_61",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 时间 / Time"
+      ],
+      "updated_at": "2026-04-27T10:03:07.954Z"
+    },
+    {
+      "target_id": "grp_447859_31",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:22.073Z"
+    },
+    {
+      "target_id": "grp_295237_53",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 空间 / Space",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:35.256Z"
+    },
+    {
+      "target_id": "grp_303806_47",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:39.676Z"
+    },
+    {
+      "target_id": "grp_308147_1",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:45.205Z"
+    },
+    {
+      "target_id": "grp_310269_64",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:03:57.231Z"
+    },
+    {
+      "target_id": "grp_370113_35",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T10:04:06.096Z"
+    },
+    {
+      "target_id": "grp_374264_64",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 认知 / Cognition",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T10:04:15.997Z"
+    },
+    {
+      "target_id": "grp_086946_45",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:04:23.602Z"
+    },
+    {
+      "target_id": "grp_090502_83",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T10:04:27.787Z"
+    },
+    {
+      "target_id": "grp_092876_37",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人造物 / Artifact",
+        "+ 认知 / Cognition"
+      ],
+      "updated_at": "2026-04-27T10:04:33.926Z"
+    },
+    {
+      "target_id": "grp_205336_99",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T10:04:41.230Z"
+    },
+    {
+      "target_id": "grp_207309_54",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion",
+        "+ 人类 / Human"
+      ],
+      "updated_at": "2026-04-27T10:04:45.809Z"
+    },
+    {
+      "target_id": "grp_231354_46",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:04:49.666Z"
+    },
+    {
+      "target_id": "grp_234291_49",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 生理需求 / Bodily Need",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:04:59.230Z"
+    },
+    {
+      "target_id": "grp_237417_58",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 认知 / Cognition",
+        "+ 情感 / Emotion",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T10:05:07.926Z"
+    },
+    {
+      "target_id": "grp_151178_4",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion",
+        "+ 空间 / Space",
+        "+ 人造物 / Artifact"
+      ],
+      "updated_at": "2026-04-27T10:05:21.303Z"
+    },
+    {
+      "target_id": "grp_155910_92",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:05:27.558Z"
+    },
+    {
+      "target_id": "grp_163515_68",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 认知 / Cognition",
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T10:05:35.095Z"
+    },
+    {
+      "target_id": "grp_994741_59",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:05:41.846Z"
+    },
+    {
+      "target_id": "grp_997981_98",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 情感 / Emotion",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:05:49.341Z"
+    },
+    {
+      "target_id": "grp_999838_9",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 情感 / Emotion"
+      ],
+      "updated_at": "2026-04-27T10:05:54.121Z"
+    },
+    {
+      "target_id": "grp_256498_22",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 空间 / Space",
+        "+ 运动 / Motion"
+      ],
+      "updated_at": "2026-04-27T10:06:00.162Z"
+    },
+    {
+      "target_id": "grp_260606_19",
+      "task_id": "semantic_primitives",
+      "value": [
+        "+ 人类 / Human",
+        "+ 人造物 / Artifact",
+        "+ 运动 / Motion",
+        "+ 空间 / Space"
+      ],
+      "updated_at": "2026-04-27T10:06:07.845Z"
+    }
+  ]
+}

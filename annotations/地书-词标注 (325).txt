@@ -1,0 +1,1777 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "26_R",
+    "pageEndKey": "28_R"
+  },
+  "groups": [
+    {
+      "id": "grp_261332_56",
+      "level": 1,
+      "children": [
+        "seg_006403",
+        "seg_006404",
+        "seg_006405",
+        "seg_006406",
+        "seg_006407"
+      ],
+      "leaf_start": 6403,
+      "leaf_end": 6407
+    },
+    {
+      "id": "grp_265878_43",
+      "level": 1,
+      "children": [
+        "seg_006409",
+        "seg_006410",
+        "seg_006411",
+        "seg_006412",
+        "seg_006413",
+        "seg_006414"
+      ],
+      "leaf_start": 6409,
+      "leaf_end": 6414
+    },
+    {
+      "id": "grp_267435_60",
+      "level": 1,
+      "children": [
+        "seg_006415",
+        "seg_006416"
+      ],
+      "leaf_start": 6415,
+      "leaf_end": 6416
+    },
+    {
+      "id": "grp_275208_83",
+      "level": 1,
+      "children": [
+        "seg_006422",
+        "seg_006423",
+        "seg_006424",
+        "seg_006425"
+      ],
+      "leaf_start": 6422,
+      "leaf_end": 6425
+    },
+    {
+      "id": "grp_277089_82",
+      "level": 1,
+      "children": [
+        "seg_006419",
+        "seg_006420"
+      ],
+      "leaf_start": 6419,
+      "leaf_end": 6420
+    },
+    {
+      "id": "grp_279776_4",
+      "level": 1,
+      "children": [
+        "seg_006429",
+        "seg_006430",
+        "seg_006431",
+        "seg_006432"
+      ],
+      "leaf_start": 6429,
+      "leaf_end": 6432
+    },
+    {
+      "id": "grp_283351_61",
+      "level": 1,
+      "children": [
+        "seg_006434",
+        "seg_006435"
+      ],
+      "leaf_start": 6434,
+      "leaf_end": 6435
+    },
+    {
+      "id": "grp_286110_36",
+      "level": 1,
+      "children": [
+        "seg_006436",
+        "seg_006437",
+        "seg_006438",
+        "seg_006439",
+        "seg_006440",
+        "seg_006441"
+      ],
+      "leaf_start": 6436,
+      "leaf_end": 6441
+    },
+    {
+      "id": "grp_292240_22",
+      "level": 1,
+      "children": [
+        "seg_006444",
+        "seg_006445",
+        "seg_006446"
+      ],
+      "leaf_start": 6444,
+      "leaf_end": 6446
+    },
+    {
+      "id": "grp_299870_20",
+      "level": 1,
+      "children": [
+        "seg_006450",
+        "seg_006451",
+        "seg_006452"
+      ],
+      "leaf_start": 6450,
+      "leaf_end": 6452
+    },
+    {
+      "id": "grp_321597_98",
+      "level": 1,
+      "children": [
+        "seg_006457",
+        "seg_006458",
+        "seg_006459"
+      ],
+      "leaf_start": 6457,
+      "leaf_end": 6459
+    },
+    {
+      "id": "grp_326943_36",
+      "level": 1,
+      "children": [
+        "seg_006460",
+        "seg_006461",
+        "seg_006462"
+      ],
+      "leaf_start": 6460,
+      "leaf_end": 6462
+    },
+    {
+      "id": "grp_360038_8",
+      "level": 1,
+      "children": [
+        "seg_006466",
+        "seg_006467",
+        "seg_006468"
+      ],
+      "leaf_start": 6466,
+      "leaf_end": 6468
+    },
+    {
+      "id": "grp_366619_74",
+      "level": 1,
+      "children": [
+        "seg_006472",
+        "seg_006473"
+      ],
+      "leaf_start": 6472,
+      "leaf_end": 6473
+    },
+    {
+      "id": "grp_369313_68",
+      "level": 1,
+      "children": [
+        "seg_006474",
+        "seg_006475"
+      ],
+      "leaf_start": 6474,
+      "leaf_end": 6475
+    },
+    {
+      "id": "grp_396323_67",
+      "level": 1,
+      "children": [
+        "seg_006515",
+        "seg_006516",
+        "seg_006517",
+        "seg_006518",
+        "seg_006519"
+      ],
+      "leaf_start": 6515,
+      "leaf_end": 6519
+    },
+    {
+      "id": "grp_398001_11",
+      "level": 1,
+      "children": [
+        "seg_006520",
+        "seg_006521"
+      ],
+      "leaf_start": 6520,
+      "leaf_end": 6521
+    },
+    {
+      "id": "grp_404285_6",
+      "level": 1,
+      "children": [
+        "seg_006524",
+        "seg_006525",
+        "seg_006526",
+        "seg_006527"
+      ],
+      "leaf_start": 6524,
+      "leaf_end": 6527
+    },
+    {
+      "id": "grp_419342_99",
+      "level": 1,
+      "children": [
+        "seg_006531",
+        "seg_006532"
+      ],
+      "leaf_start": 6531,
+      "leaf_end": 6532
+    },
+    {
+      "id": "grp_443280_65",
+      "level": 1,
+      "children": [
+        "seg_006482",
+        "seg_006483",
+        "seg_006484",
+        "seg_006485",
+        "seg_006486",
+        "seg_006487",
+        "seg_006488"
+      ],
+      "leaf_start": 6482,
+      "leaf_end": 6488
+    },
+    {
+      "id": "grp_445223_7",
+      "level": 1,
+      "children": [
+        "seg_006489",
+        "seg_006490",
+        "seg_006491",
+        "seg_006492",
+        "seg_006493"
+      ],
+      "leaf_start": 6489,
+      "leaf_end": 6493
+    },
+    {
+      "id": "grp_466316_82",
+      "level": 1,
+      "children": [
+        "seg_006536",
+        "seg_006537",
+        "seg_006538",
+        "seg_006539",
+        "seg_006540",
+        "seg_006541"
+      ],
+      "leaf_start": 6536,
+      "leaf_end": 6541
+    },
+    {
+      "id": "grp_474356_68",
+      "level": 1,
+      "children": [
+        "seg_006547",
+        "seg_006548",
+        "seg_006549"
+      ],
+      "leaf_start": 6547,
+      "leaf_end": 6549
+    },
+    {
+      "id": "grp_478364_44",
+      "level": 1,
+      "children": [
+        "seg_006553",
+        "seg_006554",
+        "seg_006555",
+        "seg_006556"
+      ],
+      "leaf_start": 6553,
+      "leaf_end": 6556
+    },
+    {
+      "id": "grp_484314_43",
+      "level": 1,
+      "children": [
+        "seg_006565",
+        "seg_006566",
+        "seg_006567",
+        "seg_006568",
+        "seg_006569",
+        "seg_006570"
+      ],
+      "leaf_start": 6565,
+      "leaf_end": 6570
+    },
+    {
+      "id": "grp_495209_52",
+      "level": 1,
+      "children": [
+        "seg_006575",
+        "seg_006576",
+        "seg_006577"
+      ],
+      "leaf_start": 6575,
+      "leaf_end": 6577
+    },
+    {
+      "id": "grp_498286_20",
+      "level": 1,
+      "children": [
+        "seg_006580",
+        "seg_006581",
+        "seg_006582",
+        "seg_006583"
+      ],
+      "leaf_start": 6580,
+      "leaf_end": 6583
+    },
+    {
+      "id": "grp_503833_18",
+      "level": 1,
+      "children": [
+        "seg_006589",
+        "seg_006590",
+        "seg_006591"
+      ],
+      "leaf_start": 6589,
+      "leaf_end": 6591
+    },
+    {
+      "id": "grp_531222_40",
+      "level": 1,
+      "children": [
+        "seg_006639",
+        "seg_006640",
+        "seg_006641"
+      ],
+      "leaf_start": 6639,
+      "leaf_end": 6641
+    },
+    {
+      "id": "grp_559784_72",
+      "level": 1,
+      "children": [
+        "seg_006687",
+        "seg_006688",
+        "seg_006689",
+        "seg_006690",
+        "seg_006691",
+        "seg_006692"
+      ],
+      "leaf_start": 6687,
+      "leaf_end": 6692
+    },
+    {
+      "id": "grp_593275_68",
+      "level": 1,
+      "children": [
+        "seg_006829",
+        "seg_006830",
+        "seg_006831"
+      ],
+      "leaf_start": 6829,
+      "leaf_end": 6831
+    },
+    {
+      "id": "grp_608514_31",
+      "level": 1,
+      "children": [
+        "seg_006890",
+        "seg_006891",
+        "seg_006892"
+      ],
+      "leaf_start": 6890,
+      "leaf_end": 6892
+    },
+    {
+      "id": "grp_619536_35",
+      "level": 1,
+      "children": [
+        "seg_006937",
+        "seg_006938",
+        "seg_006939",
+        "seg_006940"
+      ],
+      "leaf_start": 6937,
+      "leaf_end": 6940
+    },
+    {
+      "id": "grp_630383_24",
+      "level": 1,
+      "children": [
+        "seg_006949",
+        "seg_006950",
+        "seg_006951",
+        "seg_006952"
+      ],
+      "leaf_start": 6949,
+      "leaf_end": 6952
+    },
+    {
+      "id": "grp_634389_86",
+      "level": 1,
+      "children": [
+        "seg_006956",
+        "seg_006957",
+        "seg_006958",
+        "seg_006959"
+      ],
+      "leaf_start": 6956,
+      "leaf_end": 6959
+    },
+    {
+      "id": "grp_264210_14",
+      "level": 1,
+      "children": [
+        "seg_006836",
+        "seg_006837",
+        "seg_006838"
+      ],
+      "leaf_start": 6836,
+      "leaf_end": 6838
+    },
+    {
+      "id": "grp_349140_78",
+      "level": 1,
+      "children": [
+        "seg_006909",
+        "seg_006910",
+        "seg_006911"
+      ],
+      "leaf_start": 6909,
+      "leaf_end": 6911
+    },
+    {
+      "id": "grp_350858_47",
+      "level": 1,
+      "children": [
+        "seg_006924",
+        "seg_006925",
+        "seg_006926"
+      ],
+      "leaf_start": 6924,
+      "leaf_end": 6926
+    },
+    {
+      "id": "grp_371496_70",
+      "level": 1,
+      "children": [
+        "seg_006915",
+        "seg_006916",
+        "seg_006917"
+      ],
+      "leaf_start": 6915,
+      "leaf_end": 6917
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_006401",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:14:31.740Z"
+    },
+    {
+      "target_id": "grp_261332_56",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:15:24.290Z"
+    },
+    {
+      "target_id": "grp_265878_43",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:15:33.209Z"
+    },
+    {
+      "target_id": "grp_267435_60",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:15:48.524Z"
+    },
+    {
+      "target_id": "grp_277089_82",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:15:54.222Z"
+    },
+    {
+      "target_id": "grp_275208_83",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:15:58.612Z"
+    },
+    {
+      "target_id": "grp_279776_4",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:16:02.477Z"
+    },
+    {
+      "target_id": "grp_283351_61",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:06.515Z"
+    },
+    {
+      "target_id": "grp_286110_36",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:08.444Z"
+    },
+    {
+      "target_id": "grp_292240_22",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:13.186Z"
+    },
+    {
+      "target_id": "grp_299870_20",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:20.725Z"
+    },
+    {
+      "target_id": "seg_006453",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:32.868Z"
+    },
+    {
+      "target_id": "seg_006454",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:36.950Z"
+    },
+    {
+      "target_id": "seg_006455",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:38.732Z"
+    },
+    {
+      "target_id": "seg_006457",
+      "task_id": "morphological_features",
+      "value": [],
+      "updated_at": "2026-05-08T04:16:56.247Z"
+    },
+    {
+      "target_id": "seg_006458",
+      "task_id": "morphological_features",
+      "value": [],
+      "updated_at": "2026-05-08T04:16:54.682Z"
+    },
+    {
+      "target_id": "seg_006459",
+      "task_id": "morphological_features",
+      "value": [],
+      "updated_at": "2026-05-08T04:16:52.964Z"
+    },
+    {
+      "target_id": "grp_321597_98",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:16:57.748Z"
+    },
+    {
+      "target_id": "grp_326943_36",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:17:00.917Z"
+    },
+    {
+      "target_id": "grp_360038_8",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:08.025Z"
+    },
+    {
+      "target_id": "seg_006469",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:17:18.567Z"
+    },
+    {
+      "target_id": "seg_006470",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:24.676Z"
+    },
+    {
+      "target_id": "grp_366619_74",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:17:31.305Z"
+    },
+    {
+      "target_id": "grp_369313_68",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:34.736Z"
+    },
+    {
+      "target_id": "grp_445223_7",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:37.505Z"
+    },
+    {
+      "target_id": "grp_443280_65",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:18:29.766Z"
+    },
+    {
+      "target_id": "seg_006479",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:42.695Z"
+    },
+    {
+      "target_id": "seg_006480",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:44.492Z"
+    },
+    {
+      "target_id": "seg_006481",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:48.338Z"
+    },
+    {
+      "target_id": "seg_006494",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:51.412Z"
+    },
+    {
+      "target_id": "seg_006498",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:17:58.818Z"
+    },
+    {
+      "target_id": "grp_396323_67",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:18:05.865Z"
+    },
+    {
+      "target_id": "grp_398001_11",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:18:08.055Z"
+    },
+    {
+      "target_id": "grp_404285_6",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:18:11.743Z"
+    },
+    {
+      "target_id": "grp_466316_82",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:18:19.966Z"
+    },
+    {
+      "target_id": "grp_474356_68",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:18:43.548Z"
+    },
+    {
+      "target_id": "grp_478364_44",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:18:58.710Z"
+    },
+    {
+      "target_id": "grp_484314_43",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:19:03.365Z"
+    },
+    {
+      "target_id": "grp_498286_20",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:19:07.823Z"
+    },
+    {
+      "target_id": "grp_495209_52",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:19:15.113Z"
+    },
+    {
+      "target_id": "grp_503833_18",
+      "task_id": "morphological_features",
+      "value": [
+        "现在 / Present"
+      ],
+      "updated_at": "2026-05-08T04:19:18.688Z"
+    },
+    {
+      "target_id": "grp_531222_40",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:19:39.342Z"
+    },
+    {
+      "target_id": "seg_006620",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:19:53.549Z"
+    },
+    {
+      "target_id": "seg_006628",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:19:57.320Z"
+    },
+    {
+      "target_id": "seg_006593",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:20:31.621Z"
+    },
+    {
+      "target_id": "seg_006594",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:20:33.488Z"
+    },
+    {
+      "target_id": "seg_006605",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:20:38.996Z"
+    },
+    {
+      "target_id": "seg_006606",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:20:41.079Z"
+    },
+    {
+      "target_id": "seg_006630",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:20:46.840Z"
+    },
+    {
+      "target_id": "seg_006647",
+      "task_id": "morphological_features",
+      "value": [],
+      "updated_at": "2026-05-08T04:20:53.857Z"
+    },
+    {
+      "target_id": "seg_006645",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:20:56.014Z"
+    },
+    {
+      "target_id": "seg_006657",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-08T04:21:01.231Z"
+    },
+    {
+      "target_id": "seg_006661",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:21:04.707Z"
+    },
+    {
+      "target_id": "seg_006663",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:21:06.377Z"
+    },
+    {
+      "target_id": "seg_006677",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:21:17.956Z"
+    },
+    {
+      "target_id": "seg_006681",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:21:20.010Z"
+    },
+    {
+      "target_id": "seg_006683",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:21:23.552Z"
+    },
+    {
+      "target_id": "grp_559784_72",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:21:34.074Z"
+    },
+    {
+      "target_id": "seg_006694",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:21:41.990Z"
+    },
+    {
+      "target_id": "seg_006703",
+      "task_id": "morphological_features",
+      "value": [
+        "否定 / Negation"
+      ],
+      "updated_at": "2026-05-08T04:21:45.187Z"
+    },
+    {
+      "target_id": "seg_006708",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:21:47.869Z"
+    },
+    {
+      "target_id": "seg_006718",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:21:51.788Z"
+    },
+    {
+      "target_id": "seg_006717",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:21:55.178Z"
+    },
+    {
+      "target_id": "seg_006731",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:22:05.779Z"
+    },
+    {
+      "target_id": "seg_006733",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:22:08.170Z"
+    },
+    {
+      "target_id": "seg_006735",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:22:12.502Z"
+    },
+    {
+      "target_id": "seg_006751",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:22:16.964Z"
+    },
+    {
+      "target_id": "seg_006749",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:22:21.128Z"
+    },
+    {
+      "target_id": "seg_006765",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:22:23.791Z"
+    },
+    {
+      "target_id": "seg_006767",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:22:25.891Z"
+    },
+    {
+      "target_id": "seg_006769",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-08T04:22:30.364Z"
+    },
+    {
+      "target_id": "seg_006643",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-08T04:22:43.049Z"
+    },
+    {
+      "target_id": "seg_006783",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-08T04:23:13.425Z"
+    },
+    {
+      "target_id": "seg_006772",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:23:18.704Z"
+    },
+    {
+      "target_id": "seg_006797",
+      "task_id": "morphological_features",
+      "value": [
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:23:23.345Z"
+    },
+    {
+      "target_id": "seg_006798",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:23:36.506Z"
+    },
+    {
+      "target_id": "seg_006803",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:23:41.105Z"
+    },
+    {
+      "target_id": "seg_006807",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:23:43.638Z"
+    },
+    {
+      "target_id": "seg_006814",
+      "task_id": "morphological_features",
+      "value": [
+        "过去 / Past"
+      ],
+      "updated_at": "2026-05-08T04:23:50.241Z"
+    },
+    {
+      "target_id": "seg_006816",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-08T04:23:55.603Z"
+    },
+    {
+      "target_id": "grp_593275_68",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect",
+        "强调 / Emphasis",
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:24:03.516Z"
+    },
+    {
+      "target_id": "seg_006832",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:24:06.055Z"
+    },
+    {
+      "target_id": "seg_006834",
+      "task_id": "morphological_features",
+      "value": [
+        "比较 / Comparative"
+      ],
+      "updated_at": "2026-05-08T04:24:09.744Z"
+    },
+    {
+      "target_id": "seg_006835",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-08T04:24:13.294Z"
+    },
+    {
+      "target_id": "grp_264210_14",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:24:34.668Z"
+    },
+    {
+      "target_id": "seg_006846",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:24:41.973Z"
+    },
+    {
+      "target_id": "seg_006850",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:24:43.776Z"
+    },
+    {
+      "target_id": "seg_006865",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:24:45.946Z"
+    },
+    {
+      "target_id": "seg_006859",
+      "task_id": "morphological_features",
+      "value": [
+        "将来 / Future"
+      ],
+      "updated_at": "2026-05-08T04:24:50.924Z"
+    },
+    {
+      "target_id": "seg_006877",
+      "task_id": "morphological_features",
+      "value": [
+        "强调 / Emphasis"
+      ],
+      "updated_at": "2026-05-08T04:25:13.389Z"
+    },
+    {
+      "target_id": "grp_608514_31",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:25:18.507Z"
+    },
+    {
+      "target_id": "seg_006919",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-08T04:25:33.694Z"
+    },
+    {
+      "target_id": "grp_349140_78",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:26:00.096Z"
+    },
+    {
+      "target_id": "grp_350858_47",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:26:02.532Z"
+    },
+    {
+      "target_id": "grp_371496_70",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative"
+      ],
+      "updated_at": "2026-05-08T04:26:18.887Z"
+    },
+    {
+      "target_id": "grp_619536_35",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:26:23.500Z"
+    },
+    {
+      "target_id": "seg_006941",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-08T04:26:28.397Z"
+    },
+    {
+      "target_id": "grp_634389_86",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:26:43.612Z"
+    },
+    {
+      "target_id": "grp_630383_24",
+      "task_id": "morphological_features",
+      "value": [
+        "重复/迭代 / Iterative",
+        "进行体 / Progressive"
+      ],
+      "updated_at": "2026-05-08T04:26:47.350Z"
+    },
+    {
+      "target_id": "seg_006966",
+      "task_id": "morphological_features",
+      "value": [
+        "完成体 / Perfect"
+      ],
+      "updated_at": "2026-05-08T04:26:53.765Z"
+    }
+  ]
+}

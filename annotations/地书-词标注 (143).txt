@@ -1,0 +1,4391 @@
+{
+  "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+  "config_snapshot": {
+    "project": "《地书》图形语言 vs 自然语言：计算语言学与自然语言处理多层标注配置",
+    "version": "dishu_cl_nlp_full_v2",
+    "tasks": [
+      {
+        "task_id": "literal_gloss",
+        "task_name": "[Text] 字面对应词 / Literal Gloss",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形或图形组最直接、最字面的自然语言对应词或短语",
+        "help_text": "记录你一眼看上去最直接想到的词或短语，不必追求上下文最准确，只写“字面上像什么”。例如一个奔跑小人可写“跑步”“逃跑”。这相当于把图形先译成最表层的词。"
+      },
+      {
+        "task_id": "free_translation",
+        "task_name": "[Text] 自由翻译 / Free Translation",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组在自然语言中的通顺表达",
+        "help_text": "把整个图形组用自然、通顺的话表达出来，不必逐个对应。重点是“整组想说什么”。例如多个图形组合后，可直接写成“他因为害怕而逃走了”。"
+      },
+      {
+        "task_id": "pragmatic_meaning",
+        "task_name": "[Text] 语境实际含义 / Pragmatic Meaning",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "输入该图形在当前上下文中的实际表达意图",
+        "help_text": "有些图形字面意思和实际想表达的不一样，这里记录“在当前上下文中真正想说什么”。例如笑脸在某处可能不是“开心”，而是“礼貌”或“缓和气氛”。"
+      },
+      {
+        "task_id": "event_description",
+        "task_name": "[Text] 事件描述 / Event Description",
+        "mode": "text",
+        "applies_to": "group",
+        "placeholder": "输入该图形组描述的事件或场景",
+        "help_text": "把这个图形组当作一个事件或场景来概括：谁在做什么、发生了什么、结果怎样。适合较完整的组合，不要求逐字翻译，而是写成简洁事件描述。"
+      },
+      {
+        "task_id": "context_note",
+        "task_name": "[Text] 研究备注 / Annotation Note",
+        "mode": "text",
+        "applies_to": "both",
+        "placeholder": "记录任何难点、歧义、判断依据或特殊现象",
+        "help_text": "这里不是正式标注结果，而是补充说明。可记录你为什么这样判断、哪里不确定、是否依赖上下文、是否像某种固定符号等，方便后续复核。"
+      },
+      {
+        "task_id": "semantic_role_core",
+        "task_name": "[Single] 核心语义角色 / Core Semantic Role",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "施事 / Agent",
+          "受事 / Patient",
+          "体验者 / Experiencer",
+          "工具 / Instrument",
+          "处所 / Location",
+          "时间 / Time",
+          "方式 / Manner",
+          "结果 / Result",
+          "核心谓词 / Predicate",
+          "无明显语义角色 / None"
+        ],
+        "help_text": "判断该对象在一个事件里主要扮演什么角色。比如“人”可能是施事，“被打的人”是受事，“跑”本身可看作核心谓词。若它不像事件成分，就选“无明显语义角色”。"
+      },
+      {
+        "task_id": "dependency_head_relation",
+        "task_name": "[Single] 对中心成分关系 / Dependency to Head",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "主语关系 / Subject-like",
+          "宾语关系 / Object-like",
+          "定语关系 / Modifier",
+          "状语关系 / Adverbial",
+          "补语关系 / Complement",
+          "并列关系 / Coordination",
+          "独立成分 / Independent",
+          "中心成分 / Head",
+          "附加说明 / Apposition-like",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "把它看作一个结构中的成分，判断它和“中心部分”是什么关系。比如修饰人的图形可算定语，表示方式或地点的可算状语。若它本身就是核心，就选“中心成分”。"
+      },
+      {
+        "task_id": "discourse_relation",
+        "task_name": "[Single] 与前一组的篇章关系 / Discourse Relation",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "时间先后 / Temporal",
+          "因果 / Causal",
+          "条件 / Conditional",
+          "转折对比 / Contrast",
+          "并列递进 / Expansion",
+          "解释说明 / Elaboration",
+          "举例 / Example",
+          "总结 / Summary",
+          "无明显关系 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断当前组与前一组之间是什么逻辑关系。比如前一组写“下雨”，后一组写“打伞”，可能是时间先后，也可能带因果。若只是继续补充内容，可选“解释说明”或“并列递进”。"
+      },
+      {
+        "task_id": "speech_act_primary",
+        "task_name": "[Single] 主要言语行为 / Primary Speech Act",
+        "mode": "single",
+        "applies_to": "group",
+        "options": [
+          "陈述 / Assertive",
+          "请求或命令 / Directive",
+          "承诺 / Commissive",
+          "表达情感 / Expressive",
+          "宣告 / Declarative",
+          "提问 / Interrogative",
+          "感叹 / Exclamative",
+          "呼唤 / Vocative-like",
+          "无明显交际功能 / None",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断这组图形主要是在“做什么话语动作”。是在陈述事实、提问、命令、表达情绪，还是呼唤别人？例如“快走！”更像命令，“真可怕！”更像表达情感。"
+      },
+      {
+        "task_id": "reference_type",
+        "task_name": "[Single] 指称类型 / Reference Type",
+        "mode": "single",
+        "applies_to": "both",
+        "options": [
+          "具体实体 / Concrete Entity",
+          "动作事件 / Event",
+          "情感状态 / Emotion",
+          "关系 / Relation",
+          "抽象概念 / Abstract Concept",
+          "场景 / Scene",
+          "人物角色 / Person Role",
+          "空间路径 / Spatial Path",
+          "纯形式符号 / Formal Symbol",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "判断它主要指向哪一类意义对象。是某个东西、某个动作、某种情绪、一个场景，还是更抽象的概念？这有助于区分《地书》更偏“画物”还是更偏“表达关系”。"
+      },
+      {
+        "task_id": "pos_like_category",
+        "task_name": "[Multi] 词性/符号性质 / POS-like Category",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "名词性 / Entity-like",
+          "动词性 / Action-like",
+          "形容词性 / State-like",
+          "副词性 / Degree-like",
+          "代词/指示性 / Deictic-like",
+          "虚词/语法标记 / Grammatical Marker",
+          "连接/关系标记 / Connector",
+          "标点/边界标记 / Boundary Marker",
+          "整句/整体表达 / Clause-like Unit",
+          "无法判断 / Undetermined"
+        ],
+        "help_text": "这里允许多选，因为一个图形可能同时像“事物”又像“动作”，或既像内容词又带连接作用。请按它在当前位置的功能勾选，宁可少选明确项，不必勉强全选。"
+      },
+      {
+        "task_id": "morphological_features",
+        "task_name": "[Multi] 类形态特征 / Morphological-like Features",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "复数/集合 / Plural-Collective",
+          "过去 / Past",
+          "现在 / Present",
+          "将来 / Future",
+          "进行体 / Progressive",
+          "完成体 / Perfect",
+          "否定 / Negation",
+          "强调 / Emphasis",
+          "比较 / Comparative",
+          "最高级 / Superlative",
+          "重复/迭代 / Iterative",
+          "程度增强 / Intensified"
+        ],
+        "help_text": "自然语言里一些意义靠词尾、虚词或语法表达；《地书》中可能靠重复、方向、附加符号等表达。这里勾选它是否带有“时间、否定、程度、重复”等附加语法或语义特征。"
+      },
+      {
+        "task_id": "semantic_primitives",
+        "task_name": "[Multi] 语义基元 / Semantic Primitives",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "+ 人类 / Human",
+          "+ 有生命 / Animate",
+          "+ 人造物 / Artifact",
+          "+ 自然物 / Natural Object",
+          "+ 运动 / Motion",
+          "+ 情感 / Emotion",
+          "+ 认知 / Cognition",
+          "+ 社会关系 / Social Relation",
+          "+ 空间 / Space",
+          "+ 时间 / Time",
+          "+ 危险 / Danger",
+          "+ 生理需求 / Bodily Need"
+        ],
+        "help_text": "把图形意义拆成几个较基础的成分来勾选。比如一个“哭泣的人”可同时有人类、情感、有生命。它不是要求唯一答案，而是帮助分析图形意义由哪些基本维度组成。"
+      },
+      {
+        "task_id": "visual_cues",
+        "task_name": "[Multi] 视觉提示特征 / Visual Cues",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "方向性 / Directionality",
+          "运动轨迹 / Motion Trace",
+          "重复 / Repetition",
+          "对称 / Symmetry",
+          "遮挡 / Occlusion",
+          "尺度变化 / Scale Contrast",
+          "表情提示 / Facial Cue",
+          "身体姿态 / Body Posture",
+          "空间关系 / Spatial Layout",
+          "工具或道具 / Instrumental Cue",
+          "边界框架 / Framing",
+          "图形组合 / Composite Structure"
+        ],
+        "help_text": "这里不是问它“像什么词”，而是问它主要靠哪些视觉线索传达意义。比如斜线可能表示运动，夸张表情可能表示情绪，多个部分组合可能共同表达一个完整意思。"
+      },
+      {
+        "task_id": "communication_functions",
+        "task_name": "[Multi] 交际功能 / Communicative Functions",
+        "mode": "multi",
+        "applies_to": "group",
+        "options": [
+          "叙述 / Narration",
+          "描写 / Description",
+          "说明 / Explanation",
+          "评价 / Evaluation",
+          "警示 / Warning",
+          "请求 / Request",
+          "命令 / Command",
+          "提问 / Question",
+          "回应 / Response",
+          "表达情绪 / Emotional Expression",
+          "社交寒暄 / Social Routine",
+          "幽默 / Humor"
+        ],
+        "help_text": "一组图形不一定只做一件事，可能既在叙述，又带评价或警示。这里可多选它承担的交际功能。比如“跌倒+叹号”可能既是叙述，也带警示意味。"
+      },
+      {
+        "task_id": "ambiguity_sources",
+        "task_name": "[Multi] 歧义来源 / Sources of Ambiguity",
+        "mode": "multi",
+        "applies_to": "both",
+        "options": [
+          "图形过于抽象 / Too Abstract",
+          "图形可多义 / Polysemous Form",
+          "上下文不足 / Context Insufficient",
+          "边界不清 / Boundary Unclear",
+          "文化依赖 / Culture-dependent",
+          "象似与约定混合 / Mixed Iconic-Conventional",
+          "组合关系不清 / Composition Unclear",
+          "顺序解释不唯一 / Order Ambiguous",
+          "角色不清 / Participant Role Ambiguous",
+          "研究者主观性强 / Annotation Subjectivity"
+        ],
+        "help_text": "当你觉得难判定时，勾选“为什么难”。是因为图形太抽象、上下文太少、文化背景影响太大，还是组合方式不清楚？这能帮助后续分析《地书》歧义主要来自哪里。"
+      },
+      {
+        "task_id": "wsd_candidates",
+        "task_name": "[Multi-Text] 可能词义候选 / WSD Candidates",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个可能含义后回车，例如：苹果、诱惑、品牌",
+        "help_text": "把它可能对应的多个意思都列出来，一项一项输入。先不要判断哪个最对，只记录“可能有哪些义项”。例如一个苹果图形可写“苹果、水果、品牌、诱惑”等。"
+      },
+      {
+        "task_id": "possible_translations",
+        "task_name": "[Multi-Text] 多种自然语言译法 / Possible Translations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一种可能的自然语言译法后回车",
+        "help_text": "把同一个图形可能对应的几种自然语言表达写出来。重点不是词义分解，而是“实际会怎么说”。例如可写“逃跑”“快跑”“赶紧离开这里”等不同译法。"
+      },
+      {
+        "task_id": "frame_or_metaphor_mapping",
+        "task_name": "[Multi-Text] 框架/隐喻映射 / Frame or Metaphor Mapping",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入：源域 -> 目标域，例如：乌云 -> 心情低落",
+        "help_text": "当一个具体图形被用来表达较抽象的意思时，在这里记录这种映射。写成“源图像 -> 目标意义”。例如“火 -> 愤怒”“乌云 -> 忧郁”。"
+      },
+      {
+        "task_id": "collocational_associations",
+        "task_name": "[Multi-Text] 联想搭配词 / Collocational Associations",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入一个该图形常联想到的词或概念后回车",
+        "help_text": "写下这个图形最容易让人联想到的词、短语或概念，类似自然语言中的常见搭配。它不一定是正式翻译，而是“看见它时脑中会自然冒出的相关内容”。"
+      },
+      {
+        "task_id": "crosslinguistic_equivalents",
+        "task_name": "[Multi-Text] 跨语言近似对应 / Cross-linguistic Equivalents",
+        "mode": "multi_text",
+        "applies_to": "both",
+        "placeholder": "输入不同语言中的近似表达后回车，如：eat / mangiare / 吃",
+        "help_text": "如果你觉得该图形在不同语言中都有较接近的表达，可在这里列出。这样有助于比较《地书》是更像某种普遍概念，还是更接近某些具体语言的表达方式。"
+      },
+      {
+        "task_id": "cognitive_linguistic_metrics",
+        "task_name": "[Scale] 认知-语言学核心量表 / Cognitive-Linguistic Metrics",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这一组量表用于把图形和自然语言单位放在同一套维度下比较，如象似性、歧义度、可预测度等。请按直觉评分，但尽量保持前后标准一致。评分越稳定越有研究价值。",
+        "items": [
+          {
+            "item_id": "iconicity",
+            "label": "象似性 / Iconicity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "完全不象似",
+            "max_label": "高度象似"
+          },
+          {
+            "item_id": "conventionality",
+            "label": "约定性 / Conventionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不依赖约定",
+            "max_label": "高度依赖约定"
+          },
+          {
+            "item_id": "semantic_transparency",
+            "label": "语义透明度 / Semantic Transparency",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难看出意思",
+            "max_label": "意义非常直观"
+          },
+          {
+            "item_id": "compositionality",
+            "label": "组合性 / Compositionality",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "整体意义不可拆分",
+            "max_label": "可由部分稳定组合推出"
+          },
+          {
+            "item_id": "boundary_strength",
+            "label": "边界清晰度 / Boundary Strength",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "边界极不清晰",
+            "max_label": "边界非常清晰"
+          },
+          {
+            "item_id": "ambiguity_degree",
+            "label": "歧义度 / Ambiguity Degree",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "基本无歧义",
+            "max_label": "高度歧义"
+          },
+          {
+            "item_id": "predictability_in_context",
+            "label": "语境中可预测度 / Predictability in Context",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "几乎不可预测",
+            "max_label": "高度可预测"
+          },
+          {
+            "item_id": "crosslinguistic_translatability",
+            "label": "跨语言可对译性 / Cross-linguistic Translatability",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难自然翻译",
+            "max_label": "很容易自然翻译"
+          },
+          {
+            "item_id": "processing_difficulty",
+            "label": "理解加工难度 / Processing Difficulty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很容易理解",
+            "max_label": "很难理解"
+          },
+          {
+            "item_id": "novelty",
+            "label": "新异性 / Novelty",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "非常常规",
+            "max_label": "非常新奇"
+          }
+        ]
+      },
+      {
+        "task_id": "syntactic_semantic_fitness",
+        "task_name": "[Scale] 句法-语义适配度 / Syntactic-Semantic Fitness",
+        "mode": "scale",
+        "applies_to": "group",
+        "help_text": "用来判断一个图形组整体上像不像自然语言中的“合格结构单位”。比如它更像短语、像完整句子，还是只是松散堆在一起。适合评估组合是否形成稳定结构。",
+        "items": [
+          {
+            "item_id": "phrase_likeness",
+            "label": "短语性 / Phrase-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像短语",
+            "max_label": "非常像短语"
+          },
+          {
+            "item_id": "clause_likeness",
+            "label": "小句性 / Clause-likeness",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "不像句子结构",
+            "max_label": "非常像句子结构"
+          },
+          {
+            "item_id": "argument_structure_clarity",
+            "label": "论元结构清晰度 / Argument Structure Clarity",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "角色关系混乱",
+            "max_label": "角色关系清晰"
+          },
+          {
+            "item_id": "ordering_importance",
+            "label": "顺序重要性 / Importance of Order",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "顺序几乎不重要",
+            "max_label": "顺序极其重要"
+          },
+          {
+            "item_id": "recoverability",
+            "label": "整体意义可恢复性 / Recoverability of Meaning",
+            "ui": "slider",
+            "min": 1,
+            "max": 7,
+            "step": 1,
+            "min_label": "很难恢复整体意义",
+            "max_label": "很容易恢复整体意义"
+          }
+        ]
+      },
+      {
+        "task_id": "annotation_confidence",
+        "task_name": "[Scale] 标注信心与一致性预估 / Confidence & Consistency",
+        "mode": "scale",
+        "applies_to": "both",
+        "help_text": "这组不是评图形本身，而是评你自己的判断状态：你有多确定？你觉得别人会不会和你判断一致？它可用于后续筛查哪些项目更稳定、哪些项目更难标。",
+        "items": [
+          {
+            "item_id": "confidence",
+            "label": "当前判断信心 / Confidence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "很不确定",
+            "max_label": "非常确定"
+          },
+          {
+            "item_id": "expected_agreement",
+            "label": "预期他人一致性 / Expected Inter-annotator Agreement",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "他人很可能不同意",
+            "max_label": "他人很可能同意"
+          },
+          {
+            "item_id": "requires_context",
+            "label": "对上下文依赖程度 / Context Dependence",
+            "ui": "slider",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "min_label": "几乎不依赖上下文",
+            "max_label": "高度依赖上下文"
+          }
+        ]
+      }
+    ]
+  },
+  "session": {
+    "studentId": "",
+    "studentName": "",
+    "pageStartKey": "42_R",
+    "pageEndKey": "44_L"
+  },
+  "groups": [
+    {
+      "id": "grp_133243_23",
+      "level": 1,
+      "children": [
+        "seg_009526",
+        "seg_009527"
+      ],
+      "leaf_start": 9526,
+      "leaf_end": 9527
+    },
+    {
+      "id": "grp_168813_17",
+      "level": 1,
+      "children": [
+        "seg_009533",
+        "seg_009534",
+        "seg_009535",
+        "seg_009536"
+      ],
+      "leaf_start": 9533,
+      "leaf_end": 9536
+    },
+    {
+      "id": "grp_171041_83",
+      "level": 1,
+      "children": [
+        "seg_009537",
+        "seg_009538"
+      ],
+      "leaf_start": 9537,
+      "leaf_end": 9538
+    },
+    {
+      "id": "grp_173089_83",
+      "level": 1,
+      "children": [
+        "seg_009542",
+        "seg_009543"
+      ],
+      "leaf_start": 9542,
+      "leaf_end": 9543
+    },
+    {
+      "id": "grp_200051_38",
+      "level": 1,
+      "children": [
+        "seg_009550",
+        "seg_009551",
+        "seg_009552",
+        "seg_009553",
+        "seg_009554",
+        "seg_009555",
+        "seg_009556",
+        "seg_009557"
+      ],
+      "leaf_start": 9550,
+      "leaf_end": 9557
+    },
+    {
+      "id": "grp_206448_28",
+      "level": 1,
+      "children": [
+        "seg_009560",
+        "seg_009561",
+        "seg_009562"
+      ],
+      "leaf_start": 9560,
+      "leaf_end": 9562
+    },
+    {
+      "id": "grp_235200_75",
+      "level": 1,
+      "children": [
+        "seg_009576",
+        "seg_009577",
+        "seg_009578",
+        "seg_009579",
+        "seg_009580",
+        "seg_009581"
+      ],
+      "leaf_start": 9576,
+      "leaf_end": 9581
+    },
+    {
+      "id": "grp_240993_23",
+      "level": 1,
+      "children": [
+        "seg_009583",
+        "seg_009584",
+        "seg_009585",
+        "seg_009586",
+        "seg_009587",
+        "seg_009588",
+        "seg_009589",
+        "seg_009590",
+        "seg_009591",
+        "seg_009592",
+        "seg_009593"
+      ],
+      "leaf_start": 9583,
+      "leaf_end": 9593
+    },
+    {
+      "id": "grp_242801_52",
+      "level": 1,
+      "children": [
+        "seg_009594",
+        "seg_009595",
+        "seg_009596",
+        "seg_009597"
+      ],
+      "leaf_start": 9594,
+      "leaf_end": 9597
+    },
+    {
+      "id": "grp_263606_12",
+      "level": 1,
+      "children": [
+        "seg_009615",
+        "seg_009616",
+        "seg_009617",
+        "seg_009618"
+      ],
+      "leaf_start": 9615,
+      "leaf_end": 9618
+    },
+    {
+      "id": "grp_265714_72",
+      "level": 1,
+      "children": [
+        "seg_009620",
+        "seg_009621"
+      ],
+      "leaf_start": 9620,
+      "leaf_end": 9621
+    },
+    {
+      "id": "grp_267934_57",
+      "level": 1,
+      "children": [
+        "seg_009622",
+        "seg_009623",
+        "seg_009624",
+        "seg_009625"
+      ],
+      "leaf_start": 9622,
+      "leaf_end": 9625
+    },
+    {
+      "id": "grp_276116_44",
+      "level": 1,
+      "children": [
+        "seg_009627",
+        "seg_009628",
+        "seg_009629",
+        "seg_009630",
+        "seg_009631",
+        "seg_009632",
+        "seg_009633"
+      ],
+      "leaf_start": 9627,
+      "leaf_end": 9633
+    },
+    {
+      "id": "grp_278929_52",
+      "level": 1,
+      "children": [
+        "seg_009634",
+        "seg_009635"
+      ],
+      "leaf_start": 9634,
+      "leaf_end": 9635
+    },
+    {
+      "id": "grp_280324_45",
+      "level": 1,
+      "children": [
+        "seg_009636",
+        "seg_009637",
+        "seg_009638",
+        "seg_009639"
+      ],
+      "leaf_start": 9636,
+      "leaf_end": 9639
+    },
+    {
+      "id": "grp_281963_87",
+      "level": 1,
+      "children": [
+        "seg_009640",
+        "seg_009641"
+      ],
+      "leaf_start": 9640,
+      "leaf_end": 9641
+    },
+    {
+      "id": "grp_291798_17",
+      "level": 1,
+      "children": [
+        "seg_009642",
+        "seg_009643",
+        "seg_009644",
+        "seg_009645",
+        "seg_009646",
+        "seg_009647",
+        "seg_009648"
+      ],
+      "leaf_start": 9642,
+      "leaf_end": 9648
+    },
+    {
+      "id": "grp_294282_29",
+      "level": 1,
+      "children": [
+        "seg_009649",
+        "seg_009650",
+        "seg_009651"
+      ],
+      "leaf_start": 9649,
+      "leaf_end": 9651
+    },
+    {
+      "id": "grp_361482_69",
+      "level": 1,
+      "children": [
+        "seg_009669",
+        "seg_009670"
+      ],
+      "leaf_start": 9669,
+      "leaf_end": 9670
+    },
+    {
+      "id": "grp_366266_39",
+      "level": 1,
+      "children": [
+        "seg_009673",
+        "seg_009674"
+      ],
+      "leaf_start": 9673,
+      "leaf_end": 9674
+    },
+    {
+      "id": "grp_368027_49",
+      "level": 1,
+      "children": [
+        "seg_009676",
+        "seg_009677",
+        "seg_009678"
+      ],
+      "leaf_start": 9676,
+      "leaf_end": 9678
+    },
+    {
+      "id": "grp_369987_88",
+      "level": 1,
+      "children": [
+        "seg_009680",
+        "seg_009681",
+        "seg_009682",
+        "seg_009683",
+        "seg_009684",
+        "seg_009685"
+      ],
+      "leaf_start": 9680,
+      "leaf_end": 9685
+    },
+    {
+      "id": "grp_372702_44",
+      "level": 1,
+      "children": [
+        "seg_009688",
+        "seg_009689",
+        "seg_009690",
+        "seg_009691"
+      ],
+      "leaf_start": 9688,
+      "leaf_end": 9691
+    },
+    {
+      "id": "grp_375668_32",
+      "level": 1,
+      "children": [
+        "seg_009695",
+        "seg_009696",
+        "seg_009697",
+        "seg_009698"
+      ],
+      "leaf_start": 9695,
+      "leaf_end": 9698
+    },
+    {
+      "id": "grp_380344_92",
+      "level": 1,
+      "children": [
+        "seg_009699",
+        "seg_009700",
+        "seg_009701",
+        "seg_009702",
+        "seg_009703"
+      ],
+      "leaf_start": 9699,
+      "leaf_end": 9703
+    },
+    {
+      "id": "grp_383373_57",
+      "level": 1,
+      "children": [
+        "seg_009705",
+        "seg_009706",
+        "seg_009707",
+        "seg_009708",
+        "seg_009709"
+      ],
+      "leaf_start": 9705,
+      "leaf_end": 9709
+    },
+    {
+      "id": "grp_385841_52",
+      "level": 1,
+      "children": [
+        "seg_009711",
+        "seg_009712",
+        "seg_009713",
+        "seg_009714"
+      ],
+      "leaf_start": 9711,
+      "leaf_end": 9714
+    },
+    {
+      "id": "grp_398115_14",
+      "level": 1,
+      "children": [
+        "seg_009716",
+        "seg_009717",
+        "seg_009718",
+        "seg_009719",
+        "seg_009720",
+        "seg_009721",
+        "seg_009722",
+        "seg_009723"
+      ],
+      "leaf_start": 9716,
+      "leaf_end": 9723
+    },
+    {
+      "id": "grp_414800_52",
+      "level": 1,
+      "children": [
+        "seg_009731",
+        "seg_009732",
+        "seg_009733",
+        "seg_009734",
+        "seg_009735",
+        "seg_009736",
+        "seg_009737",
+        "seg_009738",
+        "seg_009739"
+      ],
+      "leaf_start": 9731,
+      "leaf_end": 9739
+    },
+    {
+      "id": "grp_425691_47",
+      "level": 1,
+      "children": [
+        "seg_009740",
+        "seg_009741",
+        "seg_009742"
+      ],
+      "leaf_start": 9740,
+      "leaf_end": 9742
+    },
+    {
+      "id": "grp_428210_17",
+      "level": 1,
+      "children": [
+        "seg_009743",
+        "seg_009744",
+        "seg_009745",
+        "seg_009746"
+      ],
+      "leaf_start": 9743,
+      "leaf_end": 9746
+    },
+    {
+      "id": "grp_430799_29",
+      "level": 1,
+      "children": [
+        "seg_009747",
+        "seg_009748",
+        "seg_009749",
+        "seg_009750"
+      ],
+      "leaf_start": 9747,
+      "leaf_end": 9750
+    },
+    {
+      "id": "grp_433552_14",
+      "level": 1,
+      "children": [
+        "seg_009752",
+        "seg_009753"
+      ],
+      "leaf_start": 9752,
+      "leaf_end": 9753
+    },
+    {
+      "id": "grp_436468_69",
+      "level": 1,
+      "children": [
+        "seg_009754",
+        "seg_009755",
+        "seg_009756",
+        "seg_009757",
+        "seg_009758",
+        "seg_009759"
+      ],
+      "leaf_start": 9754,
+      "leaf_end": 9759
+    },
+    {
+      "id": "grp_443697_59",
+      "level": 1,
+      "children": [
+        "seg_009760",
+        "seg_009761",
+        "seg_009762",
+        "seg_009763",
+        "seg_009764",
+        "seg_009765",
+        "seg_009766"
+      ],
+      "leaf_start": 9760,
+      "leaf_end": 9766
+    },
+    {
+      "id": "grp_448197_44",
+      "level": 1,
+      "children": [
+        "seg_009767",
+        "seg_009768",
+        "seg_009769",
+        "seg_009770",
+        "seg_009771",
+        "seg_009772"
+      ],
+      "leaf_start": 9767,
+      "leaf_end": 9772
+    },
+    {
+      "id": "grp_451580_55",
+      "level": 1,
+      "children": [
+        "seg_009773",
+        "seg_009774",
+        "seg_009775"
+      ],
+      "leaf_start": 9773,
+      "leaf_end": 9775
+    },
+    {
+      "id": "grp_454550_56",
+      "level": 1,
+      "children": [
+        "seg_009777",
+        "seg_009778"
+      ],
+      "leaf_start": 9777,
+      "leaf_end": 9778
+    },
+    {
+      "id": "grp_459605_13",
+      "level": 1,
+      "children": [
+        "seg_009783",
+        "seg_009784",
+        "seg_009785",
+        "seg_009786",
+        "seg_009787"
+      ],
+      "leaf_start": 9783,
+      "leaf_end": 9787
+    },
+    {
+      "id": "grp_462696_65",
+      "level": 1,
+      "children": [
+        "seg_009788",
+        "seg_009789",
+        "seg_009790",
+        "seg_009791",
+        "seg_009792",
+        "seg_009793"
+      ],
+      "leaf_start": 9788,
+      "leaf_end": 9793
+    },
+    {
+      "id": "grp_465140_57",
+      "level": 1,
+      "children": [
+        "seg_009794",
+        "seg_009795",
+        "seg_009796",
+        "seg_009797",
+        "seg_009798"
+      ],
+      "leaf_start": 9794,
+      "leaf_end": 9798
+    },
+    {
+      "id": "grp_469992_92",
+      "level": 1,
+      "children": [
+        "seg_009799",
+        "seg_009800",
+        "seg_009801",
+        "seg_009802",
+        "seg_009803"
+      ],
+      "leaf_start": 9799,
+      "leaf_end": 9803
+    },
+    {
+      "id": "grp_480944_5",
+      "level": 1,
+      "children": [
+        "seg_009814",
+        "seg_009815",
+        "seg_009816",
+        "seg_009817",
+        "seg_009818"
+      ],
+      "leaf_start": 9814,
+      "leaf_end": 9818
+    },
+    {
+      "id": "grp_484803_0",
+      "level": 1,
+      "children": [
+        "seg_009819",
+        "seg_009820",
+        "seg_009821"
+      ],
+      "leaf_start": 9819,
+      "leaf_end": 9821
+    },
+    {
+      "id": "grp_487452_73",
+      "level": 1,
+      "children": [
+        "seg_009822",
+        "seg_009823",
+        "seg_009824",
+        "seg_009825",
+        "seg_009826",
+        "seg_009827"
+      ],
+      "leaf_start": 9822,
+      "leaf_end": 9827
+    },
+    {
+      "id": "grp_490521_65",
+      "level": 1,
+      "children": [
+        "seg_009828",
+        "seg_009829",
+        "seg_009830",
+        "seg_009831",
+        "seg_009832"
+      ],
+      "leaf_start": 9828,
+      "leaf_end": 9832
+    },
+    {
+      "id": "grp_492988_54",
+      "level": 1,
+      "children": [
+        "seg_009833",
+        "seg_009834",
+        "seg_009835",
+        "seg_009836",
+        "seg_009837"
+      ],
+      "leaf_start": 9833,
+      "leaf_end": 9837
+    },
+    {
+      "id": "grp_504942_53",
+      "level": 1,
+      "children": [
+        "seg_009838",
+        "seg_009839",
+        "seg_009840",
+        "seg_009841",
+        "seg_009842",
+        "seg_009843",
+        "seg_009844",
+        "seg_009845"
+      ],
+      "leaf_start": 9838,
+      "leaf_end": 9845
+    },
+    {
+      "id": "grp_509458_19",
+      "level": 1,
+      "children": [
+        "seg_009846",
+        "seg_009847",
+        "seg_009848",
+        "seg_009849"
+      ],
+      "leaf_start": 9846,
+      "leaf_end": 9849
+    },
+    {
+      "id": "grp_517550_44",
+      "level": 1,
+      "children": [
+        "seg_009863",
+        "seg_009864"
+      ],
+      "leaf_start": 9863,
+      "leaf_end": 9864
+    },
+    {
+      "id": "grp_520744_66",
+      "level": 1,
+      "children": [
+        "seg_009865",
+        "seg_009866",
+        "seg_009867",
+        "seg_009868",
+        "seg_009869",
+        "seg_009870",
+        "seg_009871"
+      ],
+      "leaf_start": 9865,
+      "leaf_end": 9871
+    },
+    {
+      "id": "grp_527600_7",
+      "level": 1,
+      "children": [
+        "seg_009876",
+        "seg_009877",
+        "seg_009878",
+        "seg_009879",
+        "seg_009880"
+      ],
+      "leaf_start": 9876,
+      "leaf_end": 9880
+    },
+    {
+      "id": "grp_529588_38",
+      "level": 1,
+      "children": [
+        "seg_009881",
+        "seg_009882"
+      ],
+      "leaf_start": 9881,
+      "leaf_end": 9882
+    },
+    {
+      "id": "grp_531688_7",
+      "level": 1,
+      "children": [
+        "seg_009883",
+        "seg_009884"
+      ],
+      "leaf_start": 9883,
+      "leaf_end": 9884
+    },
+    {
+      "id": "grp_537470_43",
+      "level": 1,
+      "children": [
+        "seg_009892",
+        "seg_009893",
+        "seg_009894",
+        "seg_009895",
+        "seg_009896"
+      ],
+      "leaf_start": 9892,
+      "leaf_end": 9896
+    },
+    {
+      "id": "grp_540853_41",
+      "level": 1,
+      "children": [
+        "seg_009886",
+        "seg_009887",
+        "seg_009888",
+        "seg_009889",
+        "seg_009890",
+        "seg_009891"
+      ],
+      "leaf_start": 9886,
+      "leaf_end": 9891
+    },
+    {
+      "id": "grp_545900_9",
+      "level": 1,
+      "children": [
+        "seg_009897",
+        "seg_009898",
+        "seg_009899",
+        "seg_009900"
+      ],
+      "leaf_start": 9897,
+      "leaf_end": 9900
+    },
+    {
+      "id": "grp_560683_22",
+      "level": 1,
+      "children": [
+        "seg_009904",
+        "seg_009905"
+      ],
+      "leaf_start": 9904,
+      "leaf_end": 9905
+    },
+    {
+      "id": "grp_563512_32",
+      "level": 1,
+      "children": [
+        "seg_009907",
+        "seg_009908",
+        "seg_009909",
+        "seg_009910"
+      ],
+      "leaf_start": 9907,
+      "leaf_end": 9910
+    },
+    {
+      "id": "grp_565363_56",
+      "level": 1,
+      "children": [
+        "seg_009911",
+        "seg_009912",
+        "seg_009913",
+        "seg_009914"
+      ],
+      "leaf_start": 9911,
+      "leaf_end": 9914
+    },
+    {
+      "id": "grp_568160_86",
+      "level": 1,
+      "children": [
+        "seg_009915",
+        "seg_009916"
+      ],
+      "leaf_start": 9915,
+      "leaf_end": 9916
+    },
+    {
+      "id": "grp_571079_16",
+      "level": 1,
+      "children": [
+        "seg_009920",
+        "seg_009921",
+        "seg_009922"
+      ],
+      "leaf_start": 9920,
+      "leaf_end": 9922
+    },
+    {
+      "id": "grp_573380_95",
+      "level": 1,
+      "children": [
+        "seg_009923",
+        "seg_009924",
+        "seg_009925",
+        "seg_009926",
+        "seg_009927"
+      ],
+      "leaf_start": 9923,
+      "leaf_end": 9927
+    },
+    {
+      "id": "grp_577408_9",
+      "level": 1,
+      "children": [
+        "seg_009933",
+        "seg_009934",
+        "seg_009935"
+      ],
+      "leaf_start": 9933,
+      "leaf_end": 9935
+    },
+    {
+      "id": "grp_579388_91",
+      "level": 1,
+      "children": [
+        "seg_009937",
+        "seg_009938",
+        "seg_009939",
+        "seg_009940"
+      ],
+      "leaf_start": 9937,
+      "leaf_end": 9940
+    },
+    {
+      "id": "grp_583176_68",
+      "level": 1,
+      "children": [
+        "seg_009941",
+        "seg_009942"
+      ],
+      "leaf_start": 9941,
+      "leaf_end": 9942
+    },
+    {
+      "id": "grp_584810_77",
+      "level": 1,
+      "children": [
+        "seg_009928",
+        "seg_009929"
+      ],
+      "leaf_start": 9928,
+      "leaf_end": 9929
+    },
+    {
+      "id": "grp_611413_43",
+      "level": 1,
+      "children": [
+        "seg_009943",
+        "seg_009944",
+        "seg_009945",
+        "seg_009946",
+        "seg_009947",
+        "seg_009948",
+        "seg_009949",
+        "seg_009950",
+        "seg_009951",
+        "seg_009952",
+        "seg_009953",
+        "seg_009954",
+        "seg_009955",
+        "seg_009956"
+      ],
+      "leaf_start": 9943,
+      "leaf_end": 9956
+    },
+    {
+      "id": "grp_616701_13",
+      "level": 1,
+      "children": [
+        "seg_009957",
+        "seg_009958",
+        "seg_009959",
+        "seg_009960",
+        "seg_009961"
+      ],
+      "leaf_start": 9957,
+      "leaf_end": 9961
+    },
+    {
+      "id": "grp_618778_3",
+      "level": 1,
+      "children": [
+        "seg_009962",
+        "seg_009963",
+        "seg_009964",
+        "seg_009965"
+      ],
+      "leaf_start": 9962,
+      "leaf_end": 9965
+    },
+    {
+      "id": "grp_641832_65",
+      "level": 1,
+      "children": [
+        "seg_009529",
+        "seg_009530",
+        "seg_009531"
+      ],
+      "leaf_start": 9529,
+      "leaf_end": 9531
+    },
+    {
+      "id": "grp_644884_94",
+      "level": 1,
+      "children": [
+        "seg_009514",
+        "seg_009515"
+      ],
+      "leaf_start": 9514,
+      "leaf_end": 9515
+    },
+    {
+      "id": "grp_647848_73",
+      "level": 1,
+      "children": [
+        "seg_009521",
+        "seg_009522",
+        "seg_009523",
+        "seg_009524"
+      ],
+      "leaf_start": 9521,
+      "leaf_end": 9524
+    },
+    {
+      "id": "grp_651680_79",
+      "level": 1,
+      "children": [
+        "seg_009510",
+        "seg_009511",
+        "seg_009512"
+      ],
+      "leaf_start": 9510,
+      "leaf_end": 9512
+    },
+    {
+      "id": "grp_812400_23",
+      "level": 1,
+      "children": [
+        "seg_009598",
+        "seg_009599",
+        "seg_009600",
+        "seg_009601",
+        "seg_009602",
+        "seg_009603"
+      ],
+      "leaf_start": 9598,
+      "leaf_end": 9603
+    },
+    {
+      "id": "grp_814792_9",
+      "level": 1,
+      "children": [
+        "seg_009604",
+        "seg_009605",
+        "seg_009606"
+      ],
+      "leaf_start": 9604,
+      "leaf_end": 9606
+    },
+    {
+      "id": "grp_919974_42",
+      "level": 1,
+      "children": [
+        "seg_009653",
+        "seg_009654",
+        "seg_009655",
+        "seg_009656",
+        "seg_009657",
+        "seg_009658",
+        "seg_009659",
+        "seg_009660",
+        "seg_009661",
+        "seg_009662"
+      ],
+      "leaf_start": 9653,
+      "leaf_end": 9662
+    },
+    {
+      "id": "grp_923018_30",
+      "level": 1,
+      "children": [
+        "seg_009663",
+        "seg_009664",
+        "seg_009665"
+      ],
+      "leaf_start": 9663,
+      "leaf_end": 9665
+    },
+    {
+      "id": "grp_927821_89",
+      "level": 1,
+      "children": [
+        "seg_009666",
+        "seg_009667",
+        "seg_009668"
+      ],
+      "leaf_start": 9666,
+      "leaf_end": 9668
+    },
+    {
+      "id": "grp_028077_30",
+      "level": 1,
+      "children": [
+        "seg_009726",
+        "seg_009727",
+        "seg_009728",
+        "seg_009729",
+        "seg_009730"
+      ],
+      "leaf_start": 9726,
+      "leaf_end": 9730
+    },
+    {
+      "id": "grp_196666_63",
+      "level": 1,
+      "children": [
+        "seg_009809",
+        "seg_009810",
+        "seg_009811",
+        "seg_009812"
+      ],
+      "leaf_start": 9809,
+      "leaf_end": 9812
+    },
+    {
+      "id": "grp_278214_23",
+      "level": 1,
+      "children": [
+        "seg_009850",
+        "seg_009851"
+      ],
+      "leaf_start": 9850,
+      "leaf_end": 9851
+    },
+    {
+      "id": "grp_280063_74",
+      "level": 1,
+      "children": [
+        "seg_009852",
+        "seg_009853",
+        "seg_009854"
+      ],
+      "leaf_start": 9852,
+      "leaf_end": 9854
+    },
+    {
+      "id": "grp_321191_97",
+      "level": 1,
+      "children": [
+        "seg_009856",
+        "seg_009857",
+        "seg_009858",
+        "seg_009859",
+        "seg_009860",
+        "seg_009861"
+      ],
+      "leaf_start": 9856,
+      "leaf_end": 9861
+    },
+    {
+      "id": "grp_498529_58",
+      "level": 1,
+      "children": [
+        "seg_009966",
+        "seg_009967"
+      ],
+      "leaf_start": 9966,
+      "leaf_end": 9967
+    },
+    {
+      "id": "grp_499727_86",
+      "level": 1,
+      "children": [
+        "seg_009968",
+        "seg_009969",
+        "seg_009970"
+      ],
+      "leaf_start": 9968,
+      "leaf_end": 9970
+    }
+  ],
+  "annotations": [
+    {
+      "target_id": "seg_009514",
+      "task_id": "literal_gloss",
+      "value": "前往",
+      "updated_at": "2026-04-29T05:23:54.368Z"
+    },
+    {
+      "target_id": "seg_009515",
+      "task_id": "literal_gloss",
+      "value": "出租车",
+      "updated_at": "2026-04-29T05:24:03.227Z"
+    },
+    {
+      "target_id": "seg_009517",
+      "task_id": "literal_gloss",
+      "value": "没有车",
+      "updated_at": "2026-04-29T08:34:33.767Z"
+    },
+    {
+      "target_id": "seg_009519",
+      "task_id": "literal_gloss",
+      "value": "没有车",
+      "updated_at": "2026-04-29T08:34:37.236Z"
+    },
+    {
+      "target_id": "seg_009521",
+      "task_id": "literal_gloss",
+      "value": "混沌状态",
+      "updated_at": "2026-04-29T05:24:40.159Z"
+    },
+    {
+      "target_id": "seg_009522",
+      "task_id": "literal_gloss",
+      "value": "屋内啤酒",
+      "updated_at": "2026-04-29T05:25:03.929Z"
+    },
+    {
+      "target_id": "seg_009523",
+      "task_id": "literal_gloss",
+      "value": "在8点时坐着",
+      "updated_at": "2026-04-29T05:25:16.810Z"
+    },
+    {
+      "target_id": "seg_009533",
+      "task_id": "literal_gloss",
+      "value": "坐着",
+      "updated_at": "2026-04-29T05:28:00.040Z"
+    },
+    {
+      "target_id": "seg_009534",
+      "task_id": "literal_gloss",
+      "value": "说话",
+      "updated_at": "2026-04-29T05:28:05.619Z"
+    },
+    {
+      "target_id": "seg_009535",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:28:18.185Z"
+    },
+    {
+      "target_id": "seg_009536",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:28:29.749Z"
+    },
+    {
+      "target_id": "seg_009537",
+      "task_id": "literal_gloss",
+      "value": "指向",
+      "updated_at": "2026-04-29T05:28:33.465Z"
+    },
+    {
+      "target_id": "seg_009538",
+      "task_id": "literal_gloss",
+      "value": "房内的啤酒",
+      "updated_at": "2026-04-29T05:28:40.261Z"
+    },
+    {
+      "target_id": "seg_009539",
+      "task_id": "literal_gloss",
+      "value": "结束",
+      "updated_at": "2026-04-29T05:28:47.826Z"
+    },
+    {
+      "target_id": "seg_009540",
+      "task_id": "literal_gloss",
+      "value": "单反引号",
+      "updated_at": "2026-04-29T05:28:53.874Z"
+    },
+    {
+      "target_id": "seg_009541",
+      "task_id": "literal_gloss",
+      "value": "单反引号",
+      "updated_at": "2026-04-29T05:28:59.587Z"
+    },
+    {
+      "target_id": "seg_009542",
+      "task_id": "literal_gloss",
+      "value": "出租车",
+      "updated_at": "2026-04-29T05:29:04.520Z"
+    },
+    {
+      "target_id": "seg_009543",
+      "task_id": "literal_gloss",
+      "value": "红灯",
+      "updated_at": "2026-04-29T05:29:10.877Z"
+    },
+    {
+      "target_id": "seg_009544",
+      "task_id": "literal_gloss",
+      "value": "六辆出租车",
+      "updated_at": "2026-04-29T05:29:25.020Z"
+    },
+    {
+      "target_id": "seg_009545",
+      "task_id": "literal_gloss",
+      "value": "施工",
+      "updated_at": "2026-04-29T05:29:29.209Z"
+    },
+    {
+      "target_id": "seg_009546",
+      "task_id": "literal_gloss",
+      "value": "六国内出租车",
+      "updated_at": "2026-04-29T05:29:35.023Z"
+    },
+    {
+      "target_id": "seg_009549",
+      "task_id": "literal_gloss",
+      "value": "红灯",
+      "updated_at": "2026-04-29T05:29:45.752Z"
+    },
+    {
+      "target_id": "seg_009550",
+      "task_id": "literal_gloss",
+      "value": "加长小车",
+      "updated_at": "2026-04-29T05:29:59.476Z"
+    },
+    {
+      "target_id": "seg_009551",
+      "task_id": "literal_gloss",
+      "value": "货车",
+      "updated_at": "2026-04-29T05:30:09.156Z"
+    },
+    {
+      "target_id": "seg_009552",
+      "task_id": "literal_gloss",
+      "value": "骑自行车",
+      "updated_at": "2026-04-29T05:37:29.450Z"
+    },
+    {
+      "target_id": "seg_009553",
+      "task_id": "literal_gloss",
+      "value": "加长林肯",
+      "updated_at": "2026-04-29T05:36:38.715Z"
+    },
+    {
+      "target_id": "seg_009554",
+      "task_id": "literal_gloss",
+      "value": "骑电力自行车",
+      "updated_at": "2026-04-29T05:43:44.644Z"
+    },
+    {
+      "target_id": "seg_009555",
+      "task_id": "literal_gloss",
+      "value": "小轿车",
+      "updated_at": "2026-04-29T05:42:17.889Z"
+    },
+    {
+      "target_id": "seg_009556",
+      "task_id": "literal_gloss",
+      "value": "大众甲壳虫警车",
+      "updated_at": "2026-04-29T05:41:42.667Z"
+    },
+    {
+      "target_id": "seg_009559",
+      "task_id": "literal_gloss",
+      "value": "不满",
+      "updated_at": "2026-04-29T05:42:28.993Z"
+    },
+    {
+      "target_id": "seg_009560",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:42:37.967Z"
+    },
+    {
+      "target_id": "seg_009561",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:42:41.318Z"
+    },
+    {
+      "target_id": "seg_009562",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:42:43.152Z"
+    },
+    {
+      "target_id": "seg_009563",
+      "task_id": "literal_gloss",
+      "value": "红灯",
+      "updated_at": "2026-04-29T05:42:46.933Z"
+    },
+    {
+      "target_id": "seg_009564",
+      "task_id": "literal_gloss",
+      "value": "有轨电车",
+      "updated_at": "2026-04-29T05:43:16.999Z"
+    },
+    {
+      "target_id": "seg_009565",
+      "task_id": "literal_gloss",
+      "value": "敞篷跑车",
+      "updated_at": "2026-04-29T05:43:02.593Z"
+    },
+    {
+      "target_id": "seg_009566",
+      "task_id": "literal_gloss",
+      "value": "小轿车 ",
+      "updated_at": "2026-04-29T05:43:07.399Z"
+    },
+    {
+      "target_id": "seg_009567",
+      "task_id": "literal_gloss",
+      "value": "公交车",
+      "updated_at": "2026-04-29T05:43:20.849Z"
+    },
+    {
+      "target_id": "seg_009568",
+      "task_id": "literal_gloss",
+      "value": "电力自行车",
+      "updated_at": "2026-04-29T05:43:33.453Z"
+    },
+    {
+      "target_id": "seg_009572",
+      "task_id": "literal_gloss",
+      "value": "拖车拖小轿车",
+      "updated_at": "2026-04-29T05:44:37.140Z"
+    },
+    {
+      "target_id": "seg_009573",
+      "task_id": "literal_gloss",
+      "value": "公路车和滑板",
+      "updated_at": "2026-04-29T05:44:48.931Z"
+    },
+    {
+      "target_id": "seg_009574",
+      "task_id": "literal_gloss",
+      "value": "滑滑板",
+      "updated_at": "2026-04-29T05:45:09.002Z"
+    },
+    {
+      "target_id": "seg_009575",
+      "task_id": "literal_gloss",
+      "value": "摩托车和滑板",
+      "updated_at": "2026-04-29T05:45:15.796Z"
+    },
+    {
+      "target_id": "seg_009576",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:45:22.768Z"
+    },
+    {
+      "target_id": "seg_009577",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:45:24.269Z"
+    },
+    {
+      "target_id": "seg_009578",
+      "task_id": "literal_gloss",
+      "value": "六辆车",
+      "updated_at": "2026-04-29T05:45:29.340Z"
+    },
+    {
+      "target_id": "seg_009571",
+      "task_id": "literal_gloss",
+      "value": "老式美式轿车，自行车，滑板",
+      "updated_at": "2026-04-29T05:46:37.587Z"
+    },
+    {
+      "target_id": "seg_009581",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:46:44.480Z"
+    },
+    {
+      "target_id": "seg_009583",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:46:46.357Z"
+    },
+    {
+      "target_id": "seg_009584",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:46:48.248Z"
+    },
+    {
+      "target_id": "seg_009585",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:46:51.608Z"
+    },
+    {
+      "target_id": "seg_009582",
+      "task_id": "literal_gloss",
+      "value": "滑滑板",
+      "updated_at": "2026-04-29T05:46:57.141Z"
+    },
+    {
+      "target_id": "seg_009586",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:19.640Z"
+    },
+    {
+      "target_id": "seg_009587",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:22.959Z"
+    },
+    {
+      "target_id": "seg_009588",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:25.715Z"
+    },
+    {
+      "target_id": "seg_009589",
+      "task_id": "literal_gloss",
+      "value": "小三角",
+      "updated_at": "2026-04-29T05:47:10.433Z"
+    },
+    {
+      "target_id": "seg_009590",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:29.178Z"
+    },
+    {
+      "target_id": "seg_009591",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:30.972Z"
+    },
+    {
+      "target_id": "seg_009592",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T05:47:33.295Z"
+    },
+    {
+      "target_id": "seg_009593",
+      "task_id": "literal_gloss",
+      "value": "小三角",
+      "updated_at": "2026-04-29T05:47:37.284Z"
+    },
+    {
+      "target_id": "seg_009594",
+      "task_id": "literal_gloss",
+      "value": "混乱",
+      "updated_at": "2026-04-29T05:47:42.461Z"
+    },
+    {
+      "target_id": "seg_009595",
+      "task_id": "literal_gloss",
+      "value": "问号",
+      "updated_at": "2026-04-29T05:47:47.080Z"
+    },
+    {
+      "target_id": "seg_009596",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T05:47:55.361Z"
+    },
+    {
+      "target_id": "seg_009599",
+      "task_id": "literal_gloss",
+      "value": "眼睛",
+      "updated_at": "2026-04-29T05:48:00.282Z"
+    },
+    {
+      "target_id": "seg_009600",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:48:04.209Z"
+    },
+    {
+      "target_id": "seg_009601",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:48:07.208Z"
+    },
+    {
+      "target_id": "seg_009602",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:48:09.805Z"
+    },
+    {
+      "target_id": "seg_009603",
+      "task_id": "literal_gloss",
+      "value": "指右箭头",
+      "updated_at": "2026-04-29T05:48:18.909Z"
+    },
+    {
+      "target_id": "seg_009604",
+      "task_id": "literal_gloss",
+      "value": "括号",
+      "updated_at": "2026-04-29T05:48:24.940Z"
+    },
+    {
+      "target_id": "seg_009605",
+      "task_id": "literal_gloss",
+      "value": "障碍桩",
+      "updated_at": "2026-04-29T05:48:32.728Z"
+    },
+    {
+      "target_id": "seg_009606",
+      "task_id": "literal_gloss",
+      "value": "障碍桩",
+      "updated_at": "2026-04-29T05:48:35.787Z"
+    },
+    {
+      "target_id": "seg_009607",
+      "task_id": "literal_gloss",
+      "value": "直升机",
+      "updated_at": "2026-04-29T05:48:40.398Z"
+    },
+    {
+      "target_id": "seg_009608",
+      "task_id": "literal_gloss",
+      "value": "吊车",
+      "updated_at": "2026-04-29T05:48:44.370Z"
+    },
+    {
+      "target_id": "seg_009609",
+      "task_id": "literal_gloss",
+      "value": "圆顶警示灯",
+      "updated_at": "2026-04-29T05:50:34.951Z"
+    },
+    {
+      "target_id": "seg_009610",
+      "task_id": "literal_gloss",
+      "value": "救护车",
+      "updated_at": "2026-04-29T05:48:55.002Z"
+    },
+    {
+      "target_id": "seg_009611",
+      "task_id": "literal_gloss",
+      "value": "警灯",
+      "updated_at": "2026-04-29T05:48:59.960Z"
+    },
+    {
+      "target_id": "seg_009612",
+      "task_id": "literal_gloss",
+      "value": "警车",
+      "updated_at": "2026-04-29T05:50:39.398Z"
+    },
+    {
+      "target_id": "seg_009613",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T05:50:47.323Z"
+    },
+    {
+      "target_id": "seg_009616",
+      "task_id": "literal_gloss",
+      "value": "睁大眼睛",
+      "updated_at": "2026-04-29T05:50:57.989Z"
+    },
+    {
+      "target_id": "seg_009619",
+      "task_id": "literal_gloss",
+      "value": "人形印记",
+      "updated_at": "2026-04-29T05:51:08.196Z"
+    },
+    {
+      "target_id": "seg_009620",
+      "task_id": "literal_gloss",
+      "value": "惊恐",
+      "updated_at": "2026-04-29T05:51:12.712Z"
+    },
+    {
+      "target_id": "seg_009621",
+      "task_id": "literal_gloss",
+      "value": "表示感叹号激动",
+      "updated_at": "2026-04-29T05:51:39.651Z"
+    },
+    {
+      "target_id": "seg_009622",
+      "task_id": "literal_gloss",
+      "value": "混乱",
+      "updated_at": "2026-04-29T05:51:22.378Z"
+    },
+    {
+      "target_id": "seg_009623",
+      "task_id": "literal_gloss",
+      "value": "车撞人",
+      "updated_at": "2026-04-29T05:51:28.215Z"
+    },
+    {
+      "target_id": "seg_009624",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-04-29T05:51:34.283Z"
+    },
+    {
+      "target_id": "seg_009625",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T05:51:57.048Z"
+    },
+    {
+      "target_id": "seg_009626",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T05:52:16.501Z"
+    },
+    {
+      "target_id": "seg_009627",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:52:35.616Z"
+    },
+    {
+      "target_id": "seg_009628",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:52:39.667Z"
+    },
+    {
+      "target_id": "seg_009631",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:52:46.015Z"
+    },
+    {
+      "target_id": "seg_009632",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:52:48.605Z"
+    },
+    {
+      "target_id": "seg_009633",
+      "task_id": "literal_gloss",
+      "value": "六辆车",
+      "updated_at": "2026-04-29T05:52:52.619Z"
+    },
+    {
+      "target_id": "seg_009634",
+      "task_id": "literal_gloss",
+      "value": "中型货车",
+      "updated_at": "2026-04-29T05:52:58.077Z"
+    },
+    {
+      "target_id": "seg_009635",
+      "task_id": "literal_gloss",
+      "value": "大货车",
+      "updated_at": "2026-04-29T05:53:02.225Z"
+    },
+    {
+      "target_id": "seg_009639",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:05.691Z"
+    },
+    {
+      "target_id": "seg_009638",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:07.406Z"
+    },
+    {
+      "target_id": "seg_009637",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:09.113Z"
+    },
+    {
+      "target_id": "seg_009636",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:11.476Z"
+    },
+    {
+      "target_id": "seg_009640",
+      "task_id": "literal_gloss",
+      "value": "加长货车",
+      "updated_at": "2026-04-29T05:53:15.454Z"
+    },
+    {
+      "target_id": "seg_009643",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:19.203Z"
+    },
+    {
+      "target_id": "seg_009644",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:53:22.701Z"
+    },
+    {
+      "target_id": "seg_009645",
+      "task_id": "literal_gloss",
+      "value": "圆点",
+      "updated_at": "2026-04-29T05:53:26.553Z"
+    },
+    {
+      "target_id": "seg_009646",
+      "task_id": "literal_gloss",
+      "value": "圆点",
+      "updated_at": "2026-04-29T05:53:29.674Z"
+    },
+    {
+      "target_id": "seg_009647",
+      "task_id": "literal_gloss",
+      "value": "圆点",
+      "updated_at": "2026-04-29T05:53:31.763Z"
+    },
+    {
+      "target_id": "seg_009650",
+      "task_id": "literal_gloss",
+      "value": "出租车",
+      "updated_at": "2026-04-29T05:53:38.017Z"
+    },
+    {
+      "target_id": "seg_009651",
+      "task_id": "literal_gloss",
+      "value": "七点坐着",
+      "updated_at": "2026-04-29T05:53:56.673Z"
+    },
+    {
+      "target_id": "seg_009652",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T05:54:00.779Z"
+    },
+    {
+      "target_id": "seg_009653",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:11.832Z"
+    },
+    {
+      "target_id": "seg_009654",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:14.965Z"
+    },
+    {
+      "target_id": "seg_009655",
+      "task_id": "literal_gloss",
+      "value": "三辆车指向三辆车",
+      "updated_at": "2026-04-29T05:54:41.142Z"
+    },
+    {
+      "target_id": "seg_009656",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:24.525Z"
+    },
+    {
+      "target_id": "seg_009657",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:26.565Z"
+    },
+    {
+      "target_id": "seg_009658",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:28.131Z"
+    },
+    {
+      "target_id": "seg_009661",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:31.357Z"
+    },
+    {
+      "target_id": "seg_009662",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:33.335Z"
+    },
+    {
+      "target_id": "seg_009663",
+      "task_id": "literal_gloss",
+      "value": "三辆车指向三辆车",
+      "updated_at": "2026-04-29T05:54:44.053Z"
+    },
+    {
+      "target_id": "seg_009664",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:48.272Z"
+    },
+    {
+      "target_id": "seg_009665",
+      "task_id": "literal_gloss",
+      "value": "三辆车",
+      "updated_at": "2026-04-29T05:54:52.752Z"
+    },
+    {
+      "target_id": "seg_009666",
+      "task_id": "literal_gloss",
+      "value": "曲折的箭头",
+      "updated_at": "2026-04-29T05:54:59.653Z"
+    },
+    {
+      "target_id": "seg_009667",
+      "task_id": "literal_gloss",
+      "value": "停止",
+      "updated_at": "2026-04-29T05:55:04.273Z"
+    },
+    {
+      "target_id": "seg_009668",
+      "task_id": "literal_gloss",
+      "value": "出租车",
+      "updated_at": "2026-04-29T05:55:08.652Z"
+    },
+    {
+      "target_id": "seg_009669",
+      "task_id": "literal_gloss",
+      "value": "屋内的啤酒",
+      "updated_at": "2026-04-29T05:55:13.658Z"
+    },
+    {
+      "target_id": "seg_009670",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T05:55:17.563Z"
+    },
+    {
+      "target_id": "seg_009673",
+      "task_id": "literal_gloss",
+      "value": "奔跑",
+      "updated_at": "2026-04-29T05:55:20.937Z"
+    },
+    {
+      "target_id": "seg_009674",
+      "task_id": "literal_gloss",
+      "value": "指向屋内的啤酒",
+      "updated_at": "2026-04-29T05:55:29.814Z"
+    },
+    {
+      "target_id": "seg_009675",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T05:55:33.048Z"
+    },
+    {
+      "target_id": "seg_009676",
+      "task_id": "literal_gloss",
+      "value": "坐着",
+      "updated_at": "2026-04-29T05:55:40.416Z"
+    },
+    {
+      "target_id": "seg_009677",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T05:55:44.221Z"
+    },
+    {
+      "target_id": "seg_009678",
+      "task_id": "literal_gloss",
+      "value": "反向坐着",
+      "updated_at": "2026-04-29T05:55:50.890Z"
+    },
+    {
+      "target_id": "seg_009679",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T05:55:54.663Z"
+    },
+    {
+      "target_id": "seg_009680",
+      "task_id": "literal_gloss",
+      "value": "啤酒加竖线",
+      "updated_at": "2026-04-29T05:56:25.194Z"
+    },
+    {
+      "target_id": "seg_009682",
+      "task_id": "literal_gloss",
+      "value": "竖线加啤酒",
+      "updated_at": "2026-04-29T05:56:19.262Z"
+    },
+    {
+      "target_id": "seg_009681",
+      "task_id": "literal_gloss",
+      "value": "竖线",
+      "updated_at": "2026-04-29T05:56:12.774Z"
+    },
+    {
+      "target_id": "seg_009683",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:56:28.726Z"
+    },
+    {
+      "target_id": "seg_009684",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:56:31.580Z"
+    },
+    {
+      "target_id": "seg_009685",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:56:33.258Z"
+    },
+    {
+      "target_id": "seg_009688",
+      "task_id": "literal_gloss",
+      "value": "睁眼",
+      "updated_at": "2026-04-29T05:56:43.261Z"
+    },
+    {
+      "target_id": "seg_009689",
+      "task_id": "literal_gloss",
+      "value": "倒下",
+      "updated_at": "2026-04-29T05:56:46.900Z"
+    },
+    {
+      "target_id": "seg_009690",
+      "task_id": "literal_gloss",
+      "value": "两波浪线",
+      "updated_at": "2026-04-29T05:56:51.674Z"
+    },
+    {
+      "target_id": "seg_009691",
+      "task_id": "literal_gloss",
+      "value": "眩晕",
+      "updated_at": "2026-04-29T05:57:05.263Z"
+    },
+    {
+      "target_id": "seg_009692",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T05:57:09.497Z"
+    },
+    {
+      "target_id": "seg_009695",
+      "task_id": "literal_gloss",
+      "value": "啤酒和人",
+      "updated_at": "2026-04-29T05:57:14.632Z"
+    },
+    {
+      "target_id": "seg_009696",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T05:57:21.992Z"
+    },
+    {
+      "target_id": "seg_009697",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:57:26.767Z"
+    },
+    {
+      "target_id": "seg_009698",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:57:31.627Z"
+    },
+    {
+      "target_id": "seg_009699",
+      "task_id": "literal_gloss",
+      "value": "站着",
+      "updated_at": "2026-04-29T05:57:35.269Z"
+    },
+    {
+      "target_id": "seg_009700",
+      "task_id": "literal_gloss",
+      "value": "心裂",
+      "updated_at": "2026-04-29T05:57:48.620Z"
+    },
+    {
+      "target_id": "seg_009701",
+      "task_id": "literal_gloss",
+      "value": "女士行走",
+      "updated_at": "2026-04-29T05:57:54.648Z"
+    },
+    {
+      "target_id": "seg_009702",
+      "task_id": "literal_gloss",
+      "value": "指向",
+      "updated_at": "2026-04-29T05:58:00.467Z"
+    },
+    {
+      "target_id": "seg_009703",
+      "task_id": "literal_gloss",
+      "value": "男士",
+      "updated_at": "2026-04-29T05:58:04.476Z"
+    },
+    {
+      "target_id": "seg_009704",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T05:58:11.222Z"
+    },
+    {
+      "target_id": "seg_009705",
+      "task_id": "literal_gloss",
+      "value": "竖中指",
+      "updated_at": "2026-04-29T05:58:20.746Z"
+    },
+    {
+      "target_id": "seg_009706",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-04-29T05:58:24.227Z"
+    },
+    {
+      "target_id": "seg_009707",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T05:58:30.940Z"
+    },
+    {
+      "target_id": "seg_009708",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T05:58:34.534Z"
+    },
+    {
+      "target_id": "seg_009711",
+      "task_id": "literal_gloss",
+      "value": "半身小人",
+      "updated_at": "2026-04-29T05:58:40.264Z"
+    },
+    {
+      "target_id": "seg_009712",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T05:58:43.754Z"
+    },
+    {
+      "target_id": "seg_009713",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:58:49.580Z"
+    },
+    {
+      "target_id": "seg_009714",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T05:58:53.768Z"
+    },
+    {
+      "target_id": "seg_009715",
+      "task_id": "literal_gloss",
+      "value": "愤怒",
+      "updated_at": "2026-04-29T05:58:57.201Z"
+    },
+    {
+      "target_id": "seg_009716",
+      "task_id": "literal_gloss",
+      "value": "女士",
+      "updated_at": "2026-04-29T05:59:01.283Z"
+    },
+    {
+      "target_id": "seg_009717",
+      "task_id": "literal_gloss",
+      "value": "两平行横线",
+      "updated_at": "2026-04-29T05:59:10.385Z"
+    },
+    {
+      "target_id": "seg_009718",
+      "task_id": "literal_gloss",
+      "value": "不竖大拇指",
+      "updated_at": "2026-04-29T05:59:30.968Z"
+    },
+    {
+      "target_id": "seg_009719",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-04-29T05:59:20.945Z"
+    },
+    {
+      "target_id": "seg_009720",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:59:35.851Z"
+    },
+    {
+      "target_id": "seg_009721",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:59:39.075Z"
+    },
+    {
+      "target_id": "seg_009722",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T05:59:41.098Z"
+    },
+    {
+      "target_id": "seg_009725",
+      "task_id": "literal_gloss",
+      "value": "五点",
+      "updated_at": "2026-04-29T08:40:37.390Z"
+    },
+    {
+      "target_id": "seg_009726",
+      "task_id": "literal_gloss",
+      "value": "出租车",
+      "updated_at": "2026-04-29T06:01:48.808Z"
+    },
+    {
+      "target_id": "seg_009727",
+      "task_id": "literal_gloss",
+      "value": "一横加括号",
+      "updated_at": "2026-04-29T06:02:03.239Z"
+    },
+    {
+      "target_id": "seg_009728",
+      "task_id": "literal_gloss",
+      "value": "七点坐着",
+      "updated_at": "2026-04-29T06:02:09.508Z"
+    },
+    {
+      "target_id": "seg_009729",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T06:02:13.805Z"
+    },
+    {
+      "target_id": "seg_009730",
+      "task_id": "literal_gloss",
+      "value": "逗号 ",
+      "updated_at": "2026-04-29T06:02:17.325Z"
+    },
+    {
+      "target_id": "seg_009731",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:02:23.956Z"
+    },
+    {
+      "target_id": "seg_009732",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:03:40.312Z"
+    },
+    {
+      "target_id": "seg_009733",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:03:43.131Z"
+    },
+    {
+      "target_id": "seg_009736",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:03:44.667Z"
+    },
+    {
+      "target_id": "seg_009735",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:03:46.110Z"
+    },
+    {
+      "target_id": "seg_009737",
+      "task_id": "literal_gloss",
+      "value": "平行四边形",
+      "updated_at": "2026-04-29T06:03:48.074Z"
+    },
+    {
+      "target_id": "seg_009734",
+      "task_id": "literal_gloss",
+      "value": "小三角",
+      "updated_at": "2026-04-29T06:03:51.422Z"
+    },
+    {
+      "target_id": "seg_009738",
+      "task_id": "literal_gloss",
+      "value": "小三角",
+      "updated_at": "2026-04-29T06:03:57.585Z"
+    },
+    {
+      "target_id": "seg_009741",
+      "task_id": "literal_gloss",
+      "value": "睁眼",
+      "updated_at": "2026-04-29T06:04:40.045Z"
+    },
+    {
+      "target_id": "seg_009743",
+      "task_id": "literal_gloss",
+      "value": "地上的人形标记",
+      "updated_at": "2026-04-29T06:04:47.597Z"
+    },
+    {
+      "target_id": "seg_009744",
+      "task_id": "literal_gloss",
+      "value": "车撞人",
+      "updated_at": "2026-04-29T06:04:54.029Z"
+    },
+    {
+      "target_id": "seg_009745",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-04-29T06:04:57.958Z"
+    },
+    {
+      "target_id": "seg_009746",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T06:05:01.323Z"
+    },
+    {
+      "target_id": "seg_009747",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:05:04.956Z"
+    },
+    {
+      "target_id": "seg_009748",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:05:07.788Z"
+    },
+    {
+      "target_id": "seg_009749",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:05:09.531Z"
+    },
+    {
+      "target_id": "seg_009750",
+      "task_id": "literal_gloss",
+      "value": "救护车",
+      "updated_at": "2026-04-29T06:05:12.012Z"
+    },
+    {
+      "target_id": "seg_009753",
+      "task_id": "literal_gloss",
+      "value": "手指右",
+      "updated_at": "2026-04-29T06:06:02.465Z"
+    },
+    {
+      "target_id": "seg_009754",
+      "task_id": "literal_gloss",
+      "value": "人",
+      "updated_at": "2026-04-29T06:06:04.615Z"
+    },
+    {
+      "target_id": "seg_009755",
+      "task_id": "literal_gloss",
+      "value": "两横线",
+      "updated_at": "2026-04-29T06:06:11.485Z"
+    },
+    {
+      "target_id": "seg_009756",
+      "task_id": "literal_gloss",
+      "value": "线裂",
+      "updated_at": "2026-04-29T06:06:16.217Z"
+    },
+    {
+      "target_id": "seg_009757",
+      "task_id": "literal_gloss",
+      "value": "心碎",
+      "updated_at": "2026-04-29T06:06:21.018Z"
+    },
+    {
+      "target_id": "seg_009758",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:06:26.637Z"
+    },
+    {
+      "target_id": "seg_009761",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:06:32.394Z"
+    },
+    {
+      "target_id": "seg_009762",
+      "task_id": "literal_gloss",
+      "value": "地上的人形标记",
+      "updated_at": "2026-04-29T06:06:37.888Z"
+    },
+    {
+      "target_id": "seg_009763",
+      "task_id": "literal_gloss",
+      "value": "两平行横线",
+      "updated_at": "2026-04-29T06:07:23.780Z"
+    },
+    {
+      "target_id": "seg_009764",
+      "task_id": "literal_gloss",
+      "value": "骷髅头",
+      "updated_at": "2026-04-29T06:07:38.161Z"
+    },
+    {
+      "target_id": "seg_009765",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:07:41.368Z"
+    },
+    {
+      "target_id": "seg_009768",
+      "task_id": "literal_gloss",
+      "value": "心裂",
+      "updated_at": "2026-04-29T06:07:47.859Z"
+    },
+    {
+      "target_id": "seg_009769",
+      "task_id": "literal_gloss",
+      "value": "天平",
+      "updated_at": "2026-04-29T06:07:51.480Z"
+    },
+    {
+      "target_id": "seg_009770",
+      "task_id": "literal_gloss",
+      "value": "骷髅头",
+      "updated_at": "2026-04-29T06:07:58.965Z"
+    },
+    {
+      "target_id": "seg_009771",
+      "task_id": "literal_gloss",
+      "value": "感叹号",
+      "updated_at": "2026-04-29T06:08:06.532Z"
+    },
+    {
+      "target_id": "seg_009774",
+      "task_id": "literal_gloss",
+      "value": "小人",
+      "updated_at": "2026-04-29T06:11:05.136Z"
+    },
+    {
+      "target_id": "seg_009775",
+      "task_id": "literal_gloss",
+      "value": "说假话",
+      "updated_at": "2026-04-29T06:16:17.849Z"
+    },
+    {
+      "target_id": "seg_009776",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:11:34.938Z"
+    },
+    {
+      "target_id": "seg_009777",
+      "task_id": "literal_gloss",
+      "value": "地上的人形图案",
+      "updated_at": "2026-04-29T06:11:47.746Z"
+    },
+    {
+      "target_id": "seg_009778",
+      "task_id": "literal_gloss",
+      "value": "不说假话",
+      "updated_at": "2026-04-29T06:16:12.266Z"
+    },
+    {
+      "target_id": "seg_009779",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:16:21.488Z"
+    },
+    {
+      "target_id": "seg_009780",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:16:26.953Z"
+    },
+    {
+      "target_id": "seg_009781",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:16:31.972Z"
+    },
+    {
+      "target_id": "seg_009784",
+      "task_id": "literal_gloss",
+      "value": "眩晕",
+      "updated_at": "2026-04-29T06:16:55.564Z"
+    },
+    {
+      "target_id": "seg_009785",
+      "task_id": "literal_gloss",
+      "value": "人",
+      "updated_at": "2026-04-29T06:16:58.878Z"
+    },
+    {
+      "target_id": "seg_009786",
+      "task_id": "literal_gloss",
+      "value": "人左倾",
+      "updated_at": "2026-04-29T06:17:03.572Z"
+    },
+    {
+      "target_id": "seg_009787",
+      "task_id": "literal_gloss",
+      "value": "人右倾",
+      "updated_at": "2026-04-29T06:17:08.070Z"
+    },
+    {
+      "target_id": "seg_009788",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:17:11.583Z"
+    },
+    {
+      "target_id": "seg_009789",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:17:14.609Z"
+    },
+    {
+      "target_id": "seg_009790",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:17:16.288Z"
+    },
+    {
+      "target_id": "seg_009791",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:19.281Z"
+    },
+    {
+      "target_id": "seg_009792",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:22.073Z"
+    },
+    {
+      "target_id": "seg_009793",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:23.844Z"
+    },
+    {
+      "target_id": "seg_009794",
+      "task_id": "literal_gloss",
+      "value": "回退到五点",
+      "updated_at": "2026-04-29T06:17:30.155Z"
+    },
+    {
+      "target_id": "seg_009796",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:32.493Z"
+    },
+    {
+      "target_id": "seg_009797",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:34.334Z"
+    },
+    {
+      "target_id": "seg_009795",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:17:36.949Z"
+    },
+    {
+      "target_id": "seg_009800",
+      "task_id": "literal_gloss",
+      "value": "人右倾",
+      "updated_at": "2026-04-29T06:21:17.929Z"
+    },
+    {
+      "target_id": "seg_009801",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T06:21:24.067Z"
+    },
+    {
+      "target_id": "seg_009802",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:21:28.741Z"
+    },
+    {
+      "target_id": "seg_009803",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:21:31.719Z"
+    },
+    {
+      "target_id": "seg_009804",
+      "task_id": "literal_gloss",
+      "value": "时间回退到五点",
+      "updated_at": "2026-04-29T06:21:37.725Z"
+    },
+    {
+      "target_id": "seg_009805",
+      "task_id": "literal_gloss",
+      "value": "多云的晚上",
+      "updated_at": "2026-04-29T06:21:42.474Z"
+    },
+    {
+      "target_id": "seg_009806",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:21:46.197Z"
+    },
+    {
+      "target_id": "seg_009807",
+      "task_id": "literal_gloss",
+      "value": "大楼",
+      "updated_at": "2026-04-29T06:21:49.631Z"
+    },
+    {
+      "target_id": "seg_009808",
+      "task_id": "literal_gloss",
+      "value": "想着",
+      "updated_at": "2026-04-29T08:43:23.794Z"
+    },
+    {
+      "target_id": "seg_009809",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T06:22:04.244Z"
+    },
+    {
+      "target_id": "seg_009810",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:22:09.557Z"
+    },
+    {
+      "target_id": "seg_009811",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T06:22:13.971Z"
+    },
+    {
+      "target_id": "seg_009812",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:22:17.602Z"
+    },
+    {
+      "target_id": "seg_009815",
+      "task_id": "literal_gloss",
+      "value": "睁眼",
+      "updated_at": "2026-04-29T06:22:22.792Z"
+    },
+    {
+      "target_id": "seg_009816",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:22:26.050Z"
+    },
+    {
+      "target_id": "seg_009817",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:22:34.431Z"
+    },
+    {
+      "target_id": "seg_009818",
+      "task_id": "literal_gloss",
+      "value": "大楼",
+      "updated_at": "2026-04-29T06:22:37.890Z"
+    },
+    {
+      "target_id": "seg_009819",
+      "task_id": "literal_gloss",
+      "value": "八点女士坐着",
+      "updated_at": "2026-04-29T06:22:51.353Z"
+    },
+    {
+      "target_id": "seg_009820",
+      "task_id": "literal_gloss",
+      "value": "没伞",
+      "updated_at": "2026-04-29T06:22:58.882Z"
+    },
+    {
+      "target_id": "seg_009821",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T06:24:42.513Z"
+    },
+    {
+      "target_id": "seg_009822",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:24:48.813Z"
+    },
+    {
+      "target_id": "seg_009823",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:24:51.622Z"
+    },
+    {
+      "target_id": "seg_009824",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:24:53.053Z"
+    },
+    {
+      "target_id": "seg_009825",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:24:54.588Z"
+    },
+    {
+      "target_id": "seg_009826",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T06:24:58.472Z"
+    },
+    {
+      "target_id": "seg_009829",
+      "task_id": "literal_gloss",
+      "value": "半人身",
+      "updated_at": "2026-04-29T06:25:05.590Z"
+    },
+    {
+      "target_id": "seg_009830",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T06:25:12.060Z"
+    },
+    {
+      "target_id": "seg_009831",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:25:16.948Z"
+    },
+    {
+      "target_id": "seg_009832",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:25:21.270Z"
+    },
+    {
+      "target_id": "seg_009833",
+      "task_id": "literal_gloss",
+      "value": "女士",
+      "updated_at": "2026-04-29T06:25:24.722Z"
+    },
+    {
+      "target_id": "seg_009834",
+      "task_id": "literal_gloss",
+      "value": "直线加曲线",
+      "updated_at": "2026-04-29T06:25:35.064Z"
+    },
+    {
+      "target_id": "seg_009835",
+      "task_id": "literal_gloss",
+      "value": "没有雨伞",
+      "updated_at": "2026-04-29T06:25:40.545Z"
+    },
+    {
+      "target_id": "seg_009836",
+      "task_id": "literal_gloss",
+      "value": "反括号",
+      "updated_at": "2026-04-29T06:26:13.336Z"
+    },
+    {
+      "target_id": "seg_009837",
+      "task_id": "literal_gloss",
+      "value": "问题",
+      "updated_at": "2026-04-29T06:26:16.691Z"
+    },
+    {
+      "target_id": "seg_009838",
+      "task_id": "literal_gloss",
+      "value": "行走的女士",
+      "updated_at": "2026-04-29T06:26:31.016Z"
+    },
+    {
+      "target_id": "seg_009839",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:26:34.965Z"
+    },
+    {
+      "target_id": "seg_009840",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T06:26:40.681Z"
+    },
+    {
+      "target_id": "seg_009841",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:26:44.345Z"
+    },
+    {
+      "target_id": "seg_009842",
+      "task_id": "literal_gloss",
+      "value": "问号",
+      "updated_at": "2026-04-29T06:26:51.584Z"
+    },
+    {
+      "target_id": "seg_009843",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T06:26:56.143Z"
+    },
+    {
+      "target_id": "seg_009844",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T06:26:58.980Z"
+    },
+    {
+      "target_id": "seg_009847",
+      "task_id": "literal_gloss",
+      "value": "半身像",
+      "updated_at": "2026-04-29T06:27:11.586Z"
+    },
+    {
+      "target_id": "seg_009848",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T06:27:21.393Z"
+    },
+    {
+      "target_id": "seg_009849",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:27:30.471Z"
+    },
+    {
+      "target_id": "seg_009850",
+      "task_id": "literal_gloss",
+      "value": "单引号加行走的女士",
+      "updated_at": "2026-04-29T06:27:41.337Z"
+    },
+    {
+      "target_id": "seg_009851",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:27:45.222Z"
+    },
+    {
+      "target_id": "seg_009852",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T06:27:49.152Z"
+    },
+    {
+      "target_id": "seg_009853",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:27:54.752Z"
+    },
+    {
+      "target_id": "seg_009854",
+      "task_id": "literal_gloss",
+      "value": "勾，逗号",
+      "updated_at": "2026-04-29T06:28:02.510Z"
+    },
+    {
+      "target_id": "seg_009855",
+      "task_id": "literal_gloss",
+      "value": "八点女",
+      "updated_at": "2026-04-29T08:45:34.979Z"
+    },
+    {
+      "target_id": "seg_009856",
+      "task_id": "literal_gloss",
+      "value": "下雨",
+      "updated_at": "2026-04-29T06:28:20.998Z"
+    },
+    {
+      "target_id": "seg_009857",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:28:24.563Z"
+    },
+    {
+      "target_id": "seg_009858",
+      "task_id": "literal_gloss",
+      "value": "多云",
+      "updated_at": "2026-04-29T06:28:28.346Z"
+    },
+    {
+      "target_id": "seg_009859",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T06:28:34.624Z"
+    },
+    {
+      "target_id": "seg_009860",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:28:38.861Z"
+    },
+    {
+      "target_id": "seg_009861",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:28:45.200Z"
+    },
+    {
+      "target_id": "seg_009864",
+      "task_id": "literal_gloss",
+      "value": "半身像回想",
+      "updated_at": "2026-04-29T06:28:54.109Z"
+    },
+    {
+      "target_id": "seg_009865",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:00.026Z"
+    },
+    {
+      "target_id": "seg_009866",
+      "task_id": "literal_gloss",
+      "value": "雷雨",
+      "updated_at": "2026-04-29T06:29:04.347Z"
+    },
+    {
+      "target_id": "seg_009867",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:09.762Z"
+    },
+    {
+      "target_id": "seg_009868",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:11.819Z"
+    },
+    {
+      "target_id": "seg_009869",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:13.736Z"
+    },
+    {
+      "target_id": "seg_009870",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:15.543Z"
+    },
+    {
+      "target_id": "seg_009871",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:29:16.954Z"
+    },
+    {
+      "target_id": "seg_009872",
+      "task_id": "literal_gloss",
+      "value": "不指向右",
+      "updated_at": "2026-04-29T06:29:23.396Z"
+    },
+    {
+      "target_id": "seg_009873",
+      "task_id": "literal_gloss",
+      "value": "多云",
+      "updated_at": "2026-04-29T08:46:08.127Z"
+    },
+    {
+      "target_id": "seg_009874",
+      "task_id": "literal_gloss",
+      "value": "句号",
+      "updated_at": "2026-04-29T06:30:37.381Z"
+    },
+    {
+      "target_id": "seg_009877",
+      "task_id": "literal_gloss",
+      "value": "半人像",
+      "updated_at": "2026-04-29T06:30:42.067Z"
+    },
+    {
+      "target_id": "seg_009878",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T06:30:45.825Z"
+    },
+    {
+      "target_id": "seg_009879",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:30:50.692Z"
+    },
+    {
+      "target_id": "seg_009880",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:30:55.894Z"
+    },
+    {
+      "target_id": "seg_009881",
+      "task_id": "literal_gloss",
+      "value": "行走",
+      "updated_at": "2026-04-29T06:31:02.095Z"
+    },
+    {
+      "target_id": "seg_009882",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:31:06.351Z"
+    },
+    {
+      "target_id": "seg_009883",
+      "task_id": "literal_gloss",
+      "value": "公交站点",
+      "updated_at": "2026-04-29T06:31:10.442Z"
+    },
+    {
+      "target_id": "seg_009884",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:31:14.363Z"
+    },
+    {
+      "target_id": "seg_009885",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:31:18.740Z"
+    },
+    {
+      "target_id": "seg_009886",
+      "task_id": "literal_gloss",
+      "value": "抬左手，雨伞",
+      "updated_at": "2026-04-29T06:31:28.735Z"
+    },
+    {
+      "target_id": "seg_009887",
+      "task_id": "literal_gloss",
+      "value": "抽烟",
+      "updated_at": "2026-04-29T06:32:00.271Z"
+    },
+    {
+      "target_id": "seg_009888",
+      "task_id": "literal_gloss",
+      "value": "问号",
+      "updated_at": "2026-04-29T06:31:42.271Z"
+    },
+    {
+      "target_id": "seg_009889",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:31:48.715Z"
+    },
+    {
+      "target_id": "seg_009890",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:31:51.911Z"
+    },
+    {
+      "target_id": "seg_009893",
+      "task_id": "literal_gloss",
+      "value": "抽烟",
+      "updated_at": "2026-04-29T06:32:03.876Z"
+    },
+    {
+      "target_id": "seg_009894",
+      "task_id": "literal_gloss",
+      "value": "冒号",
+      "updated_at": "2026-04-29T06:32:07.380Z"
+    },
+    {
+      "target_id": "seg_009895",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:32:11.963Z"
+    },
+    {
+      "target_id": "seg_009896",
+      "task_id": "literal_gloss",
+      "value": "单引号",
+      "updated_at": "2026-04-29T06:32:18.748Z"
+    },
+    {
+      "target_id": "seg_009897",
+      "task_id": "literal_gloss",
+      "value": "勾",
+      "updated_at": "2026-04-29T06:32:24.632Z"
+    },
+    {
+      "target_id": "seg_009898",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T06:32:29.109Z"
+    },
+    {
+      "target_id": "seg_009899",
+      "task_id": "literal_gloss",
+      "value": "反单引号",
+      "updated_at": "2026-04-29T06:32:35.604Z"
+    },
+    {
+      "target_id": "seg_009902",
+      "task_id": "literal_gloss",
+      "value": "马路",
+      "updated_at": "2026-04-29T06:32:39.584Z"
+    },
+    {
+      "target_id": "seg_009903",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:32:42.709Z"
+    },
+    {
+      "target_id": "seg_009904",
+      "task_id": "literal_gloss",
+      "value": "行走男士",
+      "updated_at": "2026-04-29T06:32:47.362Z"
+    },
+    {
+      "target_id": "seg_009905",
+      "task_id": "literal_gloss",
+      "value": "行走女士，雨伞",
+      "updated_at": "2026-04-29T06:32:53.870Z"
+    },
+    {
+      "target_id": "seg_009906",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:32:57.982Z"
+    },
+    {
+      "target_id": "seg_009907",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:33:02.463Z"
+    },
+    {
+      "target_id": "seg_009908",
+      "task_id": "literal_gloss",
+      "value": "公交站点",
+      "updated_at": "2026-04-29T06:33:06.436Z"
+    },
+    {
+      "target_id": "seg_009909",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:33:09.888Z"
+    },
+    {
+      "target_id": "seg_009910",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:33:15.220Z"
+    },
+    {
+      "target_id": "seg_009911",
+      "task_id": "literal_gloss",
+      "value": "站台内男站左，女站右",
+      "updated_at": "2026-04-29T06:33:26.265Z"
+    },
+    {
+      "target_id": "seg_009912",
+      "task_id": "literal_gloss",
+      "value": "站台牌",
+      "updated_at": "2026-04-29T06:33:47.369Z"
+    },
+    {
+      "target_id": "seg_009913",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:33:51.949Z"
+    },
+    {
+      "target_id": "seg_009916",
+      "task_id": "literal_gloss",
+      "value": "时间回退到五点",
+      "updated_at": "2026-04-29T06:34:00.056Z"
+    },
+    {
+      "target_id": "seg_009917",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:34:04.592Z"
+    },
+    {
+      "target_id": "seg_009918",
+      "task_id": "literal_gloss",
+      "value": "男行走，女行走，雨伞",
+      "updated_at": "2026-04-29T06:34:17.389Z"
+    },
+    {
+      "target_id": "seg_009919",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:34:21.998Z"
+    },
+    {
+      "target_id": "seg_009920",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:34:25.108Z"
+    },
+    {
+      "target_id": "seg_009921",
+      "task_id": "literal_gloss",
+      "value": "公交站点",
+      "updated_at": "2026-04-29T06:34:29.213Z"
+    },
+    {
+      "target_id": "seg_009922",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:34:32.702Z"
+    },
+    {
+      "target_id": "seg_009923",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:34:35.975Z"
+    },
+    {
+      "target_id": "seg_009924",
+      "task_id": "literal_gloss",
+      "value": "男，女站框内，三分之一分布",
+      "updated_at": "2026-04-29T06:35:13.017Z"
+    },
+    {
+      "target_id": "seg_009925",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:34:53.474Z"
+    },
+    {
+      "target_id": "seg_009926",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:34:56.610Z"
+    },
+    {
+      "target_id": "seg_009929",
+      "task_id": "literal_gloss",
+      "value": "时间回退到五点",
+      "updated_at": "2026-04-29T06:35:19.588Z"
+    },
+    {
+      "target_id": "seg_009930",
+      "task_id": "literal_gloss",
+      "value": "下雨",
+      "updated_at": "2026-04-29T06:35:23.102Z"
+    },
+    {
+      "target_id": "seg_009931",
+      "task_id": "literal_gloss",
+      "value": "男行走，女行走，雨伞",
+      "updated_at": "2026-04-29T06:35:27.498Z"
+    },
+    {
+      "target_id": "seg_009932",
+      "task_id": "literal_gloss",
+      "value": "大雨",
+      "updated_at": "2026-04-29T06:35:34.260Z"
+    },
+    {
+      "target_id": "seg_009933",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:35:39.260Z"
+    },
+    {
+      "target_id": "seg_009934",
+      "task_id": "literal_gloss",
+      "value": "公交站点",
+      "updated_at": "2026-04-29T06:35:44.640Z"
+    },
+    {
+      "target_id": "seg_009935",
+      "task_id": "literal_gloss",
+      "value": "站台",
+      "updated_at": "2026-04-29T06:35:48.811Z"
+    },
+    {
+      "target_id": "seg_009936",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:35:51.681Z"
+    },
+    {
+      "target_id": "seg_009937",
+      "task_id": "literal_gloss",
+      "value": "男女并肩站在方框内",
+      "updated_at": "2026-04-29T06:36:02.054Z"
+    },
+    {
+      "target_id": "seg_009938",
+      "task_id": "literal_gloss",
+      "value": "站台牌",
+      "updated_at": "2026-04-29T06:36:07.042Z"
+    },
+    {
+      "target_id": "seg_009939",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:10.601Z"
+    },
+    {
+      "target_id": "seg_009942",
+      "task_id": "literal_gloss",
+      "value": "时间回退到五点",
+      "updated_at": "2026-04-29T06:36:18.742Z"
+    },
+    {
+      "target_id": "seg_009943",
+      "task_id": "literal_gloss",
+      "value": "半人像",
+      "updated_at": "2026-04-29T06:36:22.482Z"
+    },
+    {
+      "target_id": "seg_009944",
+      "task_id": "literal_gloss",
+      "value": "三短线",
+      "updated_at": "2026-04-29T06:36:29.694Z"
+    },
+    {
+      "target_id": "seg_009946",
+      "task_id": "literal_gloss",
+      "value": "三短线",
+      "updated_at": "2026-04-29T06:36:34.546Z"
+    },
+    {
+      "target_id": "seg_009945",
+      "task_id": "literal_gloss",
+      "value": "嘴巴",
+      "updated_at": "2026-04-29T06:36:39.379Z"
+    },
+    {
+      "target_id": "seg_009947",
+      "task_id": "literal_gloss",
+      "value": "抽烟",
+      "updated_at": "2026-04-29T06:36:44.065Z"
+    },
+    {
+      "target_id": "seg_009948",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:47.635Z"
+    },
+    {
+      "target_id": "seg_009949",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:50.410Z"
+    },
+    {
+      "target_id": "seg_009950",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:52.202Z"
+    },
+    {
+      "target_id": "seg_009951",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:53.913Z"
+    },
+    {
+      "target_id": "seg_009952",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:55.963Z"
+    },
+    {
+      "target_id": "seg_009953",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:36:57.684Z"
+    },
+    {
+      "target_id": "seg_009954",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:37:00.927Z"
+    },
+    {
+      "target_id": "seg_009955",
+      "task_id": "literal_gloss",
+      "value": "反引号",
+      "updated_at": "2026-04-29T06:37:04.912Z"
+    },
+    {
+      "target_id": "seg_009958",
+      "task_id": "literal_gloss",
+      "value": "眩晕",
+      "updated_at": "2026-04-29T06:37:12.026Z"
+    },
+    {
+      "target_id": "seg_009959",
+      "task_id": "literal_gloss",
+      "value": "半人像",
+      "updated_at": "2026-04-29T06:37:16.555Z"
+    },
+    {
+      "target_id": "seg_009960",
+      "task_id": "literal_gloss",
+      "value": "人左倾",
+      "updated_at": "2026-04-29T06:37:20.510Z"
+    },
+    {
+      "target_id": "seg_009961",
+      "task_id": "literal_gloss",
+      "value": "人右倾",
+      "updated_at": "2026-04-29T06:37:24.714Z"
+    },
+    {
+      "target_id": "seg_009962",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:37:29.057Z"
+    },
+    {
+      "target_id": "seg_009963",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:37:31.741Z"
+    },
+    {
+      "target_id": "seg_009964",
+      "task_id": "literal_gloss",
+      "value": "啤酒",
+      "updated_at": "2026-04-29T06:37:33.588Z"
+    },
+    {
+      "target_id": "seg_009965",
+      "task_id": "literal_gloss",
+      "value": "点",
+      "updated_at": "2026-04-29T06:37:38.276Z"
+    },
+    {
+      "target_id": "seg_009966",
+      "task_id": "literal_gloss",
+      "value": "眼睛睁开",
+      "updated_at": "2026-04-29T06:37:44.233Z"
+    },
+    {
+      "target_id": "seg_009967",
+      "task_id": "literal_gloss",
+      "value": "指右",
+      "updated_at": "2026-04-29T06:37:48.499Z"
+    },
+    {
+      "target_id": "seg_009968",
+      "task_id": "literal_gloss",
+      "value": "眩晕",
+      "updated_at": "2026-04-29T06:37:51.773Z"
+    },
+    {
+      "target_id": "seg_009969",
+      "task_id": "literal_gloss",
+      "value": "人右倾",
+      "updated_at": "2026-04-29T06:37:57.681Z"
+    },
+    {
+      "target_id": "seg_009970",
+      "task_id": "literal_gloss",
+      "value": "逗号",
+      "updated_at": "2026-04-29T06:38:01.668Z"
+    },
+    {
+      "target_id": "grp_133243_23",
+      "task_id": "literal_gloss",
+      "value": "打车",
+      "updated_at": "2026-04-29T08:25:48.018Z"
+    },
+    {
+      "target_id": "grp_651680_79",
+      "task_id": "literal_gloss",
+      "value": "九点",
+      "updated_at": "2026-04-29T08:34:22.610Z"
+    },
+    {
+      "target_id": "grp_644884_94",
+      "task_id": "literal_gloss",
+      "value": "打车",
+      "updated_at": "2026-04-29T08:34:27.855Z"
+    },
+    {
+      "target_id": "grp_647848_73",
+      "task_id": "literal_gloss",
+      "value": "八点喝酒",
+      "updated_at": "2026-04-29T08:34:55.255Z"
+    },
+    {
+      "target_id": "grp_641832_65",
+      "task_id": "literal_gloss",
+      "value": "停下",
+      "updated_at": "2026-04-29T08:35:03.503Z"
+    },
+    {
+      "target_id": "grp_168813_17",
+      "task_id": "literal_gloss",
+      "value": "坐着说",
+      "updated_at": "2026-04-29T08:35:08.347Z"
+    },
+    {
+      "target_id": "grp_171041_83",
+      "task_id": "literal_gloss",
+      "value": "前往酒吧",
+      "updated_at": "2026-04-29T08:35:24.907Z"
+    },
+    {
+      "target_id": "grp_173089_83",
+      "task_id": "literal_gloss",
+      "value": "遇到红灯",
+      "updated_at": "2026-04-29T08:35:42.046Z"
+    },
+    {
+      "target_id": "grp_200051_38",
+      "task_id": "literal_gloss",
+      "value": "各种各样的车",
+      "updated_at": "2026-04-29T08:36:02.694Z"
+    },
+    {
+      "target_id": "grp_206448_28",
+      "task_id": "literal_gloss",
+      "value": "车很多",
+      "updated_at": "2026-04-29T08:36:06.470Z"
+    },
+    {
+      "target_id": "grp_235200_75",
+      "task_id": "literal_gloss",
+      "value": "车越来越多",
+      "updated_at": "2026-04-29T08:36:13.772Z"
+    },
+    {
+      "target_id": "grp_240993_23",
+      "task_id": "literal_gloss",
+      "value": "车越来越多",
+      "updated_at": "2026-04-29T08:36:19.598Z"
+    },
+    {
+      "target_id": "grp_242801_52",
+      "task_id": "literal_gloss",
+      "value": "疑问",
+      "updated_at": "2026-04-29T08:36:24.674Z"
+    },
+    {
+      "target_id": "grp_248726_30",
+      "task_id": "literal_gloss",
+      "value": "看到",
+      "updated_at": "2026-04-29T08:36:29.075Z"
+    },
+    {
+      "target_id": "grp_812400_23",
+      "task_id": "literal_gloss",
+      "value": "看到",
+      "updated_at": "2026-04-29T08:37:01.387Z"
+    },
+    {
+      "target_id": "grp_814792_9",
+      "task_id": "literal_gloss",
+      "value": "故障",
+      "updated_at": "2026-04-29T08:37:05.667Z"
+    },
+    {
+      "target_id": "grp_263606_12",
+      "task_id": "literal_gloss",
+      "value": "看到",
+      "updated_at": "2026-04-29T08:37:11.043Z"
+    },
+    {
+      "target_id": "grp_265714_72",
+      "task_id": "literal_gloss",
+      "value": "天呐",
+      "updated_at": "2026-04-29T08:37:18.532Z"
+    },
+    {
+      "target_id": "grp_267934_57",
+      "task_id": "literal_gloss",
+      "value": "车撞到人了",
+      "updated_at": "2026-04-29T08:37:24.136Z"
+    },
+    {
+      "target_id": "grp_276116_44",
+      "task_id": "literal_gloss",
+      "value": "车越来越多",
+      "updated_at": "2026-04-29T08:37:34.462Z"
+    },
+    {
+      "target_id": "grp_278929_52",
+      "task_id": "literal_gloss",
+      "value": "还有货车",
+      "updated_at": "2026-04-29T08:37:40.119Z"
+    },
+    {
+      "target_id": "grp_280324_45",
+      "task_id": "literal_gloss",
+      "value": "很多车",
+      "updated_at": "2026-04-29T08:37:43.439Z"
+    },
+    {
+      "target_id": "grp_281963_87",
+      "task_id": "literal_gloss",
+      "value": "加长货车",
+      "updated_at": "2026-04-29T08:37:49.622Z"
+    },
+    {
+      "target_id": "grp_291798_17",
+      "task_id": "literal_gloss",
+      "value": "更多的小轿车",
+      "updated_at": "2026-04-29T08:37:57.390Z"
+    },
+    {
+      "target_id": "grp_294282_29",
+      "task_id": "literal_gloss",
+      "value": "八点坐在车上",
+      "updated_at": "2026-04-29T08:38:08.454Z"
+    },
+    {
+      "target_id": "grp_358167_42",
+      "task_id": "literal_gloss",
+      "value": "车越来越多",
+      "updated_at": "2026-04-29T08:38:13.200Z"
+    },
+    {
+      "target_id": "grp_361482_69",
+      "task_id": "literal_gloss",
+      "value": "酒吧",
+      "updated_at": "2026-04-29T08:38:18.373Z"
+    },
+    {
+      "target_id": "grp_366266_39",
+      "task_id": "literal_gloss",
+      "value": "跑向酒吧",
+      "updated_at": "2026-04-29T08:38:25.314Z"
+    },
+    {
+      "target_id": "grp_919974_42",
+      "task_id": "literal_gloss",
+      "value": "车变更多了",
+      "updated_at": "2026-04-29T08:38:56.214Z"
+    },
+    {
+      "target_id": "grp_923018_30",
+      "task_id": "literal_gloss",
+      "value": "车变少了",
+      "updated_at": "2026-04-29T08:39:00.567Z"
+    },
+    {
+      "target_id": "grp_927821_89",
+      "task_id": "literal_gloss",
+      "value": "车停下了",
+      "updated_at": "2026-04-29T08:39:05.458Z"
+    },
+    {
+      "target_id": "grp_368027_49",
+      "task_id": "literal_gloss",
+      "value": "两人喝酒",
+      "updated_at": "2026-04-29T08:39:12.676Z"
+    },
+    {
+      "target_id": "grp_369987_88",
+      "task_id": "literal_gloss",
+      "value": "碰杯",
+      "updated_at": "2026-04-29T08:39:21.125Z"
+    },
+    {
+      "target_id": "grp_372702_44",
+      "task_id": "literal_gloss",
+      "value": "喝晕了",
+      "updated_at": "2026-04-29T08:39:29.450Z"
+    },
+    {
+      "target_id": "grp_375668_32",
+      "task_id": "literal_gloss",
+      "value": "拿着啤酒说",
+      "updated_at": "2026-04-29T08:39:35.904Z"
+    },
+    {
+      "target_id": "grp_380344_92",
+      "task_id": "literal_gloss",
+      "value": "和女朋友分手了",
+      "updated_at": "2026-04-29T08:39:44.514Z"
+    },
+    {
+      "target_id": "grp_383373_57",
+      "task_id": "literal_gloss",
+      "value": "很无语",
+      "updated_at": "2026-04-29T08:39:50.531Z"
+    },
+    {
+      "target_id": "grp_385841_52",
+      "task_id": "literal_gloss",
+      "value": "男说",
+      "updated_at": "2026-04-29T08:39:56.895Z"
+    },
+    {
+      "target_id": "grp_398115_14",
+      "task_id": "literal_gloss",
+      "value": "这个女生不行",
+      "updated_at": "2026-04-29T08:40:09.296Z"
+    },
+    {
+      "target_id": "grp_028077_30",
+      "task_id": "literal_gloss",
+      "value": "在车上想八点时",
+      "updated_at": "2026-04-29T08:40:51.901Z"
+    },
+    {
+      "target_id": "grp_414800_52",
+      "task_id": "literal_gloss",
+      "value": "……",
+      "updated_at": "2026-04-29T08:40:56.339Z"
+    },
+    {
+      "target_id": "grp_425691_47",
+      "task_id": "literal_gloss",
+      "value": "回想",
+      "updated_at": "2026-04-29T08:41:16.644Z"
+    },
+    {
+      "target_id": "grp_428210_17",
+      "task_id": "literal_gloss",
+      "value": "车撞死人了",
+      "updated_at": "2026-04-29T08:41:23.922Z"
+    },
+    {
+      "target_id": "grp_430799_29",
+      "task_id": "literal_gloss",
+      "value": "救护车来了",
+      "updated_at": "2026-04-29T08:41:29.063Z"
+    },
+    {
+      "target_id": "grp_433552_14",
+      "task_id": "literal_gloss",
+      "value": "指着说",
+      "updated_at": "2026-04-29T08:41:35.150Z"
+    },
+    {
+      "target_id": "grp_436468_69",
+      "task_id": "literal_gloss",
+      "value": "人心碎了",
+      "updated_at": "2026-04-29T08:41:46.701Z"
+    },
+    {
+      "target_id": "grp_443697_59",
+      "task_id": "literal_gloss",
+      "value": "人死了",
+      "updated_at": "2026-04-29T08:41:52.307Z"
+    },
+    {
+      "target_id": "grp_448197_44",
+      "task_id": "literal_gloss",
+      "value": "死人大于分手",
+      "updated_at": "2026-04-29T08:42:00.058Z"
+    },
+    {
+      "target_id": "grp_451580_55",
+      "task_id": "literal_gloss",
+      "value": "我说假话",
+      "updated_at": "2026-04-29T08:42:20.773Z"
+    },
+    {
+      "target_id": "grp_454550_56",
+      "task_id": "literal_gloss",
+      "value": "但死人不是假话",
+      "updated_at": "2026-04-29T08:42:12.908Z"
+    },
+    {
+      "target_id": "grp_459605_13",
+      "task_id": "literal_gloss",
+      "value": "人左晃右晃",
+      "updated_at": "2026-04-29T08:42:32.449Z"
+    },
+    {
+      "target_id": "grp_462696_65",
+      "task_id": "literal_gloss",
+      "value": "喝啤酒",
+      "updated_at": "2026-04-29T08:42:38.909Z"
+    },
+    {
+      "target_id": "grp_465140_57",
+      "task_id": "literal_gloss",
+      "value": "五点时",
+      "updated_at": "2026-04-29T08:42:42.372Z"
+    },
+    {
+      "target_id": "grp_469992_92",
+      "task_id": "literal_gloss",
+      "value": "男说",
+      "updated_at": "2026-04-29T08:42:53.022Z"
+    },
+    {
+      "target_id": "grp_475918_61",
+      "task_id": "literal_gloss",
+      "value": "",
+      "updated_at": "2026-04-29T08:43:07.405Z"
+    },
+    {
+      "target_id": "grp_196666_63",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T08:43:28.067Z"
+    },
+    {
+      "target_id": "grp_480944_5",
+      "task_id": "literal_gloss",
+      "value": "想到大楼",
+      "updated_at": "2026-04-29T08:43:33.430Z"
+    },
+    {
+      "target_id": "grp_484803_0",
+      "task_id": "literal_gloss",
+      "value": "八点女没伞",
+      "updated_at": "2026-04-29T08:43:45.828Z"
+    },
+    {
+      "target_id": "grp_487452_73",
+      "task_id": "literal_gloss",
+      "value": "持续大雨",
+      "updated_at": "2026-04-29T08:43:51.588Z"
+    },
+    {
+      "target_id": "grp_490521_65",
+      "task_id": "literal_gloss",
+      "value": "男说",
+      "updated_at": "2026-04-29T08:43:55.638Z"
+    },
+    {
+      "target_id": "grp_492988_54",
+      "task_id": "literal_gloss",
+      "value": "女带伞没",
+      "updated_at": "2026-04-29T08:44:02.310Z"
+    },
+    {
+      "target_id": "grp_504942_53",
+      "task_id": "literal_gloss",
+      "value": "女到公交站台没",
+      "updated_at": "2026-04-29T08:44:07.776Z"
+    },
+    {
+      "target_id": "grp_509458_19",
+      "task_id": "literal_gloss",
+      "value": "女说",
+      "updated_at": "2026-04-29T08:44:12.958Z"
+    },
+    {
+      "target_id": "grp_512188_71",
+      "task_id": "literal_gloss",
+      "value": "女到公交站台了",
+      "updated_at": "2026-04-29T08:44:22.432Z"
+    },
+    {
+      "target_id": "grp_278214_23",
+      "task_id": "literal_gloss",
+      "value": "女到",
+      "updated_at": "2026-04-29T08:44:48.609Z"
+    },
+    {
+      "target_id": "grp_280063_74",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T08:44:52.251Z"
+    },
+    {
+      "target_id": "grp_515232_15",
+      "task_id": "literal_gloss",
+      "value": "",
+      "updated_at": "2026-04-29T08:44:58.974Z"
+    },
+    {
+      "target_id": "grp_321191_97",
+      "task_id": "literal_gloss",
+      "value": "等雨停",
+      "updated_at": "2026-04-29T08:45:46.332Z"
+    },
+    {
+      "target_id": "grp_517550_44",
+      "task_id": "literal_gloss",
+      "value": "男回想 ",
+      "updated_at": "2026-04-29T08:45:53.206Z"
+    },
+    {
+      "target_id": "grp_520744_66",
+      "task_id": "literal_gloss",
+      "value": "雷雨交接",
+      "updated_at": "2026-04-29T08:45:59.709Z"
+    },
+    {
+      "target_id": "grp_527600_7",
+      "task_id": "literal_gloss",
+      "value": "男说",
+      "updated_at": "2026-04-29T08:46:12.705Z"
+    },
+    {
+      "target_id": "grp_529588_38",
+      "task_id": "literal_gloss",
+      "value": "男去",
+      "updated_at": "2026-04-29T08:46:17.947Z"
+    },
+    {
+      "target_id": "grp_531688_7",
+      "task_id": "literal_gloss",
+      "value": "公交站台",
+      "updated_at": "2026-04-29T08:46:22.163Z"
+    },
+    {
+      "target_id": "grp_540853_41",
+      "task_id": "literal_gloss",
+      "value": "给女送伞？",
+      "updated_at": "2026-04-29T08:46:32.443Z"
+    },
+    {
+      "target_id": "grp_537470_43",
+      "task_id": "literal_gloss",
+      "value": "女说",
+      "updated_at": "2026-04-29T08:46:35.964Z"
+    },
+    {
+      "target_id": "grp_545900_9",
+      "task_id": "literal_gloss",
+      "value": "好",
+      "updated_at": "2026-04-29T08:46:38.381Z"
+    },
+    {
+      "target_id": "grp_560683_22",
+      "task_id": "literal_gloss",
+      "value": "男女一起打伞",
+      "updated_at": "2026-04-29T08:46:44.554Z"
+    },
+    {
+      "target_id": "grp_563512_32",
+      "task_id": "literal_gloss",
+      "value": "到公交站台",
+      "updated_at": "2026-04-29T08:46:51.833Z"
+    },
+    {
+      "target_id": "grp_565363_56",
+      "task_id": "literal_gloss",
+      "value": "男女分很开等",
+      "updated_at": "2026-04-29T08:47:00.926Z"
+    },
+    {
+      "target_id": "grp_568160_86",
+      "task_id": "literal_gloss",
+      "value": "五点",
+      "updated_at": "2026-04-29T08:47:08.209Z"
+    },
+    {
+      "target_id": "grp_571079_16",
+      "task_id": "literal_gloss",
+      "value": "到公交站台",
+      "updated_at": "2026-04-29T08:47:12.937Z"
+    },
+    {
+      "target_id": "grp_573380_95",
+      "task_id": "literal_gloss",
+      "value": "男女分较开等",
+      "updated_at": "2026-04-29T08:47:20.186Z"
+    },
+    {
+      "target_id": "grp_584810_77",
+      "task_id": "literal_gloss",
+      "value": "五点",
+      "updated_at": "2026-04-29T08:47:24.107Z"
+    },
+    {
+      "target_id": "grp_577408_9",
+      "task_id": "literal_gloss",
+      "value": "到公交站台",
+      "updated_at": "2026-04-29T08:47:28.311Z"
+    },
+    {
+      "target_id": "grp_579388_91",
+      "task_id": "literal_gloss",
+      "value": "男女挨在一起等",
+      "updated_at": "2026-04-29T08:47:35.562Z"
+    },
+    {
+      "target_id": "grp_583176_68",
+      "task_id": "literal_gloss",
+      "value": "五点",
+      "updated_at": "2026-04-29T08:47:39.603Z"
+    },
+    {
+      "target_id": "grp_611413_43",
+      "task_id": "literal_gloss",
+      "value": "接吻",
+      "updated_at": "2026-04-29T08:47:47.264Z"
+    },
+    {
+      "target_id": "grp_616701_13",
+      "task_id": "literal_gloss",
+      "value": "左晃右晃",
+      "updated_at": "2026-04-29T08:47:54.445Z"
+    },
+    {
+      "target_id": "grp_618778_3",
+      "task_id": "literal_gloss",
+      "value": "喝很多酒",
+      "updated_at": "2026-04-29T08:48:04.210Z"
+    },
+    {
+      "target_id": "grp_621493_18",
+      "task_id": "literal_gloss",
+      "value": "",
+      "updated_at": "2026-04-29T08:48:10.226Z"
+    },
+    {
+      "target_id": "grp_498529_58",
+      "task_id": "literal_gloss",
+      "value": "睁眼",
+      "updated_at": "2026-04-29T08:48:29.080Z"
+    },
+    {
+      "target_id": "grp_499727_86",
+      "task_id": "literal_gloss",
+      "value": "晕倒",
+      "updated_at": "2026-04-29T08:48:34.074Z"
+    }
+  ]
+}
