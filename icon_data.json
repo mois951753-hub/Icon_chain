@@ -1,0 +1,92 @@
+[
+  {
+    "id": "sun",
+    "icon": "🌞",
+    "name": "太阳",
+    "tags": [
+      "天气"
+    ],
+    "common_meaning": "太阳、晴天"
+  },
+  {
+    "id": "cloud",
+    "icon": "☁️",
+    "name": "云",
+    "tags": [
+      "天气"
+    ],
+    "common_meaning": "云、多云"
+  },
+  {
+    "id": "rain",
+    "icon": "🌧️",
+    "name": "雨",
+    "tags": [
+      "天气"
+    ],
+    "common_meaning": "雨天、下雨"
+  },
+  {
+    "id": "smile",
+    "icon": "😀",
+    "name": "开心",
+    "tags": [
+      "表情"
+    ],
+    "common_meaning": "开心、微笑"
+  },
+  {
+    "id": "love",
+    "icon": "❤️",
+    "name": "爱心",
+    "tags": [
+      "情感"
+    ],
+    "common_meaning": "爱心、爱"
+  },
+  {
+    "id": "tree",
+    "icon": "🌳",
+    "name": "树",
+    "tags": [
+      "自然"
+    ],
+    "common_meaning": "树木、自然"
+  },
+  {
+    "id": "flower",
+    "icon": "🌸",
+    "name": "花",
+    "tags": [
+      "自然"
+    ],
+    "common_meaning": "樱花、花朵"
+  },
+  {
+    "id": "star",
+    "icon": "⭐",
+    "name": "星星",
+    "tags": [
+      "天文"
+    ],
+    "common_meaning": "星星、闪耀"
+  },
+  {
+    "id": "heart",
+    "icon": "💖",
+    "name": "心跳",
+    "tags": [
+      "情感"
+    ],
+    "common_meaning": "心动、爱心"
+  },
+  {
+    "id": "gift",
+    "icon": "🎁",
+    "name": "礼物",
+    "tags": [
+      "物品"
+    ],
+    "common_meaning": "礼物、惊喜"
+  }
+]
